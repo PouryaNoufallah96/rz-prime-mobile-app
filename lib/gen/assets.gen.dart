@@ -150,6 +150,12 @@ class $AssetsImagesGen {
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
 
+  /// File path: assets/images/gold.svg
+  String get gold => 'assets/images/gold.svg';
+
+  /// File path: assets/images/gold_disable.svg
+  String get goldDisable => 'assets/images/gold_disable.svg';
+
   /// File path: assets/images/on_boarding_1.webp
   AssetGenImage get onBoarding1 =>
       const AssetGenImage('assets/images/on_boarding_1.webp');
@@ -162,8 +168,26 @@ class $AssetsImagesGen {
   AssetGenImage get onBoarding3 =>
       const AssetGenImage('assets/images/on_boarding_3.webp');
 
+  /// File path: assets/images/premium.svg
+  String get premium => 'assets/images/premium.svg';
+
+  /// File path: assets/images/premium_ِdisable.svg
+  String get premiumDisable => 'assets/images/premium_ِdisable.svg';
+
+  /// File path: assets/images/regular.svg
+  String get regular => 'assets/images/regular.svg';
+
+  /// File path: assets/images/regular_disable.svg
+  String get regularDisable => 'assets/images/regular_disable.svg';
+
+  /// File path: assets/images/x.svg
+  String get x => 'assets/images/x.svg';
+
+  /// File path: assets/images/x_disable.svg
+  String get xDisable => 'assets/images/x_disable.svg';
+
   /// List of all assets
-  List<AssetGenImage> get values => [
+  List<dynamic> get values => [
         car,
         industrial,
         insurance,
@@ -173,9 +197,17 @@ class $AssetsImagesGen {
         rzcoin,
         trip,
         appIcon,
+        gold,
+        goldDisable,
         onBoarding1,
         onBoarding2,
-        onBoarding3
+        onBoarding3,
+        premium,
+        premiumDisable,
+        regular,
+        regularDisable,
+        x,
+        xDisable
       ];
 }
 

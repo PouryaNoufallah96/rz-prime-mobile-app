@@ -24,6 +24,12 @@ class InventoryModel with _$InventoryModel {
       _$InventoryModelFromJson(json);
 }
 
+extension InventoryModelX on InventoryModel {
+  String get imageSrc {
+    return 'assets/images/$asseName.png';
+  }
+}
+
 @freezed
 class UserStats with _$UserStats {
   @JsonSerializable(fieldRename: FieldRename.snake)

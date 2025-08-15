@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 
 class GainXTheme {
   ThemeData call(bool isDark) {
+    final scheme = GainXColorScheme.getScheme(isDark);
+
     return ThemeData(
-      colorScheme: GainXColorScheme.getScheme(isDark),
+      colorScheme: scheme,
+      dividerTheme: const DividerThemeData(
+        color: Color(0xff202023),
+        space: 48,
+      ),
       extensions: [
         ColorExtension(),
       ],
@@ -17,8 +23,15 @@ class GainXColorScheme {
   static final ColorScheme _dark = ColorScheme.dark(
     primary: GainXColors.blue,
     outline: GainXColors.grey.shade900,
+    outlineVariant: GainXColors.grey.shade900,
+    error: GainXColors.red.shade700,
   );
-  static const ColorScheme _light = ColorScheme.light();
+
+  static final ColorScheme _light = ColorScheme.light(
+    primary: GainXColors.blue,
+    outlineVariant: GainXColors.grey.shade300,
+    error: GainXColors.red,
+  );
 
   static ColorScheme getScheme(bool isDark) {
     return isDark ? _dark : _light;
