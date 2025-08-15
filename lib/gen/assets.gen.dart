@@ -96,6 +96,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/arrow-up-right.svg
   String get arrowUpRightSvg => 'assets/icons/arrow-up-right.svg';
 
+  /// File path: assets/icons/arrow_down.svg
+  String get arrowDown => 'assets/icons/arrow_down.svg';
+
   /// File path: assets/icons/arrow_reload.svg
   String get arrowReload => 'assets/icons/arrow_reload.svg';
 
@@ -105,14 +108,19 @@ class $AssetsIconsGen {
   /// File path: assets/icons/settings.svg
   String get settings => 'assets/icons/settings.svg';
 
+  /// File path: assets/icons/tether.svg
+  String get tether => 'assets/icons/tether.svg';
+
   /// List of all assets
   List<dynamic> get values => [
         arrowDownLeft,
         arrowUpRightPng,
         arrowUpRightSvg,
+        arrowDown,
         arrowReload,
         clock,
-        settings
+        settings,
+        tether
       ];
 }
 
@@ -136,12 +144,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/MGC.png
   AssetGenImage get mgc => const AssetGenImage('assets/images/MGC.png');
 
+  /// File path: assets/images/RZ.png
+  AssetGenImage get rz => const AssetGenImage('assets/images/RZ.png');
+
   /// File path: assets/images/RealEstate.png
   AssetGenImage get realEstate =>
       const AssetGenImage('assets/images/RealEstate.png');
-
-  /// File path: assets/images/Rzcoin.png
-  AssetGenImage get rzcoin => const AssetGenImage('assets/images/Rzcoin.png');
 
   /// File path: assets/images/Trip.png
   AssetGenImage get trip => const AssetGenImage('assets/images/Trip.png');
@@ -193,8 +201,8 @@ class $AssetsImagesGen {
         insurance,
         jewelry,
         mgc,
+        rz,
         realEstate,
-        rzcoin,
         trip,
         appIcon,
         gold,

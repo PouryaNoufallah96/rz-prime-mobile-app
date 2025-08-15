@@ -8,6 +8,18 @@ class GainXTheme {
 
     return ThemeData(
       colorScheme: scheme,
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: const Color(0xff121314),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(80),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(80),
+          borderSide: BorderSide.none,
+        ),
+      ),
       dividerTheme: const DividerThemeData(
         color: Color(0xff202023),
         space: 48,

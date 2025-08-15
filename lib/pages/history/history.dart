@@ -46,7 +46,7 @@ class _Body extends StatelessWidget {
               return switch (state) {
                 FinalizeOrderInitialState _ => const SizedBox.shrink(),
                 FinalizeOrderInProgressState _ => const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator.adaptive(),
                   ),
                 FinalizeOrderSuccessState(:final orders) =>
                   _Orders(orders: orders),

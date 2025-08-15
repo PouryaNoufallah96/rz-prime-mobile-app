@@ -21,7 +21,7 @@ InventoryModel _$InventoryModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$InventoryModel {
   String get assetAddress => throw _privateConstructorUsedError;
-  String get asseName => throw _privateConstructorUsedError;
+  String get assetName => throw _privateConstructorUsedError;
   double get assetPrice => throw _privateConstructorUsedError;
   double get quantity => throw _privateConstructorUsedError;
   double get liquidityUsd => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $InventoryModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String assetAddress,
-      String asseName,
+      String assetName,
       double assetPrice,
       double quantity,
       double liquidityUsd,
@@ -78,7 +78,7 @@ class _$InventoryModelCopyWithImpl<$Res, $Val extends InventoryModel>
   @override
   $Res call({
     Object? assetAddress = null,
-    Object? asseName = null,
+    Object? assetName = null,
     Object? assetPrice = null,
     Object? quantity = null,
     Object? liquidityUsd = null,
@@ -94,9 +94,9 @@ class _$InventoryModelCopyWithImpl<$Res, $Val extends InventoryModel>
           ? _value.assetAddress
           : assetAddress // ignore: cast_nullable_to_non_nullable
               as String,
-      asseName: null == asseName
-          ? _value.asseName
-          : asseName // ignore: cast_nullable_to_non_nullable
+      assetName: null == assetName
+          ? _value.assetName
+          : assetName // ignore: cast_nullable_to_non_nullable
               as String,
       assetPrice: null == assetPrice
           ? _value.assetPrice
@@ -148,7 +148,7 @@ abstract class _$$InventoryModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String assetAddress,
-      String asseName,
+      String assetName,
       double assetPrice,
       double quantity,
       double liquidityUsd,
@@ -174,7 +174,7 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? assetAddress = null,
-    Object? asseName = null,
+    Object? assetName = null,
     Object? assetPrice = null,
     Object? quantity = null,
     Object? liquidityUsd = null,
@@ -190,9 +190,9 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
           ? _value.assetAddress
           : assetAddress // ignore: cast_nullable_to_non_nullable
               as String,
-      asseName: null == asseName
-          ? _value.asseName
-          : asseName // ignore: cast_nullable_to_non_nullable
+      assetName: null == assetName
+          ? _value.assetName
+          : assetName // ignore: cast_nullable_to_non_nullable
               as String,
       assetPrice: null == assetPrice
           ? _value.assetPrice
@@ -240,7 +240,7 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
 class _$InventoryModelImpl implements _InventoryModel {
   const _$InventoryModelImpl(
       {required this.assetAddress,
-      required this.asseName,
+      required this.assetName,
       required this.assetPrice,
       required this.quantity,
       required this.liquidityUsd,
@@ -257,7 +257,7 @@ class _$InventoryModelImpl implements _InventoryModel {
   @override
   final String assetAddress;
   @override
-  final String asseName;
+  final String assetName;
   @override
   final double assetPrice;
   @override
@@ -279,7 +279,7 @@ class _$InventoryModelImpl implements _InventoryModel {
 
   @override
   String toString() {
-    return 'InventoryModel(assetAddress: $assetAddress, asseName: $asseName, assetPrice: $assetPrice, quantity: $quantity, liquidityUsd: $liquidityUsd, volume_24hUsd: $volume_24hUsd, poolFeeRate: $poolFeeRate, reserveBaseUsd: $reserveBaseUsd, reserveQuoteUsd: $reserveQuoteUsd, fakeAddress: $fakeAddress, lastUpdateDateTime: $lastUpdateDateTime)';
+    return 'InventoryModel(assetAddress: $assetAddress, assetName: $assetName, assetPrice: $assetPrice, quantity: $quantity, liquidityUsd: $liquidityUsd, volume_24hUsd: $volume_24hUsd, poolFeeRate: $poolFeeRate, reserveBaseUsd: $reserveBaseUsd, reserveQuoteUsd: $reserveQuoteUsd, fakeAddress: $fakeAddress, lastUpdateDateTime: $lastUpdateDateTime)';
   }
 
   @override
@@ -289,8 +289,8 @@ class _$InventoryModelImpl implements _InventoryModel {
             other is _$InventoryModelImpl &&
             (identical(other.assetAddress, assetAddress) ||
                 other.assetAddress == assetAddress) &&
-            (identical(other.asseName, asseName) ||
-                other.asseName == asseName) &&
+            (identical(other.assetName, assetName) ||
+                other.assetName == assetName) &&
             (identical(other.assetPrice, assetPrice) ||
                 other.assetPrice == assetPrice) &&
             (identical(other.quantity, quantity) ||
@@ -316,7 +316,7 @@ class _$InventoryModelImpl implements _InventoryModel {
   int get hashCode => Object.hash(
       runtimeType,
       assetAddress,
-      asseName,
+      assetName,
       assetPrice,
       quantity,
       liquidityUsd,
@@ -347,7 +347,7 @@ class _$InventoryModelImpl implements _InventoryModel {
 abstract class _InventoryModel implements InventoryModel {
   const factory _InventoryModel(
       {required final String assetAddress,
-      required final String asseName,
+      required final String assetName,
       required final double assetPrice,
       required final double quantity,
       required final double liquidityUsd,
@@ -364,7 +364,7 @@ abstract class _InventoryModel implements InventoryModel {
   @override
   String get assetAddress;
   @override
-  String get asseName;
+  String get assetName;
   @override
   double get assetPrice;
   @override

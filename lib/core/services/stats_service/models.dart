@@ -8,7 +8,7 @@ class InventoryModel with _$InventoryModel {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory InventoryModel({
     required String assetAddress,
-    required String asseName,
+    required String assetName,
     required double assetPrice,
     required double quantity,
     required double liquidityUsd,
@@ -26,7 +26,7 @@ class InventoryModel with _$InventoryModel {
 
 extension InventoryModelX on InventoryModel {
   String get imageSrc {
-    return 'assets/images/$asseName.png';
+    return 'assets/images/$assetName.png';
   }
 }
 
@@ -42,4 +42,8 @@ class UserStats with _$UserStats {
 
   factory UserStats.fromJson(Map<String, dynamic> json) =>
       _$UserStatsFromJson(json);
+}
+
+extension UserStatsX on UserStats {
+  double get balance => customerCredit + sumOfMining;
 }

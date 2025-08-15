@@ -20,6 +20,7 @@ HistoryOrder _$HistoryOrderFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HistoryOrder {
+  int get id => throw _privateConstructorUsedError;
   String get asset => throw _privateConstructorUsedError;
   String get assetAddress => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
@@ -55,7 +56,8 @@ abstract class $HistoryOrderCopyWith<$Res> {
       _$HistoryOrderCopyWithImpl<$Res, HistoryOrder>;
   @useResult
   $Res call(
-      {String asset,
+      {int id,
+      String asset,
       String assetAddress,
       String date,
       double loanAmount,
@@ -91,6 +93,7 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? asset = null,
     Object? assetAddress = null,
     Object? date = null,
@@ -110,6 +113,10 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
     Object? transactionHash = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       asset: null == asset
           ? _value.asset
           : asset // ignore: cast_nullable_to_non_nullable
@@ -205,7 +212,8 @@ abstract class _$$HistoryOrderImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String asset,
+      {int id,
+      String asset,
       String assetAddress,
       String date,
       double loanAmount,
@@ -240,6 +248,7 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? asset = null,
     Object? assetAddress = null,
     Object? date = null,
@@ -259,6 +268,10 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
     Object? transactionHash = freezed,
   }) {
     return _then(_$HistoryOrderImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       asset: null == asset
           ? _value.asset
           : asset // ignore: cast_nullable_to_non_nullable
@@ -336,7 +349,8 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$HistoryOrderImpl implements _HistoryOrder {
   const _$HistoryOrderImpl(
-      {required this.asset,
+      {required this.id,
+      required this.asset,
       required this.assetAddress,
       required this.date,
       required this.loanAmount,
@@ -357,6 +371,8 @@ class _$HistoryOrderImpl implements _HistoryOrder {
   factory _$HistoryOrderImpl.fromJson(Map<String, dynamic> json) =>
       _$$HistoryOrderImplFromJson(json);
 
+  @override
+  final int id;
   @override
   final String asset;
   @override
@@ -394,7 +410,7 @@ class _$HistoryOrderImpl implements _HistoryOrder {
 
   @override
   String toString() {
-    return 'HistoryOrder(asset: $asset, assetAddress: $assetAddress, date: $date, loanAmount: $loanAmount, numberOfMonths: $numberOfMonths, orderId: $orderId, payoffDate: $payoffDate, profitRatePerMonth: $profitRatePerMonth, quantity: $quantity, stage: $stage, time: $time, walletAddress: $walletAddress, assetPrice: $assetPrice, finalAmount: $finalAmount, registeredAmount: $registeredAmount, finalizedOrder: $finalizedOrder, transactionHash: $transactionHash)';
+    return 'HistoryOrder(id: $id, asset: $asset, assetAddress: $assetAddress, date: $date, loanAmount: $loanAmount, numberOfMonths: $numberOfMonths, orderId: $orderId, payoffDate: $payoffDate, profitRatePerMonth: $profitRatePerMonth, quantity: $quantity, stage: $stage, time: $time, walletAddress: $walletAddress, assetPrice: $assetPrice, finalAmount: $finalAmount, registeredAmount: $registeredAmount, finalizedOrder: $finalizedOrder, transactionHash: $transactionHash)';
   }
 
   @override
@@ -402,6 +418,7 @@ class _$HistoryOrderImpl implements _HistoryOrder {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HistoryOrderImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.asset, asset) || other.asset == asset) &&
             (identical(other.assetAddress, assetAddress) ||
                 other.assetAddress == assetAddress) &&
@@ -437,6 +454,7 @@ class _$HistoryOrderImpl implements _HistoryOrder {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       asset,
       assetAddress,
       date,
@@ -473,7 +491,8 @@ class _$HistoryOrderImpl implements _HistoryOrder {
 
 abstract class _HistoryOrder implements HistoryOrder {
   const factory _HistoryOrder(
-      {required final String asset,
+      {required final int id,
+      required final String asset,
       required final String assetAddress,
       required final String date,
       required final double loanAmount,
@@ -494,6 +513,8 @@ abstract class _HistoryOrder implements HistoryOrder {
   factory _HistoryOrder.fromJson(Map<String, dynamic> json) =
       _$HistoryOrderImpl.fromJson;
 
+  @override
+  int get id;
   @override
   String get asset;
   @override

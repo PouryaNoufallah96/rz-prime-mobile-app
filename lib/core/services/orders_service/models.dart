@@ -7,6 +7,7 @@ part 'models.g.dart';
 class HistoryOrder with _$HistoryOrder {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HistoryOrder({
+    required int id,
     required String asset,
     required String assetAddress,
     required String date,
