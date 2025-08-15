@@ -9,6 +9,7 @@ part 'preferences_state.dart';
 class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
   PreferencesBloc() : super(const PreferencesState()) {
     on<PreferencesThemeToggled>(_onPreferencesThemeToggled);
+    on<PreferencesOnBoardingPassed>(_onPreferencesOnBoardingPassed);
   }
 
   void _onPreferencesThemeToggled(
@@ -16,6 +17,13 @@ class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
     Emitter<PreferencesState> emit,
   ) {
     emit(state.copyWith(isDark: !state.isDark));
+  }
+
+  void _onPreferencesOnBoardingPassed(
+    PreferencesOnBoardingPassed _,
+    Emitter<PreferencesState> emit,
+  ) {
+    emit(state.copyWith(isOnBoardingPass: !state.isOnBoardingPass));
   }
 
   @override

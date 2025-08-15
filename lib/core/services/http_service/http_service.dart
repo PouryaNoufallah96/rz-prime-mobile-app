@@ -38,6 +38,7 @@ class HttpService {
     Uri uri, {
     HttpMethod method = HttpMethod.get,
     Map<String, dynamic>? body,
+    int? resStatusCode,
   }) async {
     try {
       final res = await _dio.requestUri<T>(
@@ -47,7 +48,16 @@ class HttpService {
           method: method.method,
         ),
       );
+
       final data = res.data;
+
+      if (resStatusCode != null && res.statusCode != resStatusCode) {
+        return AppFailureResponse(
+          data?.toString() ?? 'unknown error',
+          res.statusCode!,
+        );
+      }
+
       return AppSuccessResponse(data);
     } on DioException catch (e) {
       return AppFailureResponse(
