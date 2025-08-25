@@ -40,6 +40,8 @@ mixin _$HistoryOrder {
   String get tokenAmountInWei => throw _privateConstructorUsedError;
   String get payAmountInWei => throw _privateConstructorUsedError;
   HistoryOrderState get state => throw _privateConstructorUsedError;
+  TransactionMetaData? get transactionMetaData =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this HistoryOrder to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -77,7 +79,10 @@ abstract class $HistoryOrderCopyWith<$Res> {
       String payOffDate,
       String tokenAmountInWei,
       String payAmountInWei,
-      HistoryOrderState state});
+      HistoryOrderState state,
+      TransactionMetaData? transactionMetaData});
+
+  $TransactionMetaDataCopyWith<$Res>? get transactionMetaData;
 }
 
 /// @nodoc
@@ -115,6 +120,7 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
     Object? tokenAmountInWei = null,
     Object? payAmountInWei = null,
     Object? state = null,
+    Object? transactionMetaData = freezed,
   }) {
     return _then(_value.copyWith(
       orderId: null == orderId
@@ -197,7 +203,26 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as HistoryOrderState,
+      transactionMetaData: freezed == transactionMetaData
+          ? _value.transactionMetaData
+          : transactionMetaData // ignore: cast_nullable_to_non_nullable
+              as TransactionMetaData?,
     ) as $Val);
+  }
+
+  /// Create a copy of HistoryOrder
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TransactionMetaDataCopyWith<$Res>? get transactionMetaData {
+    if (_value.transactionMetaData == null) {
+      return null;
+    }
+
+    return $TransactionMetaDataCopyWith<$Res>(_value.transactionMetaData!,
+        (value) {
+      return _then(_value.copyWith(transactionMetaData: value) as $Val);
+    });
   }
 }
 
@@ -229,7 +254,11 @@ abstract class _$$HistoryOrderImplCopyWith<$Res>
       String payOffDate,
       String tokenAmountInWei,
       String payAmountInWei,
-      HistoryOrderState state});
+      HistoryOrderState state,
+      TransactionMetaData? transactionMetaData});
+
+  @override
+  $TransactionMetaDataCopyWith<$Res>? get transactionMetaData;
 }
 
 /// @nodoc
@@ -265,6 +294,7 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
     Object? tokenAmountInWei = null,
     Object? payAmountInWei = null,
     Object? state = null,
+    Object? transactionMetaData = freezed,
   }) {
     return _then(_$HistoryOrderImpl(
       orderId: null == orderId
@@ -347,6 +377,10 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as HistoryOrderState,
+      transactionMetaData: freezed == transactionMetaData
+          ? _value.transactionMetaData
+          : transactionMetaData // ignore: cast_nullable_to_non_nullable
+              as TransactionMetaData?,
     ));
   }
 }
@@ -374,7 +408,8 @@ class _$HistoryOrderImpl implements _HistoryOrder {
       required this.payOffDate,
       required this.tokenAmountInWei,
       required this.payAmountInWei,
-      required this.state});
+      required this.state,
+      this.transactionMetaData});
 
   factory _$HistoryOrderImpl.fromJson(Map<String, dynamic> json) =>
       _$$HistoryOrderImplFromJson(json);
@@ -419,10 +454,12 @@ class _$HistoryOrderImpl implements _HistoryOrder {
   final String payAmountInWei;
   @override
   final HistoryOrderState state;
+  @override
+  final TransactionMetaData? transactionMetaData;
 
   @override
   String toString() {
-    return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, userPublicKey: $userPublicKey, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, quantity: $quantity, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, state: $state)';
+    return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, userPublicKey: $userPublicKey, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, quantity: $quantity, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, state: $state, transactionMetaData: $transactionMetaData)';
   }
 
   @override
@@ -466,7 +503,9 @@ class _$HistoryOrderImpl implements _HistoryOrder {
                 other.tokenAmountInWei == tokenAmountInWei) &&
             (identical(other.payAmountInWei, payAmountInWei) ||
                 other.payAmountInWei == payAmountInWei) &&
-            (identical(other.state, state) || other.state == state));
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.transactionMetaData, transactionMetaData) ||
+                other.transactionMetaData == transactionMetaData));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -492,7 +531,8 @@ class _$HistoryOrderImpl implements _HistoryOrder {
         payOffDate,
         tokenAmountInWei,
         payAmountInWei,
-        state
+        state,
+        transactionMetaData
       ]);
 
   /// Create a copy of HistoryOrder
@@ -532,7 +572,8 @@ abstract class _HistoryOrder implements HistoryOrder {
       required final String payOffDate,
       required final String tokenAmountInWei,
       required final String payAmountInWei,
-      required final HistoryOrderState state}) = _$HistoryOrderImpl;
+      required final HistoryOrderState state,
+      final TransactionMetaData? transactionMetaData}) = _$HistoryOrderImpl;
 
   factory _HistoryOrder.fromJson(Map<String, dynamic> json) =
       _$HistoryOrderImpl.fromJson;
@@ -577,12 +618,201 @@ abstract class _HistoryOrder implements HistoryOrder {
   String get payAmountInWei;
   @override
   HistoryOrderState get state;
+  @override
+  TransactionMetaData? get transactionMetaData;
 
   /// Create a copy of HistoryOrder
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$HistoryOrderImplCopyWith<_$HistoryOrderImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+TransactionMetaData _$TransactionMetaDataFromJson(Map<String, dynamic> json) {
+  return _TransactionMetaData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$TransactionMetaData {
+  String get createMoment => throw _privateConstructorUsedError;
+  String get hash => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+
+  /// Serializes this TransactionMetaData to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of TransactionMetaData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TransactionMetaDataCopyWith<TransactionMetaData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TransactionMetaDataCopyWith<$Res> {
+  factory $TransactionMetaDataCopyWith(
+          TransactionMetaData value, $Res Function(TransactionMetaData) then) =
+      _$TransactionMetaDataCopyWithImpl<$Res, TransactionMetaData>;
+  @useResult
+  $Res call({String createMoment, String hash, String status});
+}
+
+/// @nodoc
+class _$TransactionMetaDataCopyWithImpl<$Res, $Val extends TransactionMetaData>
+    implements $TransactionMetaDataCopyWith<$Res> {
+  _$TransactionMetaDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of TransactionMetaData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? createMoment = null,
+    Object? hash = null,
+    Object? status = null,
+  }) {
+    return _then(_value.copyWith(
+      createMoment: null == createMoment
+          ? _value.createMoment
+          : createMoment // ignore: cast_nullable_to_non_nullable
+              as String,
+      hash: null == hash
+          ? _value.hash
+          : hash // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$TransactionMetaDataImplCopyWith<$Res>
+    implements $TransactionMetaDataCopyWith<$Res> {
+  factory _$$TransactionMetaDataImplCopyWith(_$TransactionMetaDataImpl value,
+          $Res Function(_$TransactionMetaDataImpl) then) =
+      __$$TransactionMetaDataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String createMoment, String hash, String status});
+}
+
+/// @nodoc
+class __$$TransactionMetaDataImplCopyWithImpl<$Res>
+    extends _$TransactionMetaDataCopyWithImpl<$Res, _$TransactionMetaDataImpl>
+    implements _$$TransactionMetaDataImplCopyWith<$Res> {
+  __$$TransactionMetaDataImplCopyWithImpl(_$TransactionMetaDataImpl _value,
+      $Res Function(_$TransactionMetaDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TransactionMetaData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? createMoment = null,
+    Object? hash = null,
+    Object? status = null,
+  }) {
+    return _then(_$TransactionMetaDataImpl(
+      createMoment: null == createMoment
+          ? _value.createMoment
+          : createMoment // ignore: cast_nullable_to_non_nullable
+              as String,
+      hash: null == hash
+          ? _value.hash
+          : hash // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TransactionMetaDataImpl implements _TransactionMetaData {
+  const _$TransactionMetaDataImpl(
+      {required this.createMoment, required this.hash, required this.status});
+
+  factory _$TransactionMetaDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TransactionMetaDataImplFromJson(json);
+
+  @override
+  final String createMoment;
+  @override
+  final String hash;
+  @override
+  final String status;
+
+  @override
+  String toString() {
+    return 'TransactionMetaData(createMoment: $createMoment, hash: $hash, status: $status)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TransactionMetaDataImpl &&
+            (identical(other.createMoment, createMoment) ||
+                other.createMoment == createMoment) &&
+            (identical(other.hash, hash) || other.hash == hash) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, createMoment, hash, status);
+
+  /// Create a copy of TransactionMetaData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TransactionMetaDataImplCopyWith<_$TransactionMetaDataImpl> get copyWith =>
+      __$$TransactionMetaDataImplCopyWithImpl<_$TransactionMetaDataImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TransactionMetaDataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _TransactionMetaData implements TransactionMetaData {
+  const factory _TransactionMetaData(
+      {required final String createMoment,
+      required final String hash,
+      required final String status}) = _$TransactionMetaDataImpl;
+
+  factory _TransactionMetaData.fromJson(Map<String, dynamic> json) =
+      _$TransactionMetaDataImpl.fromJson;
+
+  @override
+  String get createMoment;
+  @override
+  String get hash;
+  @override
+  String get status;
+
+  /// Create a copy of TransactionMetaData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TransactionMetaDataImplCopyWith<_$TransactionMetaDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

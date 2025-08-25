@@ -38,20 +38,29 @@ mixin GainXAppRouter on State<GainXApp> {
       routes: [
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
-            return MultiBlocProvider(
+            return MultiRepositoryProvider(
               providers: [
-                BlocProvider(
-                  create: (context) => InventoryBloc(
-                    statsService: context.read(),
-                  )..add(InventoryStartedEvent()),
+                RepositoryProvider(
+                  create: (context) => TransactionService(
+                    reownService: context.read(),
+                  ),
                 ),
-                BlocProvider(
-                  create: (context) => FinalizeOrderCubit(
-                    ordersService: context.read(),
-                  )..getOrders(),
-                )
               ],
-              child: NestedPage(child: navigationShell),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => InventoryBloc(
+                      statsService: context.read(),
+                    )..add(InventoryStartedEvent()),
+                  ),
+                  BlocProvider(
+                    create: (context) => FinalizeOrderCubit(
+                      ordersService: context.read(),
+                    )..getOrders(),
+                  )
+                ],
+                child: NestedPage(child: navigationShell),
+              ),
             );
           },
           branches: [

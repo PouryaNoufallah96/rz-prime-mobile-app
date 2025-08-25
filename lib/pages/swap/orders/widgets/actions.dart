@@ -21,6 +21,8 @@ class OrderActions extends HookWidget {
     return BlocProvider(
       create: (context) => OrderActionBloc(
         ordersService: context.read(),
+        authInterceptor: context.read(),
+        transactionService: context.read(),
       ),
       child: _OrderActions(
         order: order,
@@ -51,16 +53,19 @@ class _OrderActions extends StatelessWidget {
           Expanded(
             child: BlocSelector<OrderActionBloc, OrderActionState, bool>(
               selector: (state) {
-                return state.dropOrderStatus == DropOrderStatus.inProgress;
+                return state.payOrderStatus == PayOrderStatus.inProgress;
               },
               builder: (context, isInProgress) {
                 return OutlinedButton(
                   onPressed: isInProgress
                       ? null
                       : () {
-                          context
-                              .read<OrderActionBloc>()
-                              .add(OrderActionDropped(id: order.orderId));
+                          context.read<OrderActionBloc>().add(
+                                OrderActionPayed(
+                                  id: order.orderId,
+                                  amount: order.finalAmount,
+                                ),
+                              );
                         },
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(
@@ -90,26 +95,44 @@ class _OrderActions extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: FilledButton(
-              onPressed: () {},
-              style: FilledButton.styleFrom(
-                side: BorderSide(
-                  color: context.colorScheme.primary,
-                ),
-                minimumSize: const Size.fromHeight(32),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(8),
-                ),
-              ),
-              child: const Text(
-                'Pay',
-                style: TextStyle(
-                  fontFamily: 'CentraNo1-Book',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-              ),
+            child: BlocSelector<OrderActionBloc, OrderActionState, bool>(
+              selector: (state) {
+                return state.dropOrderStatus == DropOrderStatus.inProgress;
+              },
+              builder: (context, isInProgress) {
+                return OutlinedButton(
+                  onPressed: isInProgress
+                      ? null
+                      : () {
+                          context
+                              .read<OrderActionBloc>()
+                              .add(OrderActionDropped(id: order.orderId));
+                        },
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                      color: context.colorScheme.primary,
+                    ),
+                    minimumSize: const Size.fromHeight(32),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(8),
+                    ),
+                  ),
+                  child: isInProgress
+                      ? const SizedBox.square(
+                          dimension: 20,
+                          child: CircularProgressIndicator.adaptive(),
+                        )
+                      : Text(
+                          'Pay',
+                          style: TextStyle(
+                            fontFamily: 'CentraNo1-Book',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: context.colorScheme.primary,
+                          ),
+                        ),
+                );
+              },
             ),
           ),
         ],

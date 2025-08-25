@@ -11,13 +11,22 @@ import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/services/http_service/http_service.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/stats_service/stats_service.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:http/http.dart' as http;
+import 'package:reown_appkit/reown_appkit.dart';
 
 Widget appInjection(Widget child) {
   return MultiRepositoryProvider(
     providers: [
       RepositoryProvider(
         create: (context) => DeepLinkHandler()..init(),
+        lazy: false,
+      ),
+      RepositoryProvider(
+        create: (context) {
+          const rpc = 'https://sepolia.drpc.org';
+
+          return Web3Client(rpc, http.Client());
+        },
         lazy: false,
       ),
       RepositoryProvider(

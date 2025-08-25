@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
+import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -80,31 +82,57 @@ class _Body extends StatelessWidget {
           ),
         ),
         const Divider(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: FilledButton(
-              onPressed: () {
-                context.read<AuthInterceptor>().clear();
-              },
-              style: FilledButton.styleFrom(
-                textStyle: const TextStyle(
-                  fontFamily: 'CentraNo1-Medium',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-                foregroundColor: const Color(0xffffffff),
-                backgroundColor: context.colorScheme.error,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(80),
-                ),
-              ),
-              child: const Text('Log out'),
+        const _Logout()
+      ],
+    );
+  }
+}
+
+class _Logout extends HookWidget {
+  const _Logout();
+
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = useState(false);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: FilledButton(
+          onPressed: () async {
+            isLoading.value = true;
+            final isSucceed = await context.read<AuthService>().logout();
+
+            isLoading.value = false;
+            if (context.mounted && isSucceed) {
+              context.read<AuthInterceptor>().clear();
+            }
+          },
+          style: FilledButton.styleFrom(
+            textStyle: const TextStyle(
+              fontFamily: 'CentraNo1-Medium',
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            foregroundColor: const Color(0xffffffff),
+            backgroundColor: context.colorScheme.error,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(80),
             ),
           ),
-        )
-      ],
+          child: isLoading.value
+              ? const SizedBox.square(
+                  dimension: 24,
+                  child: CircularProgressIndicator.adaptive(
+                    valueColor: AlwaysStoppedAnimation(
+                      Colors.white,
+                    ),
+                  ),
+                )
+              : const Text('Log out'),
+        ),
+      ),
     );
   }
 }

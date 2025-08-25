@@ -44,4 +44,14 @@ class AuthService {
       _ => null,
     };
   }
+
+  Future<bool> logout() async {
+    final res = await _adapter.requestUri<Map<String, dynamic>>(
+      Uri.parse('User/logout'),
+      method: HttpMethod.post,
+    );
+
+
+    return res is AppSuccessResponse;
+  }
 }

@@ -141,11 +141,18 @@ class $AssetsImagesGen {
   AssetGenImage get car => const AssetGenImage('assets/images/car.png');
 
   /// File path: assets/images/gold.svg
-  SvgGenImage get gold => const SvgGenImage('assets/images/gold.svg');
+  SvgGenImage get goldSvg => const SvgGenImage('assets/images/gold.svg');
+
+  /// File path: assets/images/gold.webp
+  AssetGenImage get goldWebp => const AssetGenImage('assets/images/gold.webp');
 
   /// File path: assets/images/gold_disable.svg
-  SvgGenImage get goldDisable =>
+  SvgGenImage get goldDisableSvg =>
       const SvgGenImage('assets/images/gold_disable.svg');
+
+  /// File path: assets/images/gold_disable.webp
+  AssetGenImage get goldDisableWebp =>
+      const AssetGenImage('assets/images/gold_disable.webp');
 
   /// File path: assets/images/industrial.png
   AssetGenImage get industrial =>
@@ -177,22 +184,38 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/on_boarding_3.webp');
 
   /// File path: assets/images/premium.svg
-  SvgGenImage get premium => const SvgGenImage('assets/images/premium.svg');
+  SvgGenImage get premiumSvg => const SvgGenImage('assets/images/premium.svg');
+
+  /// File path: assets/images/premium.webp
+  AssetGenImage get premiumWebp =>
+      const AssetGenImage('assets/images/premium.webp');
 
   /// File path: assets/images/premium_ِdisable.svg
-  SvgGenImage get premiumDisable =>
+  SvgGenImage get premiumDisableSvg =>
       const SvgGenImage('assets/images/premium_ِdisable.svg');
+
+  /// File path: assets/images/premium_ِdisable.webp
+  AssetGenImage get premiumDisableWebp =>
+      const AssetGenImage('assets/images/premium_ِdisable.webp');
 
   /// File path: assets/images/realestate.png
   AssetGenImage get realestate =>
       const AssetGenImage('assets/images/realestate.png');
 
   /// File path: assets/images/regular.svg
-  SvgGenImage get regular => const SvgGenImage('assets/images/regular.svg');
+  SvgGenImage get regularSvg => const SvgGenImage('assets/images/regular.svg');
+
+  /// File path: assets/images/regular.webp
+  AssetGenImage get regularWebp =>
+      const AssetGenImage('assets/images/regular.webp');
 
   /// File path: assets/images/regular_disable.svg
-  SvgGenImage get regularDisable =>
+  SvgGenImage get regularDisableSvg =>
       const SvgGenImage('assets/images/regular_disable.svg');
+
+  /// File path: assets/images/regular_disable.webp
+  AssetGenImage get regularDisableWebp =>
+      const AssetGenImage('assets/images/regular_disable.webp');
 
   /// File path: assets/images/rz.png
   AssetGenImage get rz => const AssetGenImage('assets/images/rz.png');
@@ -200,18 +223,32 @@ class $AssetsImagesGen {
   /// File path: assets/images/trip.png
   AssetGenImage get trip => const AssetGenImage('assets/images/trip.png');
 
+  /// File path: assets/images/user_level.png
+  AssetGenImage get userLevel =>
+      const AssetGenImage('assets/images/user_level.png');
+
   /// File path: assets/images/x.svg
-  SvgGenImage get x => const SvgGenImage('assets/images/x.svg');
+  SvgGenImage get xSvg => const SvgGenImage('assets/images/x.svg');
+
+  /// File path: assets/images/x.webp
+  AssetGenImage get xWebp => const AssetGenImage('assets/images/x.webp');
 
   /// File path: assets/images/x_disable.svg
-  SvgGenImage get xDisable => const SvgGenImage('assets/images/x_disable.svg');
+  SvgGenImage get xDisableSvg =>
+      const SvgGenImage('assets/images/x_disable.svg');
+
+  /// File path: assets/images/x_disable.webp
+  AssetGenImage get xDisableWebp =>
+      const AssetGenImage('assets/images/x_disable.webp');
 
   /// List of all assets
   List<dynamic> get values => [
         appIcon,
         car,
-        gold,
-        goldDisable,
+        goldSvg,
+        goldWebp,
+        goldDisableSvg,
+        goldDisableWebp,
         industrial,
         insurance,
         jewelry,
@@ -220,15 +257,22 @@ class $AssetsImagesGen {
         onBoarding1,
         onBoarding2,
         onBoarding3,
-        premium,
-        premiumDisable,
+        premiumSvg,
+        premiumWebp,
+        premiumDisableSvg,
+        premiumDisableWebp,
         realestate,
-        regular,
-        regularDisable,
+        regularSvg,
+        regularWebp,
+        regularDisableSvg,
+        regularDisableWebp,
         rz,
         trip,
-        x,
-        xDisable
+        userLevel,
+        xSvg,
+        xWebp,
+        xDisableSvg,
+        xDisableWebp
       ];
 }
 

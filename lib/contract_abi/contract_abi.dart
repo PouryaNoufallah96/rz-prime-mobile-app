@@ -1,37 +1,39 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
-import 'package:reown_appkit/reown_appkit.dart';
-import 'package:web3dart/crypto.dart';
+import 'package:web3dart/web3dart.dart';
 
-class AppRpc {
-  Future<void> get() async {
-    const rpc = 'https://sepolia.drpc.org';
-    final web3 = Web3Client(rpc, http.Client());
-
+class AppContractAbi {
+  static DeployedContract get appContract {
     final contract = DeployedContract(
-        ContractAbi.fromJson(jsonEncode(abi), 'TokenForwardSale'),
-        EthereumAddress.fromHex('0xB0D6B2805C09A37c762c3599fA932DC5Dc0D65c3'));
+      ContractAbi.fromJson(jsonEncode(_appAbi), 'TokenForwardSale'),
+      EthereumAddress.fromHex(
+        '0xB0D6B2805C09A37c762c3599fA932DC5Dc0D65c3',
+      ),
+    );
 
-    final contractFunction = contract.function('getOrder').encodeCall([
-      EthereumAddress.fromHex('0x55304995141dc954d7cb8bA77302b16fe7d629A4'),
-      'acd3f7224ea04fbf8abec2dd4eb2521d',
-    ]);
-
-    final hex = bytesToHex(contractFunction, include0x: true);
-
-    // final res = await web3.call(
-    //   contract: contract,
-    //   function: contractFunction,
-    //   params: [
-    //     EthereumAddress.fro
-    // mHex('0x55304995141dc954d7cb8bA77302b16fe7d629A4'),
-    //     'acd3f7224ea04fbf8abec2dd4eb2521d',
-    //   ],
-    // );
+    return contract;
   }
 
-  static final List<Map<String, Object>> abi = [
+  static ContractFunction get executeOrderFunction {
+    return appContract.function('executeOrder');
+  }
+
+  static DeployedContract get erc20Contract {
+    final contract = DeployedContract(
+      ContractAbi.fromJson(jsonEncode(_erc20Abi), 'MockERC20'),
+      EthereumAddress.fromHex(
+        '0xbeeAF6AEa7D96015b27a3D5a11eB47D0cF330E16',
+      ),
+    );
+
+    return contract;
+  }
+
+  static ContractFunction get approveFunction {
+    return erc20Contract.function('approve');
+  }
+
+  static final List<Map<String, Object>> _appAbi = [
     {
       'inputs': [
         {'internalType': 'address', 'name': '_operator', 'type': 'address'},
@@ -268,6 +270,220 @@ class AppRpc {
       ],
       'name': 'withdrawTokens',
       'outputs': [],
+      'stateMutability': 'nonpayable',
+      'type': 'function'
+    }
+  ];
+
+  static final List<Map<String, Object>> _erc20Abi = [
+    {
+      'inputs': [
+        {'internalType': 'string', 'name': 'name', 'type': 'string'},
+        {'internalType': 'string', 'name': 'symbol', 'type': 'string'},
+        {'internalType': 'uint8', 'name': 'decimals_', 'type': 'uint8'}
+      ],
+      'stateMutability': 'nonpayable',
+      'type': 'constructor'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'spender', 'type': 'address'},
+        {'internalType': 'uint256', 'name': 'allowance', 'type': 'uint256'},
+        {'internalType': 'uint256', 'name': 'needed', 'type': 'uint256'}
+      ],
+      'name': 'ERC20InsufficientAllowance',
+      'type': 'error'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'sender', 'type': 'address'},
+        {'internalType': 'uint256', 'name': 'balance', 'type': 'uint256'},
+        {'internalType': 'uint256', 'name': 'needed', 'type': 'uint256'}
+      ],
+      'name': 'ERC20InsufficientBalance',
+      'type': 'error'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'approver', 'type': 'address'}
+      ],
+      'name': 'ERC20InvalidApprover',
+      'type': 'error'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'receiver', 'type': 'address'}
+      ],
+      'name': 'ERC20InvalidReceiver',
+      'type': 'error'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'sender', 'type': 'address'}
+      ],
+      'name': 'ERC20InvalidSender',
+      'type': 'error'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'spender', 'type': 'address'}
+      ],
+      'name': 'ERC20InvalidSpender',
+      'type': 'error'
+    },
+    {
+      'anonymous': false,
+      'inputs': [
+        {
+          'indexed': true,
+          'internalType': 'address',
+          'name': 'owner',
+          'type': 'address'
+        },
+        {
+          'indexed': true,
+          'internalType': 'address',
+          'name': 'spender',
+          'type': 'address'
+        },
+        {
+          'indexed': false,
+          'internalType': 'uint256',
+          'name': 'value',
+          'type': 'uint256'
+        }
+      ],
+      'name': 'Approval',
+      'type': 'event'
+    },
+    {
+      'anonymous': false,
+      'inputs': [
+        {
+          'indexed': true,
+          'internalType': 'address',
+          'name': 'from',
+          'type': 'address'
+        },
+        {
+          'indexed': true,
+          'internalType': 'address',
+          'name': 'to',
+          'type': 'address'
+        },
+        {
+          'indexed': false,
+          'internalType': 'uint256',
+          'name': 'value',
+          'type': 'uint256'
+        }
+      ],
+      'name': 'Transfer',
+      'type': 'event'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'owner', 'type': 'address'},
+        {'internalType': 'address', 'name': 'spender', 'type': 'address'}
+      ],
+      'name': 'allowance',
+      'outputs': [
+        {'internalType': 'uint256', 'name': '', 'type': 'uint256'}
+      ],
+      'stateMutability': 'view',
+      'type': 'function'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'spender', 'type': 'address'},
+        {'internalType': 'uint256', 'name': 'value', 'type': 'uint256'}
+      ],
+      'name': 'approve',
+      'outputs': [
+        {'internalType': 'bool', 'name': '', 'type': 'bool'}
+      ],
+      'stateMutability': 'nonpayable',
+      'type': 'function'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'account', 'type': 'address'}
+      ],
+      'name': 'balanceOf',
+      'outputs': [
+        {'internalType': 'uint256', 'name': '', 'type': 'uint256'}
+      ],
+      'stateMutability': 'view',
+      'type': 'function'
+    },
+    {
+      'inputs': [],
+      'name': 'decimals',
+      'outputs': [
+        {'internalType': 'uint8', 'name': '', 'type': 'uint8'}
+      ],
+      'stateMutability': 'view',
+      'type': 'function'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'to', 'type': 'address'},
+        {'internalType': 'uint256', 'name': 'amount', 'type': 'uint256'}
+      ],
+      'name': 'mint',
+      'outputs': [],
+      'stateMutability': 'nonpayable',
+      'type': 'function'
+    },
+    {
+      'inputs': [],
+      'name': 'name',
+      'outputs': [
+        {'internalType': 'string', 'name': '', 'type': 'string'}
+      ],
+      'stateMutability': 'view',
+      'type': 'function'
+    },
+    {
+      'inputs': [],
+      'name': 'symbol',
+      'outputs': [
+        {'internalType': 'string', 'name': '', 'type': 'string'}
+      ],
+      'stateMutability': 'view',
+      'type': 'function'
+    },
+    {
+      'inputs': [],
+      'name': 'totalSupply',
+      'outputs': [
+        {'internalType': 'uint256', 'name': '', 'type': 'uint256'}
+      ],
+      'stateMutability': 'view',
+      'type': 'function'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'to', 'type': 'address'},
+        {'internalType': 'uint256', 'name': 'value', 'type': 'uint256'}
+      ],
+      'name': 'transfer',
+      'outputs': [
+        {'internalType': 'bool', 'name': '', 'type': 'bool'}
+      ],
+      'stateMutability': 'nonpayable',
+      'type': 'function'
+    },
+    {
+      'inputs': [
+        {'internalType': 'address', 'name': 'from', 'type': 'address'},
+        {'internalType': 'address', 'name': 'to', 'type': 'address'},
+        {'internalType': 'uint256', 'name': 'value', 'type': 'uint256'}
+      ],
+      'name': 'transferFrom',
+      'outputs': [
+        {'internalType': 'bool', 'name': '', 'type': 'bool'}
+      ],
       'stateMutability': 'nonpayable',
       'type': 'function'
     }

@@ -34,13 +34,15 @@ class AuthContainer with EquatableMixin {
   AuthContainer({
     this.token,
     this.signature,
+    this.address,
   });
 
   final AppAuthToken? token;
   final AppAuthSignature? signature;
+  final String? address;
 
   @override
-  List<Object?> get props => [token, signature];
+  List<Object?> get props => [token, signature, address];
 }
 
 class AuthInterceptor extends QueuedInterceptor {
@@ -56,6 +58,7 @@ class AuthInterceptor extends QueuedInterceptor {
 
   AppAuthToken? _cachedAuthToken;
   AppAuthSignature? _cachedAuthSignature;
+  String? _address;
 
   bool get isTokenValid {
     final token = _controller.stream.value.token;
@@ -70,6 +73,7 @@ class AuthInterceptor extends QueuedInterceptor {
   void clear() {
     _cachedAuthSignature = null;
     _cachedAuthToken = null;
+    _address = null;
     _sink();
   }
 
@@ -77,6 +81,7 @@ class AuthInterceptor extends QueuedInterceptor {
     _controller.sink.add(AuthContainer(
       signature: _cachedAuthSignature,
       token: _cachedAuthToken,
+      address: _address,
     ));
   }
 
@@ -93,6 +98,11 @@ class AuthInterceptor extends QueuedInterceptor {
       token: token,
       expireTime: DateTime.now().add(const Duration(minutes: 15)),
     );
+    _sink();
+  }
+
+  void setAddress(String? address) {
+    _address = address;
     _sink();
   }
 
@@ -114,7 +124,7 @@ class AuthInterceptor extends QueuedInterceptor {
   ) {
     if (_cachedAuthToken != null) {
       options.headers.addAll({
-        'Authorization': _cachedAuthToken!.token,
+        'Authorization': 'Bearer ${_cachedAuthToken!.token}',
       });
     }
 
@@ -128,7 +138,6 @@ class AuthInterceptor extends QueuedInterceptor {
   ) {
     if (response.statusCode == 403 || response.statusCode == 401) {
       clear();
-      
     }
 
     handler.next(response);

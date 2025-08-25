@@ -95,14 +95,15 @@ class HttpService {
 
       final errorMessage = message ?? e.message ?? 'unknown error $e';
 
-      toastification.show(
-        style: ToastificationStyle.minimal,
-        type: ToastificationType.error,
-        title: Text(errorMessage),
-        borderRadius: BorderRadius.circular(6),
-        autoCloseDuration: const Duration(seconds: 4),
-      );
-
+      if (e.response?.statusCode != null) {
+        toastification.show(
+          style: ToastificationStyle.minimal,
+          type: ToastificationType.error,
+          title: Text(errorMessage),
+          borderRadius: BorderRadius.circular(6),
+          autoCloseDuration: const Duration(seconds: 4),
+        );
+      }
       return AppFailureResponse(
         errorMessage,
         e.response?.statusCode ?? -1,

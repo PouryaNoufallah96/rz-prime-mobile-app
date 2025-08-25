@@ -26,10 +26,23 @@ class HistoryOrder with _$HistoryOrder {
     required String tokenAmountInWei,
     required String payAmountInWei,
     required HistoryOrderState state,
+    TransactionMetaData? transactionMetaData,
   }) = _HistoryOrder;
 
   factory HistoryOrder.fromJson(Map<String, dynamic> json) =>
       _$HistoryOrderFromJson(json);
+}
+
+@freezed
+class TransactionMetaData with _$TransactionMetaData {
+  const factory TransactionMetaData({
+    required String createMoment,
+    required String hash,
+    required String status,
+  }) = _TransactionMetaData;
+
+  factory TransactionMetaData.fromJson(Map<String, dynamic> json) =>
+      _$TransactionMetaDataFromJson(json);
 }
 
 enum HistoryOrderState {
@@ -37,7 +50,7 @@ enum HistoryOrderState {
   registed(),
   @JsonValue('Drop')
   drop(),
-  @JsonValue('Paid ')
+  @JsonValue('Paid')
   paid();
 }
 

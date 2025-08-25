@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/components/app_logo.dart';
 import 'package:gainx/core/blocs/reown/reown_bloc.dart';
+import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/gen/assets.gen.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:reown_appkit/modal/i_appkit_modal_impl.dart';
 import 'package:reown_appkit/reown_appkit.dart';
 
@@ -22,6 +22,21 @@ class AuthPage extends StatelessWidget {
         reownService: context.read(),
       )..add(ReownStarted()),
       lazy: false,
+      child: const _AuthPage(),
+    );
+  }
+}
+
+class _AuthPage extends StatelessWidget {
+  const _AuthPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<ReownBloc, ReownState>(
+      listenWhen: (p, c) => p.address != c.address,
+      listener: (context, state) {
+        context.read<AuthInterceptor>().setAddress(state.address);
+      },
       child: SafeArea(
         child: Scaffold(
           body: Column(

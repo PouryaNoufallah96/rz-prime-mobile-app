@@ -8,6 +8,7 @@ import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/design_system/theme.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/reown/reown.dart';
+import 'package:gainx/core/services/transaction_service/transaction_service.dart';
 import 'package:gainx/injection.dart';
 import 'package:gainx/pages/auth/auth.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';

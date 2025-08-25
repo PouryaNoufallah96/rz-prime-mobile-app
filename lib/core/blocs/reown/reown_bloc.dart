@@ -77,13 +77,15 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
         chainId,
       );
 
-      final address = event.event.session.getAddress(namespace)!;
+      final rawAddress = event.event.session.getAddress(namespace)!;
+
+      final EthereumAddress(:hexEip55) = EthereumAddress.fromHex(rawAddress);
 
       emit(state.copyWith(
         status: AppReownLoadingStatus.getNonce,
       ));
 
-      final nonce = await _authService.getNonce(address);
+      final nonce = await _authService.getNonce(hexEip55);
 
       emit(state.copyWith(
         status: AppReownLoadingStatus.none,
@@ -95,7 +97,7 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
 
       emit(state.copyWith(
         nonce: () => nonce,
-        address: () => address,
+        address: () => hexEip55,
       ));
 
       emit(state.copyWith(
@@ -107,7 +109,7 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
         chainId: chainId,
         request: SessionRequestParams(
           method: 'personal_sign',
-          params: [nonce.message, address],
+          params: [nonce.message, hexEip55],
         ),
       );
 
@@ -117,6 +119,7 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
 
       if (signature is String) {
         _authInterceptor.setSignature(signature);
+        add(ReownLogginButtonPressed());
       }
     } catch (_) {}
   }
