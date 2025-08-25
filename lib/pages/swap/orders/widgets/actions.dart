@@ -53,19 +53,16 @@ class _OrderActions extends StatelessWidget {
           Expanded(
             child: BlocSelector<OrderActionBloc, OrderActionState, bool>(
               selector: (state) {
-                return state.payOrderStatus == PayOrderStatus.inProgress;
+                return state.dropOrderStatus == DropOrderStatus.inProgress;
               },
               builder: (context, isInProgress) {
                 return OutlinedButton(
                   onPressed: isInProgress
                       ? null
                       : () {
-                          context.read<OrderActionBloc>().add(
-                                OrderActionPayed(
-                                  id: order.orderId,
-                                  amount: order.finalAmount,
-                                ),
-                              );
+                          context
+                              .read<OrderActionBloc>()
+                              .add(OrderActionDropped(id: order.orderId));
                         },
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(
@@ -97,18 +94,21 @@ class _OrderActions extends StatelessWidget {
           Expanded(
             child: BlocSelector<OrderActionBloc, OrderActionState, bool>(
               selector: (state) {
-                return state.dropOrderStatus == DropOrderStatus.inProgress;
+                return state.payOrderStatus == PayOrderStatus.inProgress;
               },
               builder: (context, isInProgress) {
-                return OutlinedButton(
+                return FilledButton(
                   onPressed: isInProgress
                       ? null
                       : () {
-                          context
-                              .read<OrderActionBloc>()
-                              .add(OrderActionDropped(id: order.orderId));
+                          context.read<OrderActionBloc>().add(
+                                OrderActionPayed(
+                                  id: order.orderId,
+                                  amount: order.finalAmount,
+                                ),
+                              );
                         },
-                  style: OutlinedButton.styleFrom(
+                  style: FilledButton.styleFrom(
                     side: BorderSide(
                       color: context.colorScheme.primary,
                     ),
