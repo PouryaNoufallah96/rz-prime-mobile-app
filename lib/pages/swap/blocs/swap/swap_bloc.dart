@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
-import 'package:intl/intl.dart';
 
 part 'swap_event.dart';
 part 'swap_state.dart';
@@ -17,6 +17,7 @@ class SwapBloc extends Bloc<SwapEvent, SwapState> {
     on<SwapSelectedTokenChanged>(_onSwapSelectedTokenChanged);
     on<SwapFromValueChanged>(_onSwapFromValueChanged);
     on<SwapSubmited>(_onSwapSubmited);
+    on<SwapInventoryUpdated>(_onSwapInventoryUpdated);
   }
 
   final OrdersService _ordersService;
@@ -42,6 +43,18 @@ class SwapBloc extends Bloc<SwapEvent, SwapState> {
     emit(state.copyWith(fromValue: event.value));
   }
 
+  void _onSwapInventoryUpdated(
+    SwapInventoryUpdated event,
+    Emitter<SwapState> emit,
+  ) {
+    final find = event.inventories
+        .firstWhereOrNull((e) => e.tokenName == state.selectedToken?.tokenName);
+
+    if (find != null) {
+      emit(state.copyWith(selectedToken: () => find));
+    }
+  }
+
   Future<void> _onSwapSubmited(
     SwapSubmited event,
     Emitter<SwapState> emit,
@@ -52,27 +65,36 @@ class SwapBloc extends Bloc<SwapEvent, SwapState> {
 
     emit(state.copyWith(submitSwapStatus: SubmitSwapStatus.inProgress));
 
-    final payOf = _addMonthsClamped(state.swapPayOfTime!.month);
-    final formattedPayOf = DateFormat('yyyy-MM-dd').format(payOf);
-
-    await _ordersService.submitOrder(
-      assetName: state.selectedToken!.assetName,
-      loanAmount: state.fromValue,
-      payOffDate: formattedPayOf,
+    final isSucceed = await _ordersService.submitOrder(
+      assetName: state.selectedToken!.tokenName,
+      loanAmount: state.fromValue / state.selectedToken!.price,
+      monthDuration: state.swapPayOfTime!.month,
     );
+
+    if (isSucceed) {
+      emit(
+        state.copyWith(
+          submitSwapStatus: SubmitSwapStatus.idle,
+          selectedToken: () => null,
+          swapPayOfTime: () => null,
+          fromValue: 0,
+        ),
+      );
+    }
 
     emit(state.copyWith(submitSwapStatus: SubmitSwapStatus.idle));
   }
 
-  DateTime _addMonthsClamped(int months) {
-    final dt = DateTime.now();
+  // DateTime _addMonthsClamped(int months) {
+  //   final dt = DateTime.now();
 
-    final m0 = dt.month + months;
-    final y = dt.year + ((m0 - 1) ~/ 12);
-    final m = ((m0 - 1) % 12) + 1;
-    final lastDayOfTargetMonth = DateTime(y, m + 1, 0).day;
-    final d = dt.day > lastDayOfTargetMonth ? lastDayOfTargetMonth : dt.day;
-    return DateTime(
-        y, m, d, dt.hour, dt.minute, dt.second, dt.millisecond, dt.microsecond);
-  }
+  //   final m0 = dt.month + months;
+  //   final y = dt.year + ((m0 - 1) ~/ 12);
+  //   final m = ((m0 - 1) % 12) + 1;
+  //   final lastDayOfTargetMonth = DateTime(y, m + 1, 0).day;
+  //   final d = dt.day > lastDayOfTargetMonth ? lastDayOfTargetMonth : dt.day;
+  //   return DateTime(
+  //       y, m, d, dt.hour, dt.minute, dt.second, dt.millisecond, d
+  // t.microsecond);
+  // }
 }

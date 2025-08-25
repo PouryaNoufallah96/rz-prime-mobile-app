@@ -9,6 +9,7 @@ mixin GainXAppRouter on State<GainXApp> {
       initialLocation: '/swap',
       navigatorKey: routerKey,
       refreshListenable: _RouterRefreshStream(
+        authStream: context.read<AuthInterceptor>().stream,
         preferencesStream: context.read<PreferencesBloc>().stream,
       ),
       redirect: (context, state) async {
@@ -22,15 +23,36 @@ mixin GainXAppRouter on State<GainXApp> {
         }
 
         if (isOnBoardingPassed && path == '/on_boarding') {
-          return '/swap';
+          return '/';
         }
 
-        return null;
+        final streamValue = context.read<AuthInterceptor>().stream.value;
+        final token = streamValue.token;
+
+        final isLoggingIn = state.uri.path == '/';
+
+        if (isLoggingIn) return token != null ? '/swap' : null;
+
+        return token != null ? null : '/';
       },
       routes: [
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
-            return NestedPage(child: navigationShell);
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => InventoryBloc(
+                    statsService: context.read(),
+                  )..add(InventoryStartedEvent()),
+                ),
+                BlocProvider(
+                  create: (context) => FinalizeOrderCubit(
+                    ordersService: context.read(),
+                  )..getOrders(),
+                )
+              ],
+              child: NestedPage(child: navigationShell),
+            );
           },
           branches: [
             StatefulShellBranch(
@@ -100,17 +122,23 @@ mixin GainXAppRouter on State<GainXApp> {
 class _RouterRefreshStream extends ChangeNotifier {
   _RouterRefreshStream({
     required Stream<PreferencesState> preferencesStream,
+    required ValueStream<AuthContainer> authStream,
   }) {
     notifyListeners();
     _subscription = preferencesStream.listen((_) {
       notifyListeners();
     });
+    _authSubscription = authStream.listen((_) {
+      notifyListeners();
+    });
   }
 
   late final StreamSubscription<dynamic> _subscription;
+  late final StreamSubscription<AuthContainer> _authSubscription;
 
   @override
   void dispose() {
+    _authSubscription.cancel();
     _subscription.cancel();
     super.dispose();
   }

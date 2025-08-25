@@ -1,0 +1,47 @@
+import 'package:gainx/core/services/auth_service/models.dart';
+import 'package:gainx/core/services/http_service/http_service.dart';
+
+class AuthService {
+  AuthService({
+    required HttpService adapter,
+  }) : _adapter = adapter;
+
+  final HttpService _adapter;
+
+  Future<NonceData?> getNonce(String walletAddress) async {
+    final res = await _adapter.requestUri<Map<String, dynamic>>(
+      Uri.parse('User/GetNonce'),
+      method: HttpMethod.post,
+      body: {
+        'walletAddress': walletAddress,
+      },
+    );
+
+    return switch (res) {
+      AppSuccessResponse(:final data) =>
+        NonceData.fromJson(data!['data']! as Map<String, dynamic>),
+      _ => null,
+    };
+  }
+
+  Future<String?> getToken({
+    required String walletAddress,
+    required String nonce,
+    required String signature,
+  }) async {
+    final res = await _adapter.requestUri<Map<String, dynamic>>(
+      Uri.parse('User/GetToken'),
+      method: HttpMethod.post,
+      body: {
+        'walletAddress': walletAddress,
+        'signature': signature,
+        'nonce': nonce,
+      },
+    );
+
+    return switch (res) {
+      AppSuccessResponse(:final data) => data?['access_token'] as String?,
+      _ => null,
+    };
+  }
+}

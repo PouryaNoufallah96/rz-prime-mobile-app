@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gainx/components/app_un_focuser.dart';
+import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
@@ -75,43 +76,67 @@ class _SwapBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          sliver: SliverList.list(children: [
-            UserBalance(
-              balance: stats.customerCredit,
-              title: 'Amount',
-            ),
-            const SizedBox(height: 8),
-            UserBalance(
-              balance: stats.sumOfMining,
-              title: 'Mining',
-            ),
-            const SizedBox(height: 20),
-            SwapSectionAdaptive(
-              from: SwapFromInput(stats: stats),
-              to: SwapToInput(stats: stats),
-            ),
-            const SizedBox(height: 24),
-            const SelectPayOfTime(),
-            const SizedBox(height: 24),
-            const SubmitSwap(),
-            const SizedBox(height: 24),
-            const Text(
-              'Orders',
-              style: TextStyle(
-                fontFamily: 'CentraNo1-Medium',
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Color(0xffffffff),
-              ),
-            ),
-          ]),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SwapBloc, SwapState>(
+          listenWhen: (p, c) {
+            return p.submitSwapStatus == SubmitSwapStatus.inProgress &&
+                c.submitSwapStatus == SubmitSwapStatus.idle;
+          },
+          listener: (context, state) {
+            context.read<UserStatsCubit>().fetch(skipLoading: true);
+            context.read<OpenOrdersCubit>().getOrders();
+          },
         ),
-        const SwapOrders(),
+        BlocListener<InventoryBloc, InventoryState>(
+          listener: (context, state) {
+            if (state is InventorySuccessState) {
+              context
+                  .read<SwapBloc>()
+                  .add(SwapInventoryUpdated(inventories: state.inventories));
+            }
+          },
+        ),
       ],
+      child: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverList.list(children: [
+              UserBalance(
+                balance: stats.availableLoanAmount,
+                title: 'Amount',
+              ),
+              const SizedBox(height: 8),
+              UserBalance(
+                balance: stats.sumOfMining,
+                title: 'Mining',
+              ),
+              const SizedBox(height: 20),
+              SwapSectionAdaptive(
+                from: SwapFromInput(stats: stats),
+                to: SwapToInput(stats: stats),
+              ),
+              const SizedBox(height: 24),
+              const SelectPayOfTime(),
+              const SizedBox(height: 24),
+              const SubmitSwap(),
+              const SizedBox(height: 24),
+              const Text(
+                'Orders',
+                style: TextStyle(
+                  fontFamily: 'CentraNo1-Medium',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffffffff),
+                ),
+              ),
+            ]),
+          ),
+          const SwapOrders(),
+          const SliverToBoxAdapter(child: SizedBox(height: 100)),
+        ],
+      ),
     );
   }
 }

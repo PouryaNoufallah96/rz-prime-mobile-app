@@ -16,6 +16,17 @@ class SwapSelectedTokenChanged extends SwapEvent {
   List<Object?> get props => [inventory];
 }
 
+class SwapInventoryUpdated extends SwapEvent {
+  SwapInventoryUpdated({
+    required this.inventories,
+  });
+
+  final List<InventoryModel> inventories;
+
+  @override
+  List<Object?> get props => [inventories];
+}
+
 class SwapPayOfTimeChanged extends SwapEvent {
   SwapPayOfTimeChanged({
     required this.payOfTime,

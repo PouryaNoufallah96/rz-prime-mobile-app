@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/services/orders_service/models.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
+import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
 import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 import 'package:gainx/pages/swap/orders/cubit/open_orders_cubit.dart';
 import 'package:gainx/pages/swap/orders/widgets/bloc/order_action_bloc.dart';
@@ -42,6 +43,7 @@ class _OrderActions extends StatelessWidget {
       listener: (_, __) {
         context.read<UserStatsCubit>().fetch(skipLoading: true);
         context.read<OpenOrdersCubit>().getOrders();
+        context.read<FinalizeOrderCubit>().getOrders();
       },
       child: Row(
         spacing: 16,
@@ -58,7 +60,7 @@ class _OrderActions extends StatelessWidget {
                       : () {
                           context
                               .read<OrderActionBloc>()
-                              .add(OrderActionDropped(id: order.id));
+                              .add(OrderActionDropped(id: order.orderId));
                         },
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(

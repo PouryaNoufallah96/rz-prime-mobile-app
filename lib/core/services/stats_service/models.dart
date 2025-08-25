@@ -5,19 +5,19 @@ part 'models.g.dart';
 
 @freezed
 class InventoryModel with _$InventoryModel {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory InventoryModel({
-    required String assetAddress,
-    required String assetName,
-    required double assetPrice,
+    required String tokenAddress,
+    required String tokenName,
+    required String tokenNetwork,
+    required double price,
     required double quantity,
     required double liquidityUsd,
-    required double volume_24hUsd,
-    required double poolFeeRate,
+    required double volume24hUsd,
     required double reserveBaseUsd,
     required double reserveQuoteUsd,
+    required double quoteTokenPriceUsd,
     required String fakeAddress,
-    required String lastUpdateDateTime,
+    required String lastUpdated,
   }) = _InventoryModel;
 
   factory InventoryModel.fromJson(Map<String, dynamic> json) =>
@@ -26,18 +26,17 @@ class InventoryModel with _$InventoryModel {
 
 extension InventoryModelX on InventoryModel {
   String get imageSrc {
-    return 'assets/images/$assetName.png';
+    return 'assets/images/${tokenName.toLowerCase()}.png';
   }
 }
 
 @freezed
 class UserStats with _$UserStats {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory UserStats({
-    required double customerCredit,
+    required String stage,
+    required double mining,
+    required double availableLoanAmount,
     required double sumOfMining,
-    required String userLevel,
-    required List<String> accessibleStages,
   }) = _UserStats;
 
   factory UserStats.fromJson(Map<String, dynamic> json) =>
@@ -45,5 +44,5 @@ class UserStats with _$UserStats {
 }
 
 extension UserStatsX on UserStats {
-  double get balance => customerCredit + sumOfMining;
+  double get balance => availableLoanAmount + sumOfMining;
 }

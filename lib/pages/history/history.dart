@@ -12,12 +12,7 @@ class HistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FinalizeOrderCubit(
-        ordersService: context.read(),
-      )..getOrders(),
-      child: const _Body(),
-    );
+    return const _Body();
   }
 }
 
@@ -93,7 +88,7 @@ class _Order extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDropped = order.finalizedOrder!.paymentStatus == 'Drop';
+    final isDropped = order.state == HistoryOrderState.drop;
 
     final statusColor = isDropped
         ? context.colorExtension.error
@@ -119,7 +114,7 @@ class _Order extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              date(DateTime.parse('${order.date} ${order.time}')),
+              date(DateTime.parse(order.payOffDate).toLocal()),
               style: TextStyle(
                 fontFamily: 'CentraNo1-Book',
                 fontSize: 12,
@@ -158,7 +153,7 @@ class _Order extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        order.asset,
+                        order.tokenName,
                         style: const TextStyle(
                           fontFamily: 'CentraNo1-Medium',
                           fontSize: 16,

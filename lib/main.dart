@@ -3,10 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/design_system/theme.dart';
+import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
+import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/injection.dart';
 import 'package:gainx/pages/auth/auth.dart';
+import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
 import 'package:gainx/pages/history/history.dart';
 import 'package:gainx/pages/nested_page/nested_page.dart';
 import 'package:gainx/pages/on_boarding/on_boarding.dart';
@@ -18,6 +22,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reown_appkit/appkit_modal.dart';
 import 'package:reown_appkit/reown_appkit.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:toastification/toastification.dart';
 
 part 'router/router.dart';
 
@@ -53,13 +59,19 @@ class _GainXAppState extends State<GainXApp> with GainXAppRouter {
       builder: (context, isDark) {
         return ReownAppKitModalTheme(
           isDarkMode: isDark,
-          child: MaterialApp.router(
-            routerConfig: appRouter,
-            title: 'GainX',
-            theme: GainXTheme()(isDark),
-            builder: (context, child) {
-              return child!;
-            },
+          child: ToastificationWrapper(
+            child: MaterialApp.router(
+              routerConfig: appRouter,
+              title: 'RZPrime',
+              theme: GainXTheme()(isDark),
+              builder: (context, child) {
+                return RepositoryProvider(
+                  create: (context) =>
+                      ReownService()..call(routerKey.currentContext!),
+                  child: child,
+                );
+              },
+            ),
           ),
         );
       },

@@ -31,7 +31,7 @@ class _Body extends StatelessWidget {
       },
       listener: (context, state) {
         context.read<PricePerUnitBloc>().add(PricePerUnitChanged(
-              asset: state.selectedToken?.assetName,
+              asset: state.selectedToken?.tokenName,
               value: state.fromValue,
             ));
       },
@@ -41,7 +41,7 @@ class _Body extends StatelessWidget {
           const _Price(),
           BlocSelector<SwapBloc, SwapState, String>(
             selector: (state) {
-              return state.selectedToken?.assetName ?? 'Token';
+              return state.selectedToken?.tokenName ?? 'Token';
             },
             builder: (context, token) {
               return Text(

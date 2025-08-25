@@ -20,17 +20,18 @@ InventoryModel _$InventoryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$InventoryModel {
-  String get assetAddress => throw _privateConstructorUsedError;
-  String get assetName => throw _privateConstructorUsedError;
-  double get assetPrice => throw _privateConstructorUsedError;
+  String get tokenAddress => throw _privateConstructorUsedError;
+  String get tokenName => throw _privateConstructorUsedError;
+  String get tokenNetwork => throw _privateConstructorUsedError;
+  double get price => throw _privateConstructorUsedError;
   double get quantity => throw _privateConstructorUsedError;
   double get liquidityUsd => throw _privateConstructorUsedError;
-  double get volume_24hUsd => throw _privateConstructorUsedError;
-  double get poolFeeRate => throw _privateConstructorUsedError;
+  double get volume24hUsd => throw _privateConstructorUsedError;
   double get reserveBaseUsd => throw _privateConstructorUsedError;
   double get reserveQuoteUsd => throw _privateConstructorUsedError;
+  double get quoteTokenPriceUsd => throw _privateConstructorUsedError;
   String get fakeAddress => throw _privateConstructorUsedError;
-  String get lastUpdateDateTime => throw _privateConstructorUsedError;
+  String get lastUpdated => throw _privateConstructorUsedError;
 
   /// Serializes this InventoryModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,17 +50,18 @@ abstract class $InventoryModelCopyWith<$Res> {
       _$InventoryModelCopyWithImpl<$Res, InventoryModel>;
   @useResult
   $Res call(
-      {String assetAddress,
-      String assetName,
-      double assetPrice,
+      {String tokenAddress,
+      String tokenName,
+      String tokenNetwork,
+      double price,
       double quantity,
       double liquidityUsd,
-      double volume_24hUsd,
-      double poolFeeRate,
+      double volume24hUsd,
       double reserveBaseUsd,
       double reserveQuoteUsd,
+      double quoteTokenPriceUsd,
       String fakeAddress,
-      String lastUpdateDateTime});
+      String lastUpdated});
 }
 
 /// @nodoc
@@ -77,30 +79,35 @@ class _$InventoryModelCopyWithImpl<$Res, $Val extends InventoryModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? assetAddress = null,
-    Object? assetName = null,
-    Object? assetPrice = null,
+    Object? tokenAddress = null,
+    Object? tokenName = null,
+    Object? tokenNetwork = null,
+    Object? price = null,
     Object? quantity = null,
     Object? liquidityUsd = null,
-    Object? volume_24hUsd = null,
-    Object? poolFeeRate = null,
+    Object? volume24hUsd = null,
     Object? reserveBaseUsd = null,
     Object? reserveQuoteUsd = null,
+    Object? quoteTokenPriceUsd = null,
     Object? fakeAddress = null,
-    Object? lastUpdateDateTime = null,
+    Object? lastUpdated = null,
   }) {
     return _then(_value.copyWith(
-      assetAddress: null == assetAddress
-          ? _value.assetAddress
-          : assetAddress // ignore: cast_nullable_to_non_nullable
+      tokenAddress: null == tokenAddress
+          ? _value.tokenAddress
+          : tokenAddress // ignore: cast_nullable_to_non_nullable
               as String,
-      assetName: null == assetName
-          ? _value.assetName
-          : assetName // ignore: cast_nullable_to_non_nullable
+      tokenName: null == tokenName
+          ? _value.tokenName
+          : tokenName // ignore: cast_nullable_to_non_nullable
               as String,
-      assetPrice: null == assetPrice
-          ? _value.assetPrice
-          : assetPrice // ignore: cast_nullable_to_non_nullable
+      tokenNetwork: null == tokenNetwork
+          ? _value.tokenNetwork
+          : tokenNetwork // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
               as double,
       quantity: null == quantity
           ? _value.quantity
@@ -110,13 +117,9 @@ class _$InventoryModelCopyWithImpl<$Res, $Val extends InventoryModel>
           ? _value.liquidityUsd
           : liquidityUsd // ignore: cast_nullable_to_non_nullable
               as double,
-      volume_24hUsd: null == volume_24hUsd
-          ? _value.volume_24hUsd
-          : volume_24hUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      poolFeeRate: null == poolFeeRate
-          ? _value.poolFeeRate
-          : poolFeeRate // ignore: cast_nullable_to_non_nullable
+      volume24hUsd: null == volume24hUsd
+          ? _value.volume24hUsd
+          : volume24hUsd // ignore: cast_nullable_to_non_nullable
               as double,
       reserveBaseUsd: null == reserveBaseUsd
           ? _value.reserveBaseUsd
@@ -126,13 +129,17 @@ class _$InventoryModelCopyWithImpl<$Res, $Val extends InventoryModel>
           ? _value.reserveQuoteUsd
           : reserveQuoteUsd // ignore: cast_nullable_to_non_nullable
               as double,
+      quoteTokenPriceUsd: null == quoteTokenPriceUsd
+          ? _value.quoteTokenPriceUsd
+          : quoteTokenPriceUsd // ignore: cast_nullable_to_non_nullable
+              as double,
       fakeAddress: null == fakeAddress
           ? _value.fakeAddress
           : fakeAddress // ignore: cast_nullable_to_non_nullable
               as String,
-      lastUpdateDateTime: null == lastUpdateDateTime
-          ? _value.lastUpdateDateTime
-          : lastUpdateDateTime // ignore: cast_nullable_to_non_nullable
+      lastUpdated: null == lastUpdated
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -147,17 +154,18 @@ abstract class _$$InventoryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String assetAddress,
-      String assetName,
-      double assetPrice,
+      {String tokenAddress,
+      String tokenName,
+      String tokenNetwork,
+      double price,
       double quantity,
       double liquidityUsd,
-      double volume_24hUsd,
-      double poolFeeRate,
+      double volume24hUsd,
       double reserveBaseUsd,
       double reserveQuoteUsd,
+      double quoteTokenPriceUsd,
       String fakeAddress,
-      String lastUpdateDateTime});
+      String lastUpdated});
 }
 
 /// @nodoc
@@ -173,30 +181,35 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? assetAddress = null,
-    Object? assetName = null,
-    Object? assetPrice = null,
+    Object? tokenAddress = null,
+    Object? tokenName = null,
+    Object? tokenNetwork = null,
+    Object? price = null,
     Object? quantity = null,
     Object? liquidityUsd = null,
-    Object? volume_24hUsd = null,
-    Object? poolFeeRate = null,
+    Object? volume24hUsd = null,
     Object? reserveBaseUsd = null,
     Object? reserveQuoteUsd = null,
+    Object? quoteTokenPriceUsd = null,
     Object? fakeAddress = null,
-    Object? lastUpdateDateTime = null,
+    Object? lastUpdated = null,
   }) {
     return _then(_$InventoryModelImpl(
-      assetAddress: null == assetAddress
-          ? _value.assetAddress
-          : assetAddress // ignore: cast_nullable_to_non_nullable
+      tokenAddress: null == tokenAddress
+          ? _value.tokenAddress
+          : tokenAddress // ignore: cast_nullable_to_non_nullable
               as String,
-      assetName: null == assetName
-          ? _value.assetName
-          : assetName // ignore: cast_nullable_to_non_nullable
+      tokenName: null == tokenName
+          ? _value.tokenName
+          : tokenName // ignore: cast_nullable_to_non_nullable
               as String,
-      assetPrice: null == assetPrice
-          ? _value.assetPrice
-          : assetPrice // ignore: cast_nullable_to_non_nullable
+      tokenNetwork: null == tokenNetwork
+          ? _value.tokenNetwork
+          : tokenNetwork // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
               as double,
       quantity: null == quantity
           ? _value.quantity
@@ -206,13 +219,9 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
           ? _value.liquidityUsd
           : liquidityUsd // ignore: cast_nullable_to_non_nullable
               as double,
-      volume_24hUsd: null == volume_24hUsd
-          ? _value.volume_24hUsd
-          : volume_24hUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      poolFeeRate: null == poolFeeRate
-          ? _value.poolFeeRate
-          : poolFeeRate // ignore: cast_nullable_to_non_nullable
+      volume24hUsd: null == volume24hUsd
+          ? _value.volume24hUsd
+          : volume24hUsd // ignore: cast_nullable_to_non_nullable
               as double,
       reserveBaseUsd: null == reserveBaseUsd
           ? _value.reserveBaseUsd
@@ -222,64 +231,70 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
           ? _value.reserveQuoteUsd
           : reserveQuoteUsd // ignore: cast_nullable_to_non_nullable
               as double,
+      quoteTokenPriceUsd: null == quoteTokenPriceUsd
+          ? _value.quoteTokenPriceUsd
+          : quoteTokenPriceUsd // ignore: cast_nullable_to_non_nullable
+              as double,
       fakeAddress: null == fakeAddress
           ? _value.fakeAddress
           : fakeAddress // ignore: cast_nullable_to_non_nullable
               as String,
-      lastUpdateDateTime: null == lastUpdateDateTime
-          ? _value.lastUpdateDateTime
-          : lastUpdateDateTime // ignore: cast_nullable_to_non_nullable
+      lastUpdated: null == lastUpdated
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$InventoryModelImpl implements _InventoryModel {
   const _$InventoryModelImpl(
-      {required this.assetAddress,
-      required this.assetName,
-      required this.assetPrice,
+      {required this.tokenAddress,
+      required this.tokenName,
+      required this.tokenNetwork,
+      required this.price,
       required this.quantity,
       required this.liquidityUsd,
-      required this.volume_24hUsd,
-      required this.poolFeeRate,
+      required this.volume24hUsd,
       required this.reserveBaseUsd,
       required this.reserveQuoteUsd,
+      required this.quoteTokenPriceUsd,
       required this.fakeAddress,
-      required this.lastUpdateDateTime});
+      required this.lastUpdated});
 
   factory _$InventoryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InventoryModelImplFromJson(json);
 
   @override
-  final String assetAddress;
+  final String tokenAddress;
   @override
-  final String assetName;
+  final String tokenName;
   @override
-  final double assetPrice;
+  final String tokenNetwork;
+  @override
+  final double price;
   @override
   final double quantity;
   @override
   final double liquidityUsd;
   @override
-  final double volume_24hUsd;
-  @override
-  final double poolFeeRate;
+  final double volume24hUsd;
   @override
   final double reserveBaseUsd;
   @override
   final double reserveQuoteUsd;
   @override
+  final double quoteTokenPriceUsd;
+  @override
   final String fakeAddress;
   @override
-  final String lastUpdateDateTime;
+  final String lastUpdated;
 
   @override
   String toString() {
-    return 'InventoryModel(assetAddress: $assetAddress, assetName: $assetName, assetPrice: $assetPrice, quantity: $quantity, liquidityUsd: $liquidityUsd, volume_24hUsd: $volume_24hUsd, poolFeeRate: $poolFeeRate, reserveBaseUsd: $reserveBaseUsd, reserveQuoteUsd: $reserveQuoteUsd, fakeAddress: $fakeAddress, lastUpdateDateTime: $lastUpdateDateTime)';
+    return 'InventoryModel(tokenAddress: $tokenAddress, tokenName: $tokenName, tokenNetwork: $tokenNetwork, price: $price, quantity: $quantity, liquidityUsd: $liquidityUsd, volume24hUsd: $volume24hUsd, reserveBaseUsd: $reserveBaseUsd, reserveQuoteUsd: $reserveQuoteUsd, quoteTokenPriceUsd: $quoteTokenPriceUsd, fakeAddress: $fakeAddress, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -287,45 +302,47 @@ class _$InventoryModelImpl implements _InventoryModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InventoryModelImpl &&
-            (identical(other.assetAddress, assetAddress) ||
-                other.assetAddress == assetAddress) &&
-            (identical(other.assetName, assetName) ||
-                other.assetName == assetName) &&
-            (identical(other.assetPrice, assetPrice) ||
-                other.assetPrice == assetPrice) &&
+            (identical(other.tokenAddress, tokenAddress) ||
+                other.tokenAddress == tokenAddress) &&
+            (identical(other.tokenName, tokenName) ||
+                other.tokenName == tokenName) &&
+            (identical(other.tokenNetwork, tokenNetwork) ||
+                other.tokenNetwork == tokenNetwork) &&
+            (identical(other.price, price) || other.price == price) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.liquidityUsd, liquidityUsd) ||
                 other.liquidityUsd == liquidityUsd) &&
-            (identical(other.volume_24hUsd, volume_24hUsd) ||
-                other.volume_24hUsd == volume_24hUsd) &&
-            (identical(other.poolFeeRate, poolFeeRate) ||
-                other.poolFeeRate == poolFeeRate) &&
+            (identical(other.volume24hUsd, volume24hUsd) ||
+                other.volume24hUsd == volume24hUsd) &&
             (identical(other.reserveBaseUsd, reserveBaseUsd) ||
                 other.reserveBaseUsd == reserveBaseUsd) &&
             (identical(other.reserveQuoteUsd, reserveQuoteUsd) ||
                 other.reserveQuoteUsd == reserveQuoteUsd) &&
+            (identical(other.quoteTokenPriceUsd, quoteTokenPriceUsd) ||
+                other.quoteTokenPriceUsd == quoteTokenPriceUsd) &&
             (identical(other.fakeAddress, fakeAddress) ||
                 other.fakeAddress == fakeAddress) &&
-            (identical(other.lastUpdateDateTime, lastUpdateDateTime) ||
-                other.lastUpdateDateTime == lastUpdateDateTime));
+            (identical(other.lastUpdated, lastUpdated) ||
+                other.lastUpdated == lastUpdated));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      assetAddress,
-      assetName,
-      assetPrice,
+      tokenAddress,
+      tokenName,
+      tokenNetwork,
+      price,
       quantity,
       liquidityUsd,
-      volume_24hUsd,
-      poolFeeRate,
+      volume24hUsd,
       reserveBaseUsd,
       reserveQuoteUsd,
+      quoteTokenPriceUsd,
       fakeAddress,
-      lastUpdateDateTime);
+      lastUpdated);
 
   /// Create a copy of InventoryModel
   /// with the given fields replaced by the non-null parameter values.
@@ -346,43 +363,46 @@ class _$InventoryModelImpl implements _InventoryModel {
 
 abstract class _InventoryModel implements InventoryModel {
   const factory _InventoryModel(
-      {required final String assetAddress,
-      required final String assetName,
-      required final double assetPrice,
+      {required final String tokenAddress,
+      required final String tokenName,
+      required final String tokenNetwork,
+      required final double price,
       required final double quantity,
       required final double liquidityUsd,
-      required final double volume_24hUsd,
-      required final double poolFeeRate,
+      required final double volume24hUsd,
       required final double reserveBaseUsd,
       required final double reserveQuoteUsd,
+      required final double quoteTokenPriceUsd,
       required final String fakeAddress,
-      required final String lastUpdateDateTime}) = _$InventoryModelImpl;
+      required final String lastUpdated}) = _$InventoryModelImpl;
 
   factory _InventoryModel.fromJson(Map<String, dynamic> json) =
       _$InventoryModelImpl.fromJson;
 
   @override
-  String get assetAddress;
+  String get tokenAddress;
   @override
-  String get assetName;
+  String get tokenName;
   @override
-  double get assetPrice;
+  String get tokenNetwork;
+  @override
+  double get price;
   @override
   double get quantity;
   @override
   double get liquidityUsd;
   @override
-  double get volume_24hUsd;
-  @override
-  double get poolFeeRate;
+  double get volume24hUsd;
   @override
   double get reserveBaseUsd;
   @override
   double get reserveQuoteUsd;
   @override
+  double get quoteTokenPriceUsd;
+  @override
   String get fakeAddress;
   @override
-  String get lastUpdateDateTime;
+  String get lastUpdated;
 
   /// Create a copy of InventoryModel
   /// with the given fields replaced by the non-null parameter values.
@@ -398,10 +418,10 @@ UserStats _$UserStatsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserStats {
-  double get customerCredit => throw _privateConstructorUsedError;
+  String get stage => throw _privateConstructorUsedError;
+  double get mining => throw _privateConstructorUsedError;
+  double get availableLoanAmount => throw _privateConstructorUsedError;
   double get sumOfMining => throw _privateConstructorUsedError;
-  String get userLevel => throw _privateConstructorUsedError;
-  List<String> get accessibleStages => throw _privateConstructorUsedError;
 
   /// Serializes this UserStats to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -419,10 +439,10 @@ abstract class $UserStatsCopyWith<$Res> {
       _$UserStatsCopyWithImpl<$Res, UserStats>;
   @useResult
   $Res call(
-      {double customerCredit,
-      double sumOfMining,
-      String userLevel,
-      List<String> accessibleStages});
+      {String stage,
+      double mining,
+      double availableLoanAmount,
+      double sumOfMining});
 }
 
 /// @nodoc
@@ -440,28 +460,28 @@ class _$UserStatsCopyWithImpl<$Res, $Val extends UserStats>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customerCredit = null,
+    Object? stage = null,
+    Object? mining = null,
+    Object? availableLoanAmount = null,
     Object? sumOfMining = null,
-    Object? userLevel = null,
-    Object? accessibleStages = null,
   }) {
     return _then(_value.copyWith(
-      customerCredit: null == customerCredit
-          ? _value.customerCredit
-          : customerCredit // ignore: cast_nullable_to_non_nullable
+      stage: null == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as String,
+      mining: null == mining
+          ? _value.mining
+          : mining // ignore: cast_nullable_to_non_nullable
+              as double,
+      availableLoanAmount: null == availableLoanAmount
+          ? _value.availableLoanAmount
+          : availableLoanAmount // ignore: cast_nullable_to_non_nullable
               as double,
       sumOfMining: null == sumOfMining
           ? _value.sumOfMining
           : sumOfMining // ignore: cast_nullable_to_non_nullable
               as double,
-      userLevel: null == userLevel
-          ? _value.userLevel
-          : userLevel // ignore: cast_nullable_to_non_nullable
-              as String,
-      accessibleStages: null == accessibleStages
-          ? _value.accessibleStages
-          : accessibleStages // ignore: cast_nullable_to_non_nullable
-              as List<String>,
     ) as $Val);
   }
 }
@@ -475,10 +495,10 @@ abstract class _$$UserStatsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {double customerCredit,
-      double sumOfMining,
-      String userLevel,
-      List<String> accessibleStages});
+      {String stage,
+      double mining,
+      double availableLoanAmount,
+      double sumOfMining});
 }
 
 /// @nodoc
@@ -494,64 +514,56 @@ class __$$UserStatsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customerCredit = null,
+    Object? stage = null,
+    Object? mining = null,
+    Object? availableLoanAmount = null,
     Object? sumOfMining = null,
-    Object? userLevel = null,
-    Object? accessibleStages = null,
   }) {
     return _then(_$UserStatsImpl(
-      customerCredit: null == customerCredit
-          ? _value.customerCredit
-          : customerCredit // ignore: cast_nullable_to_non_nullable
+      stage: null == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as String,
+      mining: null == mining
+          ? _value.mining
+          : mining // ignore: cast_nullable_to_non_nullable
+              as double,
+      availableLoanAmount: null == availableLoanAmount
+          ? _value.availableLoanAmount
+          : availableLoanAmount // ignore: cast_nullable_to_non_nullable
               as double,
       sumOfMining: null == sumOfMining
           ? _value.sumOfMining
           : sumOfMining // ignore: cast_nullable_to_non_nullable
               as double,
-      userLevel: null == userLevel
-          ? _value.userLevel
-          : userLevel // ignore: cast_nullable_to_non_nullable
-              as String,
-      accessibleStages: null == accessibleStages
-          ? _value._accessibleStages
-          : accessibleStages // ignore: cast_nullable_to_non_nullable
-              as List<String>,
     ));
   }
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$UserStatsImpl implements _UserStats {
   const _$UserStatsImpl(
-      {required this.customerCredit,
-      required this.sumOfMining,
-      required this.userLevel,
-      required final List<String> accessibleStages})
-      : _accessibleStages = accessibleStages;
+      {required this.stage,
+      required this.mining,
+      required this.availableLoanAmount,
+      required this.sumOfMining});
 
   factory _$UserStatsImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserStatsImplFromJson(json);
 
   @override
-  final double customerCredit;
+  final String stage;
+  @override
+  final double mining;
+  @override
+  final double availableLoanAmount;
   @override
   final double sumOfMining;
-  @override
-  final String userLevel;
-  final List<String> _accessibleStages;
-  @override
-  List<String> get accessibleStages {
-    if (_accessibleStages is EqualUnmodifiableListView)
-      return _accessibleStages;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_accessibleStages);
-  }
 
   @override
   String toString() {
-    return 'UserStats(customerCredit: $customerCredit, sumOfMining: $sumOfMining, userLevel: $userLevel, accessibleStages: $accessibleStages)';
+    return 'UserStats(stage: $stage, mining: $mining, availableLoanAmount: $availableLoanAmount, sumOfMining: $sumOfMining)';
   }
 
   @override
@@ -559,20 +571,18 @@ class _$UserStatsImpl implements _UserStats {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserStatsImpl &&
-            (identical(other.customerCredit, customerCredit) ||
-                other.customerCredit == customerCredit) &&
+            (identical(other.stage, stage) || other.stage == stage) &&
+            (identical(other.mining, mining) || other.mining == mining) &&
+            (identical(other.availableLoanAmount, availableLoanAmount) ||
+                other.availableLoanAmount == availableLoanAmount) &&
             (identical(other.sumOfMining, sumOfMining) ||
-                other.sumOfMining == sumOfMining) &&
-            (identical(other.userLevel, userLevel) ||
-                other.userLevel == userLevel) &&
-            const DeepCollectionEquality()
-                .equals(other._accessibleStages, _accessibleStages));
+                other.sumOfMining == sumOfMining));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, customerCredit, sumOfMining,
-      userLevel, const DeepCollectionEquality().hash(_accessibleStages));
+  int get hashCode =>
+      Object.hash(runtimeType, stage, mining, availableLoanAmount, sumOfMining);
 
   /// Create a copy of UserStats
   /// with the given fields replaced by the non-null parameter values.
@@ -592,22 +602,22 @@ class _$UserStatsImpl implements _UserStats {
 
 abstract class _UserStats implements UserStats {
   const factory _UserStats(
-      {required final double customerCredit,
-      required final double sumOfMining,
-      required final String userLevel,
-      required final List<String> accessibleStages}) = _$UserStatsImpl;
+      {required final String stage,
+      required final double mining,
+      required final double availableLoanAmount,
+      required final double sumOfMining}) = _$UserStatsImpl;
 
   factory _UserStats.fromJson(Map<String, dynamic> json) =
       _$UserStatsImpl.fromJson;
 
   @override
-  double get customerCredit;
+  String get stage;
+  @override
+  double get mining;
+  @override
+  double get availableLoanAmount;
   @override
   double get sumOfMining;
-  @override
-  String get userLevel;
-  @override
-  List<String> get accessibleStages;
 
   /// Create a copy of UserStats
   /// with the given fields replaced by the non-null parameter values.

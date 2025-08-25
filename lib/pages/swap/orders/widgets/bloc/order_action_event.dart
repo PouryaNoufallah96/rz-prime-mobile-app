@@ -11,7 +11,7 @@ class OrderActionDropped extends OrderActionEvent {
     required this.id,
   });
 
-  final int id;
+  final String id;
 
   @override
   List<Object?> get props => [id];

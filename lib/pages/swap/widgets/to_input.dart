@@ -33,8 +33,7 @@ class SwapToInput extends HookWidget {
         }
 
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          controller.text =
-              '${state.fromValue / state.selectedToken!.assetPrice}';
+          controller.text = '${state.fromValue / state.selectedToken!.price}';
         });
       },
       child: BlocSelector<SwapBloc, SwapState, InventoryModel?>(
@@ -81,8 +80,11 @@ class SwapToInput extends HookWidget {
                                   maxHeight: context.mSize.height * .8,
                                 ),
                                 showDragHandle: true,
-                                builder: (context) => _SelectToken(
-                                  selectedInventory: selectedToken,
+                                builder: (_) => BlocProvider.value(
+                                  value: context.read<InventoryBloc>(),
+                                  child: _SelectToken(
+                                    selectedInventory: selectedToken,
+                                  ),
                                 ),
                               );
 
@@ -112,7 +114,7 @@ class SwapToInput extends HookWidget {
                                     else
                                       AppToken(
                                         src: selectedToken.imageSrc,
-                                        name: selectedToken.assetName,
+                                        name: selectedToken.tokenName,
                                       ),
                                     const Icon(
                                       Icons.keyboard_arrow_down_rounded,
@@ -251,10 +253,10 @@ class _SelectToken extends HookWidget {
                 ...state.inventories
                     .where((e) =>
                         search.value.isEmpty ||
-                        e.assetName.toLowerCase().contains(search.value))
+                        e.tokenName.toLowerCase().contains(search.value))
                     .map((e) {
                   return Material(
-                    color: e.assetName == selectedInventory?.assetName
+                    color: e.tokenName == selectedInventory?.tokenName
                         ? context.colorScheme.primary.withValues(alpha: .24)
                         : Colors.transparent,
                     child: InkWell(
@@ -266,7 +268,7 @@ class _SelectToken extends HookWidget {
                             child: DecoratedBox(
                               decoration: BoxDecoration(
                                 color:
-                                    e.assetName == selectedInventory?.assetName
+                                    e.tokenName == selectedInventory?.tokenName
                                         ? context.colorScheme.primary
                                         : Colors.transparent,
                                 borderRadius: BorderRadius.circular(8),
@@ -290,7 +292,7 @@ class _SelectToken extends HookWidget {
                                   AppToken(
                                     size: 34,
                                     src: e.imageSrc,
-                                    name: e.assetName,
+                                    name: e.tokenName,
                                     textStyle: const TextStyle(
                                       fontFamily: 'CentraNo1-Book',
                                       fontSize: 16,

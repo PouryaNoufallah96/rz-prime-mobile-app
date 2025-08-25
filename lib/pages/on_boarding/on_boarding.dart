@@ -6,7 +6,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/gen/assets.gen.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});
@@ -48,15 +47,16 @@ class _Body extends HookWidget {
     return Column(
       children: [
         const SizedBox(height: 16),
-        Center(
-          child: Text(
-            'GainX',
-            style: GoogleFonts.poppins(
-              fontSize: 24,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
+        Assets.images.logoText.svg(),
+        // Center(
+        //   child: Text(
+        //     'GainX',
+        //     style: GoogleFonts.poppins(
+        //       fontSize: 24,
+        //       fontWeight: FontWeight.w400,
+        //     ),
+        //   ),
+        // ),
         const SizedBox(height: 36),
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),

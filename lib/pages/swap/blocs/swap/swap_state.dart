@@ -24,7 +24,7 @@ class SwapState with EquatableMixin {
     this.swapPayOfTime,
     this.fromValue = 0,
     this.submitSwapStatus = SubmitSwapStatus.idle,
-  }) : selectedLevel = selectedLevel ?? stats.userLevel;
+  }) : selectedLevel = selectedLevel ?? stats.stage;
 
   final UserStats stats;
   final String selectedLevel;

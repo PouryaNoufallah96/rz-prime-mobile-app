@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/components/app_logo.dart';
-import 'package:gainx/core/env.dart';
+import 'package:gainx/core/blocs/reown/reown_bloc.dart';
+import 'package:gainx/core/services/reown/reown.dart';
+import 'package:gainx/core/utils/theme_utils.dart';
+import 'package:gainx/gen/assets.gen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reown_appkit/modal/i_appkit_modal_impl.dart';
 import 'package:reown_appkit/reown_appkit.dart';
 
 class AuthPage extends StatelessWidget {
@@ -9,171 +15,270 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            const SizedBox(height: 16),
-            Center(
-              child: Text(
-                'GainX',
-                style: GoogleFonts.poppins(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
+    return BlocProvider(
+      create: (context) => ReownBloc(
+        authInterceptor: context.read(),
+        authService: context.read(),
+        reownService: context.read(),
+      )..add(ReownStarted()),
+      lazy: false,
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
+            children: [
+              const SizedBox(height: 16),
+              Assets.images.logoText.svg(),
+              // Center(
+              //   child: Text(
+              //     'GainX',
+              //     style: GoogleFonts.poppins(
+              //       fontSize: 24,
+              //       fontWeight: FontWeight.w400,
+              //     ),
+              //   ),
+              // ),
+              const SizedBox(height: 36),
+              const Align(child: AppLogo()),
+              const SizedBox(height: 16),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 320),
+                child: const Column(
+                  children: [
+                    Text(
+                      'Set Up Your Wallet',
+                      style: TextStyle(
+                        fontFamily: 'CentraNo1-Bold',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      // ignore: lines_longer_than_80_chars
+                      'Choose how you like to get started: Please choose a wallet to proceed',
+                      style: TextStyle(
+                        fontFamily: 'CentraNo1-Book',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
-            ),
-            const SizedBox(height: 36),
-            const Align(child: AppLogo()),
-            const SizedBox(height: 16),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 320),
-              child: const Column(
-                children: [
-                  Text(
-                    'Set Up Your Wallet',
-                    style: TextStyle(
-                      fontFamily: 'CentraNo1-Bold',
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Choose how you like to get started: Please choose a wallet to proceed',
-                    style: TextStyle(
-                      fontFamily: 'CentraNo1-Book',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+              const Spacer(),
+              _Auth(
+                appKit: context.read<ReownService>().appKitModal,
               ),
-            ),
-            const Spacer(),
-            const _Auth(),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _Auth extends StatefulWidget {
-  const _Auth();
+class _Auth extends StatefulHookWidget {
+  const _Auth({
+    required this.appKit,
+  });
+
+  final ReownAppKitModal appKit;
 
   @override
   State<_Auth> createState() => __AuthState();
 }
 
 class __AuthState extends State<_Auth> {
-  late ReownAppKitModal _appKitModal;
-  late ReownAppKit _appKit;
+  ConnectButtonState _state = ConnectButtonState.none;
+  ReownAppKitModalStatus _status = ReownAppKitModalStatus.initializing;
+  bool _isConnected = false;
 
   @override
   void initState() {
     super.initState();
-    init();
+    _updateState();
+    widget.appKit.addListener(_updateState);
   }
 
-  Future<void> init() async {
-    _appKit = ReownAppKit(
-      core: ReownCore(projectId: Env.reownProjectId),
-      metadata: const PairingMetadata(
-        name: 'Example App',
-        description: 'Example app description',
-        url: 'https://example.com/',
-        icons: ['https://example.com/logo.png'],
-        redirect: Redirect(
-          native: 'com.example.gainx://',
-          universal: 'https://reown.com/exampleapp',
-          linkMode: true,
-        ),
-      ),
-    );
+  @override
+  void didUpdateWidget(covariant _Auth oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _updateState();
+  }
 
-    _appKitModal = ReownAppKitModal(
-      context: context,
-      appKit: _appKit,
-      projectId: Env.reownProjectId,
-      metadata: const PairingMetadata(
-        name: 'Example App',
-        description: 'Example app description',
-        url: 'https://example.com/',
-        icons: ['https://example.com/logo.png'],
-        redirect: Redirect(
-          native: 'com.example.gainx://',
-          universal: 'https://reown.com/exampleapp',
-          linkMode: true,
-        ),
-      ),
-      includedWalletIds: {
-        '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0'
-      },
-      siweConfig: SIWEConfig(
-        getNonce: () async {
-          return SIWEUtils.generateNonce();
-        },
-        getMessageParams: () async {
-          return SIWEMessageArgs(
-            domain: Uri.parse(_appKitModal.appKit!.metadata.url).authority,
-            uri: _appKitModal.appKit!.metadata.url,
-            statement: '{Your custom message here}',
-            methods: MethodsConstants.allMethods,
-          );
-        },
-        createMessage: SIWEUtils.formatMessage,
-        verifyMessage: (SIWEVerifyMessageArgs args) async {
-          final chainId = SIWEUtils.getChainIdFromMessage(args.message);
-          final address = SIWEUtils.getAddressFromMessage(args.message);
-          final cacaoSignature = args.cacao != null
-              ? args.cacao!.s
-              : CacaoSignature(
-                  t: CacaoSignature.EIP191,
-                  s: args.signature,
-                );
-          return SIWEUtils.verifySignature(
-            address,
-            args.message,
-            cacaoSignature,
-            chainId,
-            Env.reownProjectId,
-          );
-        },
-        getSession: () async {
-          final chainId = _appKitModal.selectedChain?.chainId ?? '1';
-          final namespace = ReownAppKitModalNetworks.getNamespaceForChainId(
-            chainId,
-          );
-          final address = _appKitModal.session!.getAddress(namespace)!;
-          return SIWESession(address: address, chains: [chainId]);
-        },
-        signOut: () async {
-          return true;
-        },
-      ),
-    );
+  @override
+  void dispose() {
+    super.dispose();
+    widget.appKit.removeListener(_updateState);
+  }
 
-    await _appKit.init();
-    await _appKitModal.init();
+  void _updateState() {
+    setState(() {
+      _status = widget.appKit.status;
+      _isConnected = widget.appKit.isConnected;
+    });
 
-    // _appKitModal.dispatchEnvelope(url);
+    if (_state == ConnectButtonState.none && !_isConnected) {
+      return;
+    }
+    if (widget.appKit.status == ReownAppKitModalStatus.error) {
+      return setState(() => _state = ConnectButtonState.error);
+    } else if (widget.appKit.isConnected) {
+      return setState(() => _state = ConnectButtonState.connected);
+    } else if (!widget.appKit.hasNamespaces) {
+      return setState(() => _state = ConnectButtonState.disabled);
+    } else if (!widget.appKit.isOpen && !widget.appKit.isConnected) {
+      return setState(() => _state = ConnectButtonState.idle);
+    } else if (widget.appKit.isOpen && !widget.appKit.isConnected) {
+      return setState(() => _state = ConnectButtonState.connecting);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final animationController = useAnimationController(
+        duration: const Duration(seconds: 1), lowerBound: .5);
+
+    useEffect(() {
+      animationController.repeat(reverse: true);
+      return null;
+    }, []);
+
+    final color = switch (_state) {
+      ConnectButtonState.connected => context.colorExtension.success,
+      ConnectButtonState.connecting => context.colorScheme.error,
+      _ => context.colorScheme.error,
+    };
+
+    final text = switch (_state) {
+      ConnectButtonState.connected => 'Connected',
+      ConnectButtonState.connecting => 'Connecting',
+      _ => 'Disconnected',
+    };
+
+    // final buttonText = switch (_state) {
+    //   ConnectButtonState.connected => 'Login',
+    //   ConnectButtonState.connecting => 'Connecting to wallet...',
+    //   _ => 'Connect',
+    // };
+
+    final isLoading =
+        _state == ConnectButtonState.connecting || _status.isLoading;
+
     return Column(
       children: [
-        Center(
-          child: AppKitModalConnectButton(
-            appKit: _appKitModal,
+        Row(
+          spacing: 8,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FadeTransition(
+              opacity: animationController,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+                child: const SizedBox.square(
+                  dimension: 8,
+                ),
+              ),
+            ),
+            Text(
+              text,
+              style: const TextStyle(
+                fontFamily: 'CentraNo1-Book',
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 24),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(35, 0, 35, 8),
+          child: BlocSelector<ReownBloc, ReownState, AppReownLoadingStatus>(
+            selector: (state) => state.status,
+            builder: (context, status) {
+              final showLoading =
+                  status != AppReownLoadingStatus.none || isLoading;
+
+              final loadingText = switch (status) {
+                AppReownLoadingStatus.none => null,
+                AppReownLoadingStatus.getNonce => 'Get Nonce',
+                AppReownLoadingStatus.signing => 'Signing',
+                AppReownLoadingStatus.getToken => 'Get Token',
+              };
+
+              return ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 320),
+                child: FilledButton(
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size.fromHeight(48),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(12),
+                    ),
+                  ),
+                  onPressed: showLoading
+                      ? null
+                      : () {
+                          context
+                              .read<ReownBloc>()
+                              .add(ReownLogginButtonPressed());
+                        },
+                  child: showLoading
+                      ? const SizedBox.square(
+                          dimension: 24,
+                          child: Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          ),
+                        )
+                      : Text(
+                          loadingText ?? 'Login',
+                          style: const TextStyle(
+                            fontFamily: 'CentraNo1-Medium',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+              );
+            },
           ),
         ),
-        AppKitModalAccountButton(
-          appKitModal: _appKitModal,
-        ),
+        if (_isConnected)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(35, 0, 35, 40),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 320),
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(12),
+                  ),
+                  side: BorderSide(
+                    color: context.colorScheme.primary,
+                  ),
+                ),
+                onPressed: isLoading
+                    ? null
+                    : () {
+                        widget.appKit.openModalView();
+                      },
+                child: const Text(
+                  'Current wallet',
+                  style: TextStyle(
+                    fontFamily: 'CentraNo1-Medium',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ),
       ],
     );
   }

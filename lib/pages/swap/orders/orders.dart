@@ -7,6 +7,7 @@ import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/orders/cubit/open_orders_cubit.dart';
 import 'package:gainx/pages/swap/orders/widgets/actions.dart';
+import 'package:intl/intl.dart';
 
 class SwapOrders extends StatelessWidget {
   const SwapOrders({super.key});
@@ -47,8 +48,9 @@ class SwapOrders extends StatelessWidget {
                         children: [
                           AppToken(
                             size: 34,
-                            src: 'assets/images/${order.asset}.png',
-                            name: order.asset,
+                            src:
+                                'assets/images/${order.tokenName.toLowerCase()}.png',
+                            name: order.tokenName,
                             textStyle: const TextStyle(
                               fontFamily: 'CentraNo1-Medium',
                               fontSize: 16,
@@ -66,7 +68,8 @@ class SwapOrders extends StatelessWidget {
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: order.payoffDate,
+                                    text: DateFormat('yyyy-MM-dd').format(
+                                        DateTime.parse(order.payOffDate)),
                                     style: const TextStyle(
                                       fontFamily: 'CentraNo1-Book',
                                       fontSize: 16,
@@ -84,7 +87,7 @@ class SwapOrders extends StatelessWidget {
                         children: [
                           Text(
                             '${AppNumberFromatter.format(order.quantity)}'
-                            ' ${order.asset}',
+                            ' ${order.tokenName}',
                             style: const TextStyle(
                               fontFamily: 'CentraNo1-Medium',
                               fontSize: 14,
@@ -140,8 +143,8 @@ class SwapOrders extends StatelessWidget {
 
                               return state.inventories
                                       .firstWhereOrNull(
-                                          (e) => e.assetName == order.asset)
-                                      ?.assetPrice ??
+                                          (e) => e.tokenName == order.tokenName)
+                                      ?.price ??
                                   0;
                             },
                             builder: (context, livePrice) {

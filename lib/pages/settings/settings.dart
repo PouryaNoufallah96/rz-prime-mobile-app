@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
+import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -36,9 +37,7 @@ class _Body extends StatelessWidget {
           builder: (context, isDark) {
             return SwitchListTile(
               value: isDark,
-              onChanged: (_) => context
-                  .read<PreferencesBloc>()
-                  .add(PreferencesThemeToggled()),
+              onChanged: null,
               subtitle: const Text(
                 'Choose your preferred GinX theme.',
                 style: TextStyle(
@@ -48,7 +47,7 @@ class _Body extends StatelessWidget {
                 ),
               ),
               title: const Text(
-                'Dard Mode',
+                'Dark Mode',
                 style: TextStyle(
                   fontFamily: 'CentraNo1-Medium',
                   fontSize: 16,
@@ -63,6 +62,7 @@ class _Body extends StatelessWidget {
           value: false,
           onChanged: (_) {},
           subtitle: const Text(
+            // ignore: lines_longer_than_80_chars
             'Stay in the loop on what’s happening in your wallet with notification',
             style: TextStyle(
               fontFamily: 'CentraNo1-Book',
@@ -85,7 +85,9 @@ class _Body extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<AuthInterceptor>().clear();
+              },
               style: FilledButton.styleFrom(
                 textStyle: const TextStyle(
                   fontFamily: 'CentraNo1-Medium',

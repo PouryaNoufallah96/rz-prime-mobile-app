@@ -25,17 +25,19 @@ class PricePerUnitBloc extends Bloc<PricePerUnitEvent, PricePerUnitState> {
   ) async {
     emit(PricePerUnitStateInProgressState());
 
-    if (event.asset == null) {
+    if (event.asset == null || event.value <= 0) {
       return;
     }
+    try {
+      final price = await _ordersService.effectivePrice(
+        assetName: event.asset!,
+        loanAmount: event.value,
+      );
 
-    final price = await _ordersService.effectivePrice(
-      assetName: event.asset!,
-      loanAmount: event.value,
-    );
-
-    if (price != null) {
-      emit(PricePerUnitStateSuccessState(effectivePrice: price.effectivePrice));
-    }
+      if (price != null) {
+        emit(PricePerUnitStateSuccessState(
+            effectivePrice: price.effectivePrice));
+      }
+    } catch (_) {}
   }
 }

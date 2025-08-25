@@ -25,9 +25,14 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     }
 
     final inventories = await _statsService.inventories();
-    emit(InventorySuccessState(inventories: inventories));
+
+    if (inventories.isNotEmpty) {
+      emit(InventorySuccessState(inventories: inventories));
+    }
 
     await Future<void>.delayed(const Duration(seconds: 10));
-    add(InventoryStartedEvent());
+    if (!isClosed) {
+      add(InventoryStartedEvent());
+    }
   }
 }

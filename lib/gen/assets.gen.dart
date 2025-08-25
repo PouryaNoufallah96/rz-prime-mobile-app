@@ -7,7 +7,10 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart' as _svg;
+import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
 class $AssetsFontsGen {
   const $AssetsFontsGen();
@@ -87,29 +90,32 @@ class $AssetsIconsGen {
   const $AssetsIconsGen();
 
   /// File path: assets/icons/arrow-down-left.svg
-  String get arrowDownLeft => 'assets/icons/arrow-down-left.svg';
+  SvgGenImage get arrowDownLeft =>
+      const SvgGenImage('assets/icons/arrow-down-left.svg');
 
   /// File path: assets/icons/arrow-up-right.png
   AssetGenImage get arrowUpRightPng =>
       const AssetGenImage('assets/icons/arrow-up-right.png');
 
   /// File path: assets/icons/arrow-up-right.svg
-  String get arrowUpRightSvg => 'assets/icons/arrow-up-right.svg';
+  SvgGenImage get arrowUpRightSvg =>
+      const SvgGenImage('assets/icons/arrow-up-right.svg');
 
   /// File path: assets/icons/arrow_down.svg
-  String get arrowDown => 'assets/icons/arrow_down.svg';
+  SvgGenImage get arrowDown => const SvgGenImage('assets/icons/arrow_down.svg');
 
   /// File path: assets/icons/arrow_reload.svg
-  String get arrowReload => 'assets/icons/arrow_reload.svg';
+  SvgGenImage get arrowReload =>
+      const SvgGenImage('assets/icons/arrow_reload.svg');
 
   /// File path: assets/icons/clock.svg
-  String get clock => 'assets/icons/clock.svg';
+  SvgGenImage get clock => const SvgGenImage('assets/icons/clock.svg');
 
   /// File path: assets/icons/settings.svg
-  String get settings => 'assets/icons/settings.svg';
+  SvgGenImage get settings => const SvgGenImage('assets/icons/settings.svg');
 
   /// File path: assets/icons/tether.svg
-  String get tether => 'assets/icons/tether.svg';
+  SvgGenImage get tether => const SvgGenImage('assets/icons/tether.svg');
 
   /// List of all assets
   List<dynamic> get values => [
@@ -127,42 +133,36 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/Car.png
-  AssetGenImage get car => const AssetGenImage('assets/images/Car.png');
-
-  /// File path: assets/images/Industrial.png
-  AssetGenImage get industrial =>
-      const AssetGenImage('assets/images/Industrial.png');
-
-  /// File path: assets/images/Insurance.png
-  AssetGenImage get insurance =>
-      const AssetGenImage('assets/images/Insurance.png');
-
-  /// File path: assets/images/Jewelry.png
-  AssetGenImage get jewelry => const AssetGenImage('assets/images/Jewelry.png');
-
-  /// File path: assets/images/MGC.png
-  AssetGenImage get mgc => const AssetGenImage('assets/images/MGC.png');
-
-  /// File path: assets/images/RZ.png
-  AssetGenImage get rz => const AssetGenImage('assets/images/RZ.png');
-
-  /// File path: assets/images/RealEstate.png
-  AssetGenImage get realEstate =>
-      const AssetGenImage('assets/images/RealEstate.png');
-
-  /// File path: assets/images/Trip.png
-  AssetGenImage get trip => const AssetGenImage('assets/images/Trip.png');
-
   /// File path: assets/images/app_icon.webp
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
 
+  /// File path: assets/images/car.png
+  AssetGenImage get car => const AssetGenImage('assets/images/car.png');
+
   /// File path: assets/images/gold.svg
-  String get gold => 'assets/images/gold.svg';
+  SvgGenImage get gold => const SvgGenImage('assets/images/gold.svg');
 
   /// File path: assets/images/gold_disable.svg
-  String get goldDisable => 'assets/images/gold_disable.svg';
+  SvgGenImage get goldDisable =>
+      const SvgGenImage('assets/images/gold_disable.svg');
+
+  /// File path: assets/images/industrial.png
+  AssetGenImage get industrial =>
+      const AssetGenImage('assets/images/industrial.png');
+
+  /// File path: assets/images/insurance.png
+  AssetGenImage get insurance =>
+      const AssetGenImage('assets/images/insurance.png');
+
+  /// File path: assets/images/jewelry.png
+  AssetGenImage get jewelry => const AssetGenImage('assets/images/jewelry.png');
+
+  /// File path: assets/images/logo_text.svg
+  SvgGenImage get logoText => const SvgGenImage('assets/images/logo_text.svg');
+
+  /// File path: assets/images/mgc.png
+  AssetGenImage get mgc => const AssetGenImage('assets/images/mgc.png');
 
   /// File path: assets/images/on_boarding_1.webp
   AssetGenImage get onBoarding1 =>
@@ -177,43 +177,56 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/on_boarding_3.webp');
 
   /// File path: assets/images/premium.svg
-  String get premium => 'assets/images/premium.svg';
+  SvgGenImage get premium => const SvgGenImage('assets/images/premium.svg');
 
   /// File path: assets/images/premium_ِdisable.svg
-  String get premiumDisable => 'assets/images/premium_ِdisable.svg';
+  SvgGenImage get premiumDisable =>
+      const SvgGenImage('assets/images/premium_ِdisable.svg');
+
+  /// File path: assets/images/realestate.png
+  AssetGenImage get realestate =>
+      const AssetGenImage('assets/images/realestate.png');
 
   /// File path: assets/images/regular.svg
-  String get regular => 'assets/images/regular.svg';
+  SvgGenImage get regular => const SvgGenImage('assets/images/regular.svg');
 
   /// File path: assets/images/regular_disable.svg
-  String get regularDisable => 'assets/images/regular_disable.svg';
+  SvgGenImage get regularDisable =>
+      const SvgGenImage('assets/images/regular_disable.svg');
+
+  /// File path: assets/images/rz.png
+  AssetGenImage get rz => const AssetGenImage('assets/images/rz.png');
+
+  /// File path: assets/images/trip.png
+  AssetGenImage get trip => const AssetGenImage('assets/images/trip.png');
 
   /// File path: assets/images/x.svg
-  String get x => 'assets/images/x.svg';
+  SvgGenImage get x => const SvgGenImage('assets/images/x.svg');
 
   /// File path: assets/images/x_disable.svg
-  String get xDisable => 'assets/images/x_disable.svg';
+  SvgGenImage get xDisable => const SvgGenImage('assets/images/x_disable.svg');
 
   /// List of all assets
   List<dynamic> get values => [
+        appIcon,
         car,
+        gold,
+        goldDisable,
         industrial,
         insurance,
         jewelry,
+        logoText,
         mgc,
-        rz,
-        realEstate,
-        trip,
-        appIcon,
-        gold,
-        goldDisable,
         onBoarding1,
         onBoarding2,
         onBoarding3,
         premium,
         premiumDisable,
+        realestate,
         regular,
         regularDisable,
+        rz,
+        trip,
         x,
         xDisable
       ];
@@ -300,6 +313,83 @@ class AssetGenImage {
       _assetName,
       bundle: bundle,
       package: package,
+    );
+  }
+
+  String get path => _assetName;
+
+  String get keyName => _assetName;
+}
+
+class SvgGenImage {
+  const SvgGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  }) : _isVecFormat = false;
+
+  const SvgGenImage.vec(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  }) : _isVecFormat = true;
+
+  final String _assetName;
+  final Size? size;
+  final Set<String> flavors;
+  final bool _isVecFormat;
+
+  _svg.SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    _svg.SvgTheme? theme,
+    ColorFilter? colorFilter,
+    Clip clipBehavior = Clip.hardEdge,
+    @deprecated Color? color,
+    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
+    @deprecated bool cacheColorFilter = false,
+  }) {
+    final _svg.BytesLoader loader;
+    if (_isVecFormat) {
+      loader = _vg.AssetBytesLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+      );
+    } else {
+      loader = _svg.SvgAssetLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+        theme: theme,
+      );
+    }
+    return _svg.SvgPicture(
+      loader,
+      key: key,
+      matchTextDirection: matchTextDirection,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      colorFilter: colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
+      clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
     );
   }
 

@@ -1,28 +1,55 @@
+import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/env.dart';
+import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
+import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/services/http_service/http_service.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/stats_service/stats_service.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 Widget appInjection(Widget child) {
   return MultiRepositoryProvider(
     providers: [
       RepositoryProvider(
+        create: (context) => DeepLinkHandler()..init(),
+        lazy: false,
+      ),
+      RepositoryProvider(
+        create: (context) => AuthInterceptor(),
+        lazy: false,
+      ),
+      RepositoryProvider(
         create: (context) => Dio(
           BaseOptions(
             baseUrl: Env.apiEndPoint,
+            headers: {
+              'Origin': 'https://api.rzprime.com',
+              'applicationid': 'rzprime.app',
+            },
           ),
-        ),
+        )..interceptors.addAll([
+            CurlLoggerDioInterceptor(),
+            // PrettyDioLogger(
+            //   requestBody: true,
+            // ),
+            context.read<AuthInterceptor>(),
+          ]),
+        lazy: false,
       ),
       RepositoryProvider(
         create: (context) => HttpService(
           dio: context.read(),
+        ),
+      ),
+      RepositoryProvider(
+        create: (context) => AuthService(
+          adapter: context.read(),
         ),
       ),
       RepositoryProvider(
@@ -41,12 +68,6 @@ Widget appInjection(Widget child) {
         BlocProvider(
           create: (context) => PreferencesBloc(),
         ),
-        BlocProvider(
-          lazy: false,
-          create: (context) => InventoryBloc(
-            statsService: context.read(),
-          )..add(InventoryStartedEvent()),
-        ),
       ],
       child: child,
     ),
@@ -54,9 +75,12 @@ Widget appInjection(Widget child) {
 }
 
 class DeepLinkHandler {
-  static const _eventChannel = EventChannel('com.exampledapp/events');
+  DeepLinkHandler()
+      : _eventChannel = const EventChannel('com.exampledapp/events');
 
-  static void init() {
+  final EventChannel _eventChannel;
+
+  void init() {
     if (kIsWeb) return;
 
     try {
@@ -66,9 +90,9 @@ class DeepLinkHandler {
     }
   }
 
-  static Future<void> _onLink(dynamic link) async {
+  Future<void> _onLink(dynamic link) async {
     try {} catch (_) {}
   }
 
-  static void _onError(dynamic error) {}
+  void _onError(dynamic error) {}
 }

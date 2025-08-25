@@ -21,101 +21,114 @@ class SwapFromInput extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useTextEditingController(text: '0');
 
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: context.colorScheme.outlineVariant,
-        borderRadius: BorderRadiusGeometry.circular(12),
-      ),
-      child: Padding(
-        padding: const EdgeInsetsGeometry.symmetric(
-          horizontal: 16,
-          vertical: 20,
+    return BlocListener<SwapBloc, SwapState>(
+      listenWhen: (previous, current) {
+        return previous.submitSwapStatus == SubmitSwapStatus.inProgress &&
+            current.submitSwapStatus == SubmitSwapStatus.idle &&
+            previous.fromValue > 0 &&
+            current.fromValue == 0;
+      },
+      listener: (context, state) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          controller.text = '0';
+        });
+      },
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: context.colorScheme.outlineVariant,
+          borderRadius: BorderRadiusGeometry.circular(12),
         ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: const Color(0xff121314),
-                    borderRadius: BorderRadiusGeometry.circular(80),
-                  ),
-                  child: const SizedBox(
-                    width: 133,
-                    child: Padding(
-                      padding: EdgeInsetsGeometry.fromLTRB(8, 8, 0, 8),
-                      child: AppToken(
-                        src: 'assets/icons/tether.svg',
-                        name: 'Tether',
+        child: Padding(
+          padding: const EdgeInsetsGeometry.symmetric(
+            horizontal: 16,
+            vertical: 20,
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: const Color(0xff121314),
+                      borderRadius: BorderRadiusGeometry.circular(80),
+                    ),
+                    child: const SizedBox(
+                      width: 133,
+                      child: Padding(
+                        padding: EdgeInsetsGeometry.fromLTRB(8, 8, 0, 8),
+                        child: AppToken(
+                          src: 'assets/icons/tether.svg',
+                          name: 'Tether',
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Text.rich(
-                  TextSpan(
-                    text: 'Balance: ',
-                    children: [
-                      TextSpan(
-                        text: '${AppNumberFromatter.format(stats.balance)}'
-                            ' USDT',
-                        style: const TextStyle(
-                          fontFamily: 'CentraNo1-Medium',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xffffffff),
+                  Text.rich(
+                    TextSpan(
+                      text: 'Balance: ',
+                      children: [
+                        TextSpan(
+                          text: '${AppNumberFromatter.format(stats.balance)}'
+                              ' USDT',
+                          style: const TextStyle(
+                            fontFamily: 'CentraNo1-Medium',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xffffffff),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  style: TextStyle(
-                    fontFamily: 'CentraNo1-Book',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: context.colorExtension.neutral[400],
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              style: const TextStyle(
-                fontFamily: 'CentraNo1-Medium',
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Color(0xffffffff),
+                      ],
+                    ),
+                    style: TextStyle(
+                      fontFamily: 'CentraNo1-Book',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: context.colorExtension.neutral[400],
+                    ),
+                  )
+                ],
               ),
-              controller: controller,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              inputFormatters: [
-                SwapAmountFormatter(
-                  max: '${stats.balance}',
-                  maxDecimals: 12,
+              const SizedBox(height: 16),
+              TextFormField(
+                style: const TextStyle(
+                  fontFamily: 'CentraNo1-Medium',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffffffff),
                 ),
-              ],
-              cursorHeight: 24,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                suffixIcon: TextButton(
-                  onPressed: () {
-                    controller.text = '${stats.balance}';
-                  },
-                  style: TextButton.styleFrom(
-                    foregroundColor: context.colorExtension.neutral,
+                controller: controller,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  SwapAmountFormatter(
+                    max: '${stats.balance}',
+                    maxDecimals: 12,
                   ),
-                  child: const Text('Max'),
+                ],
+                cursorHeight: 24,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                  suffixIcon: TextButton(
+                    onPressed: () {
+                      controller.text = '${stats.balance}';
+                    },
+                    style: TextButton.styleFrom(
+                      foregroundColor: context.colorExtension.neutral,
+                    ),
+                    child: const Text('Max'),
+                  ),
                 ),
-              ),
-              onChanged: (value) {
-                final amount = NumberFormat().tryParse(value) ?? 0;
+                onChanged: (value) {
+                  final amount = NumberFormat().tryParse(value) ?? 0;
 
-                context
-                    .read<SwapBloc>()
-                    .add(SwapFromValueChanged(value: amount.toDouble()));
-              },
-            ),
-          ],
+                  context
+                      .read<SwapBloc>()
+                      .add(SwapFromValueChanged(value: amount.toDouble()));
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

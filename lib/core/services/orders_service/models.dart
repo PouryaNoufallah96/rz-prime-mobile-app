@@ -5,35 +5,44 @@ part 'models.g.dart';
 
 @freezed
 class HistoryOrder with _$HistoryOrder {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HistoryOrder({
-    required int id,
-    required String asset,
-    required String assetAddress,
-    required String date,
-    required double loanAmount,
-    required double numberOfMonths,
     required String orderId,
-    required String payoffDate,
-    required double profitRatePerMonth,
-    required double quantity,
-    required String stage,
-    required String time,
+    required String createdMoment,
+    required String userPublicKey,
     required String walletAddress,
-    required double assetPrice,
+    required String userStageId,
+    required String stage,
+    required String tokenName,
+    required double quantity,
+    required String tokenNetwork,
+    required String tokenAddress,
+    required double tokenEffectivePrice,
+    required double loanAmount,
+    required double loanInterestAmount,
     required double finalAmount,
-    required String registeredAmount,
-    FinalizedOrder? finalizedOrder,
-    String? transactionHash,
+    required double profitRatePerMonth,
+    required double monthDuration,
+    required String payOffDate,
+    required String tokenAmountInWei,
+    required String payAmountInWei,
+    required HistoryOrderState state,
   }) = _HistoryOrder;
 
   factory HistoryOrder.fromJson(Map<String, dynamic> json) =>
       _$HistoryOrderFromJson(json);
 }
 
+enum HistoryOrderState {
+  @JsonValue('Registered')
+  registed(),
+  @JsonValue('Drop')
+  drop(),
+  @JsonValue('Paid ')
+  paid();
+}
+
 @freezed
 class FinalizedOrder with _$FinalizedOrder {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory FinalizedOrder({
     required String paymentStatus,
     required double finalizedAmount,
@@ -46,10 +55,14 @@ class FinalizedOrder with _$FinalizedOrder {
 
 @freezed
 class EffectivePriceModel with _$EffectivePriceModel {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory EffectivePriceModel({
-    required double effectiveRoughEstimationQuantity,
-    required double effectivePrice,
+    @Default(0) double marketPrice,
+    @Default(0) double effectivePrice,
+    @Default(0) double priceImpact,
+    @Default(0) double totalCost,
+    @Default(0) double bnbPriceUsd,
+    @Default(0) double tokenReserve,
+    @Default(0) double bnbReserve,
   }) = _EffectivePriceModel;
 
   factory EffectivePriceModel.fromJson(Map<String, dynamic> json) =>
