@@ -74,9 +74,13 @@ class _OrderActions extends StatelessWidget {
                     ),
                   ),
                   child: isInProgress
-                      ? const SizedBox.square(
+                      ? SizedBox.square(
                           dimension: 20,
-                          child: CircularProgressIndicator.adaptive(),
+                          child: CircularProgressIndicator.adaptive(
+                            valueColor: AlwaysStoppedAnimation(
+                              context.colorScheme.primary,
+                            ),
+                          ),
                         )
                       : Text(
                           'Drop',
@@ -120,15 +124,17 @@ class _OrderActions extends StatelessWidget {
                   child: isInProgress
                       ? const SizedBox.square(
                           dimension: 20,
-                          child: CircularProgressIndicator.adaptive(),
+                          child: CircularProgressIndicator.adaptive(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          ),
                         )
-                      : Text(
+                      : const Text(
                           'Pay',
                           style: TextStyle(
                             fontFamily: 'CentraNo1-Book',
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: context.colorScheme.primary,
+                            color: Colors.white,
                           ),
                         ),
                 );

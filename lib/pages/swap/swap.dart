@@ -133,17 +133,6 @@ class _SwapBody extends StatelessWidget {
                   color: Color(0xffffffff),
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  final address =
-                      context.read<AuthInterceptor>().stream.value.address;
-                  context.read<TransactionService>().approve(
-                        address!,
-                        106.266130010451433698,
-                      );
-                },
-                child: const Text('data'),
-              ),
             ]),
           ),
           const SwapOrders(),
