@@ -21,7 +21,6 @@ class OrderActions extends HookWidget {
     return BlocProvider(
       create: (context) => OrderActionBloc(
         ordersService: context.read(),
-        authInterceptor: context.read(),
         transactionService: context.read(),
       ),
       child: _OrderActions(

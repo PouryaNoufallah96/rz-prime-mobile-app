@@ -9,10 +9,7 @@ class TransactionService {
 
   final ReownService _reownService;
 
-  Future<bool> approve(
-    String address,
-    double amount,
-  ) async {
+  Future<bool> approve(double amount) async {
     final chainId = _reownService.appKitModal.selectedChain?.chainId;
 
     if (chainId == null) {
@@ -20,7 +17,7 @@ class TransactionService {
     }
 
     final value = _parseUnits('$amount');
-    final addressCheckSum = EthereumAddress.fromHex(address);
+    final addressCheckSum = _address();
     final spenderAddress = AppContractAbi.appContract.address;
 
     final res = await _reownService.appKitModal.requestWriteContract(
@@ -36,14 +33,14 @@ class TransactionService {
     );
 
     await _reownService.appKitModal.loadAccountData();
-    print('Web3dartAppvoreResult ${res.runtimeType} $res');
 
     return res is String && res.startsWith('0x');
   }
 
-  Future<bool> payOrder(String address, String orderId) async {
+  Future<bool> payOrder(String orderId) async {
     final chainId = _reownService.appKitModal.selectedChain?.chainId;
-    final addressCheckSum = EthereumAddress.fromHex(address);
+
+    final addressCheckSum = _address();
 
     if (chainId == null) {
       return false;
@@ -59,9 +56,24 @@ class TransactionService {
     );
 
     await _reownService.appKitModal.loadAccountData();
-    print('Web3dartAppvoreResult Pay ${res.runtimeType} $res');
 
     return res is String && res.startsWith('0x');
+  }
+
+  EthereumAddress? _address() {
+    final chainId = _reownService.appKitModal.selectedChain!.chainId;
+
+    final namespace = NamespaceUtils.getNamespaceFromChain(
+      chainId,
+    );
+
+    final rawAddress = _reownService.appKitModal.session?.getAddress(namespace);
+
+    if (rawAddress == null) {
+      return null;
+    }
+
+    return EthereumAddress.fromHex(rawAddress);
   }
 
   BigInt _parseUnits(

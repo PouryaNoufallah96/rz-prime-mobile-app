@@ -6,6 +6,12 @@ class Env {
   static String clientId = _env.clientId;
   static String clientSecret = _env.clientSecret;
   static String publicSignature = _env.publicSignature;
+  static String inventroyOrderHub = _env.inventroyOrderHub;
+  static String paidOrderHub = _env.paidOrderHub;
+  static String appContractAddress = _env.appContractAddress;
+  static String appContractName = _env.appContractName;
+  static String erc20Address = _env.erc20Address;
+  static String erc20Name = _env.erc20Name;
 }
 
 sealed class _Env {
@@ -15,6 +21,12 @@ sealed class _Env {
     required this.clientId,
     required this.clientSecret,
     required this.publicSignature,
+    required this.paidOrderHub,
+    required this.inventroyOrderHub,
+    required this.appContractAddress,
+    required this.appContractName,
+    required this.erc20Address,
+    required this.erc20Name,
   });
 
   factory _Env.get() {
@@ -26,6 +38,12 @@ sealed class _Env {
   final String clientId;
   final String clientSecret;
   final String publicSignature;
+  final String paidOrderHub;
+  final String inventroyOrderHub;
+  final String appContractAddress;
+  final String appContractName;
+  final String erc20Address;
+  final String erc20Name;
 }
 
 class _StageEnv extends _Env {
@@ -36,5 +54,11 @@ class _StageEnv extends _Env {
           clientId: 'app_iiastsswqz',
           clientSecret: 'chdnisuxnvvhsdswq',
           publicSignature: 'ikjhyfgrtydhAqHCUjV5P5Fjv5y',
+          inventroyOrderHub: 'wss://api.rzprime.com/hubs/inventory',
+          paidOrderHub: 'wss://api.rzprime.com/hubs/paidOrder',
+          appContractAddress: '0xB0D6B2805C09A37c762c3599fA932DC5Dc0D65c3',
+          appContractName: 'TokenForwardSale',
+          erc20Address: '0xbeeAF6AEa7D96015b27a3D5a11eB47D0cF330E16',
+          erc20Name: 'MockERC20',
         );
 }

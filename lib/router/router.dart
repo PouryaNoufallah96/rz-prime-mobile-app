@@ -50,6 +50,7 @@ mixin GainXAppRouter on State<GainXApp> {
                 providers: [
                   BlocProvider(
                     create: (context) => InventoryBloc(
+                      authInterceptor: context.read(),
                       statsService: context.read(),
                     )..add(InventoryStartedEvent()),
                   ),

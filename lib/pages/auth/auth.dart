@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/components/app_logo.dart';
 import 'package:gainx/core/blocs/reown/reown_bloc.dart';
-import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/gen/assets.gen.dart';
@@ -32,62 +31,56 @@ class _AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ReownBloc, ReownState>(
-      listenWhen: (p, c) => p.address != c.address,
-      listener: (context, state) {
-        context.read<AuthInterceptor>().setAddress(state.address);
-      },
-      child: SafeArea(
-        child: Scaffold(
-          body: Column(
-            children: [
-              const SizedBox(height: 16),
-              Assets.images.logoText.svg(),
-              // Center(
-              //   child: Text(
-              //     'GainX',
-              //     style: GoogleFonts.poppins(
-              //       fontSize: 24,
-              //       fontWeight: FontWeight.w400,
-              //     ),
-              //   ),
-              // ),
-              const SizedBox(height: 36),
-              const Align(child: AppLogo()),
-              const SizedBox(height: 16),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 320),
-                child: const Column(
-                  children: [
-                    Text(
-                      'Set Up Your Wallet',
-                      style: TextStyle(
-                        fontFamily: 'CentraNo1-Bold',
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            const SizedBox(height: 16),
+            Assets.images.logoText.svg(),
+            // Center(
+            //   child: Text(
+            //     'GainX',
+            //     style: GoogleFonts.poppins(
+            //       fontSize: 24,
+            //       fontWeight: FontWeight.w400,
+            //     ),
+            //   ),
+            // ),
+            const SizedBox(height: 36),
+            const Align(child: AppLogo()),
+            const SizedBox(height: 16),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 320),
+              child: const Column(
+                children: [
+                  Text(
+                    'Set Up Your Wallet',
+                    style: TextStyle(
+                      fontFamily: 'CentraNo1-Bold',
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
                     ),
-                    SizedBox(height: 16),
-                    Text(
-                      // ignore: lines_longer_than_80_chars
-                      'Choose how you like to get started: Please choose a wallet to proceed',
-                      style: TextStyle(
-                        fontFamily: 'CentraNo1-Book',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    // ignore: lines_longer_than_80_chars
+                    'Choose how you like to get started: Please choose a wallet to proceed',
+                    style: TextStyle(
+                      fontFamily: 'CentraNo1-Book',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ],
-                ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-              const Spacer(),
-              _Auth(
-                appKit: context.read<ReownService>().appKitModal,
-              ),
-            ],
-          ),
+            ),
+            const Spacer(),
+            _Auth(
+              appKit: context.read<ReownService>().appKitModal,
+            ),
+          ],
         ),
       ),
     );

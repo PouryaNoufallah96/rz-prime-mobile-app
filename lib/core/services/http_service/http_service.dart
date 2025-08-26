@@ -97,7 +97,7 @@ class HttpService {
 
       if (e.response?.statusCode != null) {
         toastification.show(
-          style: ToastificationStyle.minimal,
+          style: ToastificationStyle.fillColored,
           type: ToastificationType.error,
           title: Text(errorMessage),
           borderRadius: BorderRadius.circular(6),

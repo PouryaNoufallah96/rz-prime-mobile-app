@@ -1,14 +1,13 @@
 import 'dart:convert';
 
+import 'package:gainx/core/env.dart';
 import 'package:web3dart/web3dart.dart';
 
 class AppContractAbi {
   static DeployedContract get appContract {
     final contract = DeployedContract(
-      ContractAbi.fromJson(jsonEncode(_appAbi), 'TokenForwardSale'),
-      EthereumAddress.fromHex(
-        '0xB0D6B2805C09A37c762c3599fA932DC5Dc0D65c3',
-      ),
+      ContractAbi.fromJson(jsonEncode(_appAbi), Env.appContractName),
+      EthereumAddress.fromHex(Env.appContractAddress),
     );
 
     return contract;
@@ -20,10 +19,8 @@ class AppContractAbi {
 
   static DeployedContract get erc20Contract {
     final contract = DeployedContract(
-      ContractAbi.fromJson(jsonEncode(_erc20Abi), 'MockERC20'),
-      EthereumAddress.fromHex(
-        '0xbeeAF6AEa7D96015b27a3D5a11eB47D0cF330E16',
-      ),
+      ContractAbi.fromJson(jsonEncode(_erc20Abi), Env.erc20Name),
+      EthereumAddress.fromHex(Env.erc20Address),
     );
 
     return contract;

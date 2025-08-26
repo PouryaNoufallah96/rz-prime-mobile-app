@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/services/auth_service/models.dart';
 import 'package:gainx/core/services/reown/reown.dart';
 import 'package:reown_appkit/reown_appkit.dart';
+import 'package:toastification/toastification.dart';
 
 part 'reown_event.dart';
 part 'reown_state.dart';
@@ -40,8 +42,6 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
     });
 
     _mainReownService.onModalDisconnectStream.listen((event) {
-      print('ReownBloc ReownDisconnected event');
-
       if (!isClosed) {
         add(ReownDisconnected());
       }
@@ -64,8 +64,6 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
     ReownConnected event,
     Emitter<ReownState> emit,
   ) async {
-    print('ReownBloc ReownConnected event');
-
     try {
       final appKitModal = _mainReownService.appKitModal;
 
@@ -176,6 +174,14 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
 
       if (token != null) {
         _authInterceptor.setToken(token);
+
+        toastification.show(
+          style: ToastificationStyle.fillColored,
+          type: ToastificationType.success,
+          title: const Text('Logged in successfully!'),
+          borderRadius: BorderRadius.circular(6),
+          autoCloseDuration: const Duration(seconds: 4),
+        );
       }
     }
   }
