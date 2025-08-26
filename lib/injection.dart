@@ -1,4 +1,3 @@
-import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:gainx/core/services/http_service/http_service.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/stats_service/stats_service.dart';
 import 'package:http/http.dart' as http;
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:reown_appkit/reown_appkit.dart';
 
 Widget appInjection(Widget child) {
@@ -38,15 +38,16 @@ Widget appInjection(Widget child) {
           BaseOptions(
             baseUrl: Env.apiEndPoint,
             headers: {
-              'Origin': 'https://api.rzprime.com',
-              'applicationid': 'rzprime.app',
+              'Origin': 'https://testnetapi.rzprime.com',
+              'applicationid': Env.applicationId,
             },
           ),
         )..interceptors.addAll([
-            CurlLoggerDioInterceptor(),
-            // PrettyDioLogger(
-            //   requestBody: true,
-            // ),
+            // CurlLoggerDioInterceptor(),
+            PrettyDioLogger(
+              requestBody: true,
+              requestHeader: true,
+            ),
             context.read<AuthInterceptor>(),
           ]),
         lazy: false,

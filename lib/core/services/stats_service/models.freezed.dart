@@ -418,7 +418,7 @@ UserStats _$UserStatsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserStats {
-  String get stage => throw _privateConstructorUsedError;
+  UserStage get stage => throw _privateConstructorUsedError;
   double get mining => throw _privateConstructorUsedError;
   double get availableLoanAmount => throw _privateConstructorUsedError;
   double get sumOfMining => throw _privateConstructorUsedError;
@@ -439,7 +439,7 @@ abstract class $UserStatsCopyWith<$Res> {
       _$UserStatsCopyWithImpl<$Res, UserStats>;
   @useResult
   $Res call(
-      {String stage,
+      {UserStage stage,
       double mining,
       double availableLoanAmount,
       double sumOfMining});
@@ -469,7 +469,7 @@ class _$UserStatsCopyWithImpl<$Res, $Val extends UserStats>
       stage: null == stage
           ? _value.stage
           : stage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as UserStage,
       mining: null == mining
           ? _value.mining
           : mining // ignore: cast_nullable_to_non_nullable
@@ -495,7 +495,7 @@ abstract class _$$UserStatsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String stage,
+      {UserStage stage,
       double mining,
       double availableLoanAmount,
       double sumOfMining});
@@ -523,7 +523,7 @@ class __$$UserStatsImplCopyWithImpl<$Res>
       stage: null == stage
           ? _value.stage
           : stage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as UserStage,
       mining: null == mining
           ? _value.mining
           : mining // ignore: cast_nullable_to_non_nullable
@@ -553,7 +553,7 @@ class _$UserStatsImpl implements _UserStats {
       _$$UserStatsImplFromJson(json);
 
   @override
-  final String stage;
+  final UserStage stage;
   @override
   final double mining;
   @override
@@ -602,7 +602,7 @@ class _$UserStatsImpl implements _UserStats {
 
 abstract class _UserStats implements UserStats {
   const factory _UserStats(
-      {required final String stage,
+      {required final UserStage stage,
       required final double mining,
       required final double availableLoanAmount,
       required final double sumOfMining}) = _$UserStatsImpl;
@@ -611,7 +611,7 @@ abstract class _UserStats implements UserStats {
       _$UserStatsImpl.fromJson;
 
   @override
-  String get stage;
+  UserStage get stage;
   @override
   double get mining;
   @override

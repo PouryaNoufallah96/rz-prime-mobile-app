@@ -14,6 +14,7 @@ import 'package:gainx/pages/swap/widgets/pay_of_time.dart';
 import 'package:gainx/pages/swap/widgets/submit_swap.dart';
 import 'package:gainx/pages/swap/widgets/to_input.dart';
 import 'package:gainx/pages/swap/widgets/user_balance.dart';
+import 'package:gainx/pages/swap/widgets/user_level.dart';
 
 class SwapPage extends StatelessWidget {
   const SwapPage({super.key});
@@ -38,31 +39,39 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserStatsCubit, UserStatsState>(
-      builder: (context, state) {
-        if (state is UserStatsSuccessState && state.stats != null) {
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => SwapBloc(
-                  stats: state.stats!,
-                  ordersService: context.read(),
-                ),
-              ),
-              BlocProvider(
-                create: (context) => OpenOrdersCubit(
-                  ordersService: context.read(),
-                )..getOrders(),
-              ),
-            ],
-            child: _SwapBody(stats: state.stats!),
-          );
-        }
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SwapBloc(
+            ordersService: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => OpenOrdersCubit(
+            ordersService: context.read(),
+          )..getOrders(),
+        ),
+      ],
+      child: BlocSelector<UserStatsCubit, UserStatsState, UserStats?>(
+        selector: (state) {
+          if (state is UserStatsSuccessState) {
+            return state.findByStage();
+          }
 
-        return const Center(
-          child: CircularProgressIndicator.adaptive(),
-        );
-      },
+          return null;
+        },
+        builder: (context, state) {
+          if (state == null) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+
+          return _SwapBody(
+            stats: state,
+          );
+        },
+      ),
     );
   }
 }
@@ -98,44 +107,57 @@ class _SwapBody extends StatelessWidget {
           },
         ),
       ],
-      child: CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverList.list(children: [
-              UserBalance(
-                balance: stats.availableLoanAmount,
-                title: 'Amount',
+      child: RefreshIndicator(
+        onRefresh: () async {
+          await Future.wait([
+            context.read<UserStatsCubit>().fetch(),
+            context.read<OpenOrdersCubit>().getOrders()
+          ]);
+        },
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverList.list(
+                children: [
+                  const SizedBox(height: 20),
+                  const UserLevel(),
+                  const SizedBox(height: 20),
+                  UserBalance(
+                    balance: stats.availableLoanAmount,
+                    title: 'Amount',
+                  ),
+                  const SizedBox(height: 8),
+                  UserBalance(
+                    balance: stats.sumOfMining,
+                    title: 'Mining',
+                  ),
+                  const SizedBox(height: 20),
+                  SwapSectionAdaptive(
+                    from: SwapFromInput(stats: stats),
+                    to: SwapToInput(stats: stats),
+                  ),
+                  const SizedBox(height: 24),
+                  const SelectPayOfTime(),
+                  const SizedBox(height: 24),
+                  const SubmitSwap(),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Orders',
+                    style: TextStyle(
+                      fontFamily: 'CentraNo1-Medium',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 8),
-              UserBalance(
-                balance: stats.sumOfMining,
-                title: 'Mining',
-              ),
-              const SizedBox(height: 20),
-              SwapSectionAdaptive(
-                from: SwapFromInput(stats: stats),
-                to: SwapToInput(stats: stats),
-              ),
-              const SizedBox(height: 24),
-              const SelectPayOfTime(),
-              const SizedBox(height: 24),
-              const SubmitSwap(),
-              const SizedBox(height: 24),
-              const Text(
-                'Orders',
-                style: TextStyle(
-                  fontFamily: 'CentraNo1-Medium',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xffffffff),
-                ),
-              ),
-            ]),
-          ),
-          const SwapOrders(),
-          const SliverToBoxAdapter(child: SizedBox(height: 100)),
-        ],
+            ),
+            const SwapOrders(),
+            const SliverToBoxAdapter(child: SizedBox(height: 100)),
+          ],
+        ),
       ),
     );
   }

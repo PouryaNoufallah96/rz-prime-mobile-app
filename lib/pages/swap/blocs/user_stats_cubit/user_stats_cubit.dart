@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/services/stats_service/stats_service.dart';
@@ -19,6 +20,30 @@ class UserStatsCubit extends Cubit<UserStatsState> {
     }
 
     final stats = await _statsService.userStats();
-    emit(UserStatsSuccessState(stats: stats));
+
+    if (state is UserStatsSuccessState) {
+      emit(
+        (state as UserStatsSuccessState).copyWith(
+          stats: stats,
+        ),
+      );
+    } else {
+      emit(
+        UserStatsSuccessState(
+          stats: stats,
+          selectedStage: stats.first.stage,
+        ),
+      );
+    }
+  }
+
+  Future<void> changeStage(UserStage stage) async {
+    if (state is UserStatsSuccessState) {
+      emit(
+        (state as UserStatsSuccessState).copyWith(
+          selectedStage: stage,
+        ),
+      );
+    }
   }
 }

@@ -26,7 +26,7 @@ class HistoryOrder with _$HistoryOrder {
     required String tokenAmountInWei,
     required String payAmountInWei,
     required HistoryOrderState state,
-    TransactionMetaData? transactionMetaData,
+    @Default([]) List<TransactionMetaData> transactionsMetaData,
   }) = _HistoryOrder;
 
   factory HistoryOrder.fromJson(Map<String, dynamic> json) =>

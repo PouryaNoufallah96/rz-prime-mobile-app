@@ -133,53 +133,36 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/Car.png
-  AssetGenImage get car => const AssetGenImage('assets/images/Car.png');
-
-  /// File path: assets/images/Industrial.png
-  AssetGenImage get industrial =>
-      const AssetGenImage('assets/images/Industrial.png');
-
-  /// File path: assets/images/Insurance.png
-  AssetGenImage get insurance =>
-      const AssetGenImage('assets/images/Insurance.png');
-
-  /// File path: assets/images/Jewelry.png
-  AssetGenImage get jewelry => const AssetGenImage('assets/images/Jewelry.png');
-
-  /// File path: assets/images/MGC.png
-  AssetGenImage get mgc => const AssetGenImage('assets/images/MGC.png');
-
-  /// File path: assets/images/RZ.png
-  AssetGenImage get rz => const AssetGenImage('assets/images/RZ.png');
-
-  /// File path: assets/images/RealEstate.png
-  AssetGenImage get realEstate =>
-      const AssetGenImage('assets/images/RealEstate.png');
-
-  /// File path: assets/images/Trip.png
-  AssetGenImage get trip => const AssetGenImage('assets/images/Trip.png');
-
   /// File path: assets/images/app_icon.webp
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
 
-  /// File path: assets/images/gold.svg
-  SvgGenImage get goldSvg => const SvgGenImage('assets/images/gold.svg');
+  /// File path: assets/images/car.png
+  AssetGenImage get car => const AssetGenImage('assets/images/car.png');
 
-  /// File path: assets/images/gold.webp
-  AssetGenImage get goldWebp => const AssetGenImage('assets/images/gold.webp');
+  /// File path: assets/images/gold.png
+  AssetGenImage get gold => const AssetGenImage('assets/images/gold.png');
 
-  /// File path: assets/images/gold_disable.svg
-  SvgGenImage get goldDisableSvg =>
-      const SvgGenImage('assets/images/gold_disable.svg');
+  /// File path: assets/images/gold_disable.png
+  AssetGenImage get goldDisable =>
+      const AssetGenImage('assets/images/gold_disable.png');
 
-  /// File path: assets/images/gold_disable.webp
-  AssetGenImage get goldDisableWebp =>
-      const AssetGenImage('assets/images/gold_disable.webp');
+  /// File path: assets/images/industrial.png
+  AssetGenImage get industrial =>
+      const AssetGenImage('assets/images/industrial.png');
+
+  /// File path: assets/images/insurance.png
+  AssetGenImage get insurance =>
+      const AssetGenImage('assets/images/insurance.png');
+
+  /// File path: assets/images/jewelry.png
+  AssetGenImage get jewelry => const AssetGenImage('assets/images/jewelry.png');
 
   /// File path: assets/images/logo_text.svg
   SvgGenImage get logoText => const SvgGenImage('assets/images/logo_text.svg');
+
+  /// File path: assets/images/mgc.png
+  AssetGenImage get mgc => const AssetGenImage('assets/images/mgc.png');
 
   /// File path: assets/images/on_boarding_1.webp
   AssetGenImage get onBoarding1 =>
@@ -193,86 +176,60 @@ class $AssetsImagesGen {
   AssetGenImage get onBoarding3 =>
       const AssetGenImage('assets/images/on_boarding_3.webp');
 
-  /// File path: assets/images/premium.svg
-  SvgGenImage get premiumSvg => const SvgGenImage('assets/images/premium.svg');
+  /// File path: assets/images/premium.png
+  AssetGenImage get premium => const AssetGenImage('assets/images/premium.png');
 
-  /// File path: assets/images/premium.webp
-  AssetGenImage get premiumWebp =>
-      const AssetGenImage('assets/images/premium.webp');
+  /// File path: assets/images/premium_ِdisable.png
+  AssetGenImage get premiumDisable =>
+      const AssetGenImage('assets/images/premium_ِdisable.png');
 
-  /// File path: assets/images/premium_ِdisable.svg
-  SvgGenImage get premiumDisableSvg =>
-      const SvgGenImage('assets/images/premium_ِdisable.svg');
+  /// File path: assets/images/realestate.png
+  AssetGenImage get realestate =>
+      const AssetGenImage('assets/images/realestate.png');
 
-  /// File path: assets/images/premium_ِdisable.webp
-  AssetGenImage get premiumDisableWebp =>
-      const AssetGenImage('assets/images/premium_ِdisable.webp');
+  /// File path: assets/images/regular.png
+  AssetGenImage get regular => const AssetGenImage('assets/images/regular.png');
 
-  /// File path: assets/images/regular.svg
-  SvgGenImage get regularSvg => const SvgGenImage('assets/images/regular.svg');
+  /// File path: assets/images/regular_disable.png
+  AssetGenImage get regularDisable =>
+      const AssetGenImage('assets/images/regular_disable.png');
 
-  /// File path: assets/images/regular.webp
-  AssetGenImage get regularWebp =>
-      const AssetGenImage('assets/images/regular.webp');
+  /// File path: assets/images/rz.png
+  AssetGenImage get rz => const AssetGenImage('assets/images/rz.png');
 
-  /// File path: assets/images/regular_disable.svg
-  SvgGenImage get regularDisableSvg =>
-      const SvgGenImage('assets/images/regular_disable.svg');
+  /// File path: assets/images/trip.png
+  AssetGenImage get trip => const AssetGenImage('assets/images/trip.png');
 
-  /// File path: assets/images/regular_disable.webp
-  AssetGenImage get regularDisableWebp =>
-      const AssetGenImage('assets/images/regular_disable.webp');
+  /// File path: assets/images/x.png
+  AssetGenImage get x => const AssetGenImage('assets/images/x.png');
 
-  /// File path: assets/images/user_level.png
-  AssetGenImage get userLevel =>
-      const AssetGenImage('assets/images/user_level.png');
-
-  /// File path: assets/images/x.svg
-  SvgGenImage get xSvg => const SvgGenImage('assets/images/x.svg');
-
-  /// File path: assets/images/x.webp
-  AssetGenImage get xWebp => const AssetGenImage('assets/images/x.webp');
-
-  /// File path: assets/images/x_disable.svg
-  SvgGenImage get xDisableSvg =>
-      const SvgGenImage('assets/images/x_disable.svg');
-
-  /// File path: assets/images/x_disable.webp
-  AssetGenImage get xDisableWebp =>
-      const AssetGenImage('assets/images/x_disable.webp');
+  /// File path: assets/images/x_disable.png
+  AssetGenImage get xDisable =>
+      const AssetGenImage('assets/images/x_disable.png');
 
   /// List of all assets
   List<dynamic> get values => [
+        appIcon,
         car,
+        gold,
+        goldDisable,
         industrial,
         insurance,
         jewelry,
-        mgc,
-        rz,
-        realEstate,
-        trip,
-        appIcon,
-        goldSvg,
-        goldWebp,
-        goldDisableSvg,
-        goldDisableWebp,
         logoText,
+        mgc,
         onBoarding1,
         onBoarding2,
         onBoarding3,
-        premiumSvg,
-        premiumWebp,
-        premiumDisableSvg,
-        premiumDisableWebp,
-        regularSvg,
-        regularWebp,
-        regularDisableSvg,
-        regularDisableWebp,
-        userLevel,
-        xSvg,
-        xWebp,
-        xDisableSvg,
-        xDisableWebp
+        premium,
+        premiumDisable,
+        realestate,
+        regular,
+        regularDisable,
+        rz,
+        trip,
+        x,
+        xDisable
       ];
 }
 

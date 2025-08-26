@@ -58,7 +58,14 @@ mixin GainXAppRouter on State<GainXApp> {
                     create: (context) => FinalizeOrderCubit(
                       ordersService: context.read(),
                     )..getOrders(),
-                  )
+                  ),
+                  BlocProvider(
+                    lazy: false,
+                    create: (context) => NotifyPaidOrderBloc(
+                      authInterceptor: context.read(),
+                      reownService: context.read(),
+                    )..add(NotifyPaidOrderStarted()),
+                  ),
                 ],
                 child: NestedPage(child: navigationShell),
               ),

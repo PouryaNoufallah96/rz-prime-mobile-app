@@ -1,0 +1,87 @@
+import 'dart:async';
+
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:gainx/core/env.dart';
+import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
+import 'package:gainx/core/services/reown/reown.dart';
+import 'package:gainx/core/services/socket_hub_builder/socket_hub_builder.dart';
+import 'package:reown_appkit/reown_appkit.dart';
+import 'package:web_socket_client/web_socket_client.dart';
+
+part 'notify_paid_order_event.dart';
+part 'notify_paid_order_state.dart';
+
+class NotifyPaidOrderBloc
+    extends Bloc<NotifyPaidOrderEvent, NotifyPaidOrderState> {
+  NotifyPaidOrderBloc({
+    required AuthInterceptor authInterceptor,
+    required ReownService reownService,
+  })  : _authInterceptor = authInterceptor,
+        _reownService = reownService,
+        super(NotifyPaidOrderState()) {
+    on<NotifyPaidOrderStarted>(_onNotifyPaidOrderStarted);
+  }
+
+  late WebSocket _socket;
+  final AuthInterceptor _authInterceptor;
+  final ReownService _reownService;
+
+  late final StreamSubscription<ConnectionState> _connectionSub;
+  late final StreamSubscription<dynamic> _sub;
+
+  Future<void> _onNotifyPaidOrderStarted(
+    NotifyPaidOrderStarted event,
+    Emitter<NotifyPaidOrderState> emit,
+  ) async {
+    _socket = await SocketHubBuilder(
+      uri: Env.paidOrderHub,
+      token: _authInterceptor.stream.value.token?.token ?? '',
+    ).build();
+
+    final chainId = _reownService.appKitModal.selectedChain!.chainId;
+
+    final namespace = NamespaceUtils.getNamespaceFromChain(
+      chainId,
+    );
+
+    final rawAddress =
+        _reownService.appKitModal.session!.getAddress(namespace)!;
+
+    invoke(rawAddress);
+
+    _connectionSub = _socket.connection
+        .where((event) => event is Reconnected)
+        .listen((event) {
+      final chainId = _reownService.appKitModal.selectedChain!.chainId;
+
+      final namespace = NamespaceUtils.getNamespaceFromChain(
+        chainId,
+      );
+
+      final rawAddress =
+          _reownService.appKitModal.session!.getAddress(namespace)!;
+
+      invoke(rawAddress);
+    });
+
+    _sub = _socket.messages.listen((event) {
+      print('paidOrderHub $event');
+    });
+  }
+
+  void invoke(String address) {
+    final EthereumAddress(:hexEip55) = EthereumAddress.fromHex(address);
+    _socket.send(
+        // ignore: lines_longer_than_80_chars
+        '{"target":"RegisterWallet","arguments":["$hexEip55"],"invocationId":"0","type":1}');
+  }
+
+  @override
+  Future<void> close() async {
+    _socket.close();
+    await _connectionSub.cancel();
+    await _sub.cancel();
+    return super.close();
+  }
+}

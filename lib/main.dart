@@ -16,6 +16,7 @@ import 'package:gainx/pages/history/history.dart';
 import 'package:gainx/pages/nested_page/nested_page.dart';
 import 'package:gainx/pages/on_boarding/on_boarding.dart';
 import 'package:gainx/pages/settings/settings.dart';
+import 'package:gainx/pages/swap/blocs/notify_paid_order_bloc/notify_paid_order_bloc.dart';
 import 'package:gainx/pages/swap/swap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -61,6 +62,9 @@ class _GainXAppState extends State<GainXApp> with GainXAppRouter {
         return ReownAppKitModalTheme(
           isDarkMode: isDark,
           child: ToastificationWrapper(
+            config: const ToastificationConfig(
+              maxToastLimit: 1,
+            ),
             child: MaterialApp.router(
               routerConfig: appRouter,
               title: 'RZPrime',

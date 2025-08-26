@@ -33,7 +33,7 @@ extension InventoryModelX on InventoryModel {
 @freezed
 class UserStats with _$UserStats {
   const factory UserStats({
-    required String stage,
+    required UserStage stage,
     required double mining,
     required double availableLoanAmount,
     required double sumOfMining,
@@ -41,6 +41,20 @@ class UserStats with _$UserStats {
 
   factory UserStats.fromJson(Map<String, dynamic> json) =>
       _$UserStatsFromJson(json);
+}
+
+enum UserStage {
+  @JsonValue('Regular')
+  regular('Regular'),
+  @JsonValue('Gold')
+  gold('Gold'),
+  @JsonValue('Premium')
+  premium('Premium'),
+  @JsonValue('X')
+  x('X');
+
+  const UserStage(this.value);
+  final String value;
 }
 
 extension UserStatsX on UserStats {

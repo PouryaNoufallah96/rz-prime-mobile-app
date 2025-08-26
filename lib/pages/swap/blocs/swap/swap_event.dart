@@ -50,6 +50,10 @@ class SwapFromValueChanged extends SwapEvent {
 }
 
 class SwapSubmited extends SwapEvent {
+  SwapSubmited({required this.selectedStage,});
+
+final String selectedStage;
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [selectedStage];
 }

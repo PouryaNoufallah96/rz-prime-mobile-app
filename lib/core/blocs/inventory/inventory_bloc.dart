@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gainx/core/env.dart';
@@ -55,29 +56,52 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     final st = _hub.messages.transform(
         StreamTransformer<dynamic, List<dynamic>>.fromHandlers(
             handleData: (data, sink) {
-      final event = jsonDecode((data as String).replaceAll('', ''))
-          as Map<String, dynamic>;
+      try {
+        final event = jsonDecode(
+                (data as String).replaceAll('{}', '').replaceAll('', ''))
+            as Map<String, dynamic>;
 
-      if (event
-          case {
-            'target': final String target,
-            'arguments': final List<dynamic> arguments
-          } when arguments.isNotEmpty && target == 'NotifyInventory') {
-        sink.add(arguments);
-      }
+        if (event
+            case {
+              'target': final String target,
+              'arguments': final List<dynamic> arguments
+            } when arguments.isNotEmpty && target == 'NotifyInventory') {
+          sink.add(arguments);
+        }
+      } catch (_) {}
     }));
 
     await emit.forEach(
       st,
       onData: (data) {
-        final inventories = data.cast<Map<String, dynamic>>().map(
+        final newData = data.cast<Map<String, dynamic>>().map(
           (e) {
-            final json = {...e, ...(e['price'] as Map<String, dynamic>)};
-            return InventoryModel.fromJson(json);
-          },
-        ).toList();
+            final token = e.keys.first;
+            final data = e[token] as Map<String, dynamic>;
+            final quantity = data['quantity'] as num;
+            final priceJson = data['price'] as Map<String, dynamic>;
+            final price = priceJson['price'] as num;
 
-        return InventorySuccessState(inventories: inventories);
+            return (token, price, quantity);
+          },
+        );
+
+        if (state is InventorySuccessState) {
+          return InventorySuccessState(
+            inventories: (state as InventorySuccessState).inventories.map(
+              (e) {
+                final update = newData
+                    .firstWhereOrNull((element) => element.$1 == e.tokenName);
+                return e.copyWith(
+                  price: update?.$2.toDouble() ?? e.price,
+                  quantity: update?.$3.toDouble() ?? e.quantity,
+                );
+              },
+            ).toList(),
+          );
+        }
+
+        return InventorySuccessState(inventories: []);
       },
     );
   }

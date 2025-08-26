@@ -50,7 +50,24 @@ class ReownService {
   void call(BuildContext context) {
     ReownAppKitModalNetworks.removeSupportedNetworks('solana');
     ReownAppKitModalNetworks.removeSupportedNetworks('eip155');
+
     ReownAppKitModalNetworks.addSupportedNetworks('eip155', [
+      const ReownAppKitModalNetworkInfo(
+        name: 'BSC Testnet',
+        chainId: '97',
+        currency: 'tBNB',
+        rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+        explorerUrl: 'https://testnet.bscscan.com',
+        isTestNetwork: true,
+      ),
+      const ReownAppKitModalNetworkInfo(
+        name: 'Binance Smart Chain',
+        chainId: '56',
+        chainIcon: '93564157-2e8e-4ce7-81df-b264dbee9b00',
+        currency: 'BNB',
+        rpcUrl: 'https://bsc-dataseed.binance.org/',
+        explorerUrl: 'https://bscscan.com',
+      ),
       const ReownAppKitModalNetworkInfo(
         name: 'Sepolia',
         chainId: '11155111',
@@ -90,6 +107,15 @@ class ReownService {
       appKit: _appKit,
       projectId: Env.reownProjectId,
       metadata: metadata,
+      optionalNamespaces: {
+        'eip155': RequiredNamespace.fromJson({
+          'chains': ReownAppKitModalNetworks.getAllSupportedNetworks(
+            namespace: 'eip155',
+          ).map((chain) => chain.chainId).toList(),
+          'methods': NetworkUtils.defaultNetworkMethods['eip155']!.toList(),
+          'events': NetworkUtils.defaultNetworkEvents['eip155']!.toList(),
+        }),
+      },
       includedWalletIds: {
         '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
         'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',

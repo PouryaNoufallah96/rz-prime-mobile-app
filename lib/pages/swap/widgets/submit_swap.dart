@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
+import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 
 class SubmitSwap extends StatelessWidget {
   const SubmitSwap({super.key});
@@ -28,7 +29,16 @@ class SubmitSwap extends StatelessWidget {
                 onPressed: isInProgress || !isValid
                     ? null
                     : () {
-                        context.read<SwapBloc>().add(SwapSubmited());
+                        final selectedStage = (context
+                                .read<UserStatsCubit>()
+                                .state as UserStatsSuccessState)
+                            .selectedStage;
+
+                        context.read<SwapBloc>().add(
+                              SwapSubmited(
+                                selectedStage: selectedStage.value,
+                              ),
+                            );
                       },
                 child: isInProgress
                     ? const SizedBox.square(

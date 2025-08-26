@@ -9,6 +9,7 @@ class OrdersService {
   final HttpService _adapter;
 
   Future<bool> submitOrder({
+    required String selectedStage,
     required String assetName,
     required double loanAmount,
     required int monthDuration,
@@ -54,19 +55,23 @@ class OrdersService {
     };
   }
 
-  Future<List<HistoryOrder>> listOfFinalizedOrders() async {
+  Future<(List<HistoryOrder> data, int totalCount)> listOfFinalizedOrders(
+      int page) async {
     final res = await _adapter.requestUri<Map<String, dynamic>>(
       Uri.parse('Order/GetAllUserOrders'),
       method: HttpMethod.post,
       body: {
-        'pagination': {'page': 1, 'size': 100},
+        'pagination': {'page': page, 'size': 24},
         'states': ['Drop', 'Paid']
       },
     );
 
     return switch (res) {
-      AppSuccessResponse(:final data) => _process(data!),
-      _ => [],
+      AppSuccessResponse(:final data) => (
+          _process(data!),
+          (data['data'] as Map<String, dynamic>)['totalCount'] as int
+        ),
+      _ => (<HistoryOrder>[], -1),
     };
   }
 

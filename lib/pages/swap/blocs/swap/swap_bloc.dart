@@ -1,18 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
+import 'package:toastification/toastification.dart';
 
 part 'swap_event.dart';
 part 'swap_state.dart';
 
 class SwapBloc extends Bloc<SwapEvent, SwapState> {
   SwapBloc({
-    required UserStats stats,
     required OrdersService ordersService,
   })  : _ordersService = ordersService,
-        super(SwapState(stats: stats)) {
+        super(SwapState()) {
     on<SwapPayOfTimeChanged>(_onSwapPayOfTimeChanged);
     on<SwapSelectedTokenChanged>(_onSwapSelectedTokenChanged);
     on<SwapFromValueChanged>(_onSwapFromValueChanged);
@@ -66,12 +67,20 @@ class SwapBloc extends Bloc<SwapEvent, SwapState> {
     emit(state.copyWith(submitSwapStatus: SubmitSwapStatus.inProgress));
 
     final isSucceed = await _ordersService.submitOrder(
+      selectedStage: event.selectedStage,
       assetName: state.selectedToken!.tokenName,
       loanAmount: state.fromValue / state.selectedToken!.price,
       monthDuration: state.swapPayOfTime!.month,
     );
 
     if (isSucceed) {
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.success,
+        title: const Text('Order Created Successfully.'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
       emit(
         state.copyWith(
           submitSwapStatus: SubmitSwapStatus.idle,
@@ -80,21 +89,8 @@ class SwapBloc extends Bloc<SwapEvent, SwapState> {
           fromValue: 0,
         ),
       );
+    } else {
+      emit(state.copyWith(submitSwapStatus: SubmitSwapStatus.idle));
     }
-
-    emit(state.copyWith(submitSwapStatus: SubmitSwapStatus.idle));
   }
-
-  // DateTime _addMonthsClamped(int months) {
-  //   final dt = DateTime.now();
-
-  //   final m0 = dt.month + months;
-  //   final y = dt.year + ((m0 - 1) ~/ 12);
-  //   final m = ((m0 - 1) % 12) + 1;
-  //   final lastDayOfTargetMonth = DateTime(y, m + 1, 0).day;
-  //   final d = dt.day > lastDayOfTargetMonth ? lastDayOfTargetMonth : dt.day;
-  //   return DateTime(
-  //       y, m, d, dt.hour, dt.minute, dt.second, dt.millisecond, d
-  // t.microsecond);
-  // }
 }

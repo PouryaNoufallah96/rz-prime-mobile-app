@@ -40,7 +40,7 @@ mixin _$HistoryOrder {
   String get tokenAmountInWei => throw _privateConstructorUsedError;
   String get payAmountInWei => throw _privateConstructorUsedError;
   HistoryOrderState get state => throw _privateConstructorUsedError;
-  TransactionMetaData? get transactionMetaData =>
+  List<TransactionMetaData> get transactionsMetaData =>
       throw _privateConstructorUsedError;
 
   /// Serializes this HistoryOrder to a JSON map.
@@ -80,9 +80,7 @@ abstract class $HistoryOrderCopyWith<$Res> {
       String tokenAmountInWei,
       String payAmountInWei,
       HistoryOrderState state,
-      TransactionMetaData? transactionMetaData});
-
-  $TransactionMetaDataCopyWith<$Res>? get transactionMetaData;
+      List<TransactionMetaData> transactionsMetaData});
 }
 
 /// @nodoc
@@ -120,7 +118,7 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
     Object? tokenAmountInWei = null,
     Object? payAmountInWei = null,
     Object? state = null,
-    Object? transactionMetaData = freezed,
+    Object? transactionsMetaData = null,
   }) {
     return _then(_value.copyWith(
       orderId: null == orderId
@@ -203,26 +201,11 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as HistoryOrderState,
-      transactionMetaData: freezed == transactionMetaData
-          ? _value.transactionMetaData
-          : transactionMetaData // ignore: cast_nullable_to_non_nullable
-              as TransactionMetaData?,
+      transactionsMetaData: null == transactionsMetaData
+          ? _value.transactionsMetaData
+          : transactionsMetaData // ignore: cast_nullable_to_non_nullable
+              as List<TransactionMetaData>,
     ) as $Val);
-  }
-
-  /// Create a copy of HistoryOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $TransactionMetaDataCopyWith<$Res>? get transactionMetaData {
-    if (_value.transactionMetaData == null) {
-      return null;
-    }
-
-    return $TransactionMetaDataCopyWith<$Res>(_value.transactionMetaData!,
-        (value) {
-      return _then(_value.copyWith(transactionMetaData: value) as $Val);
-    });
   }
 }
 
@@ -255,10 +238,7 @@ abstract class _$$HistoryOrderImplCopyWith<$Res>
       String tokenAmountInWei,
       String payAmountInWei,
       HistoryOrderState state,
-      TransactionMetaData? transactionMetaData});
-
-  @override
-  $TransactionMetaDataCopyWith<$Res>? get transactionMetaData;
+      List<TransactionMetaData> transactionsMetaData});
 }
 
 /// @nodoc
@@ -294,7 +274,7 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
     Object? tokenAmountInWei = null,
     Object? payAmountInWei = null,
     Object? state = null,
-    Object? transactionMetaData = freezed,
+    Object? transactionsMetaData = null,
   }) {
     return _then(_$HistoryOrderImpl(
       orderId: null == orderId
@@ -377,10 +357,10 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as HistoryOrderState,
-      transactionMetaData: freezed == transactionMetaData
-          ? _value.transactionMetaData
-          : transactionMetaData // ignore: cast_nullable_to_non_nullable
-              as TransactionMetaData?,
+      transactionsMetaData: null == transactionsMetaData
+          ? _value._transactionsMetaData
+          : transactionsMetaData // ignore: cast_nullable_to_non_nullable
+              as List<TransactionMetaData>,
     ));
   }
 }
@@ -409,7 +389,8 @@ class _$HistoryOrderImpl implements _HistoryOrder {
       required this.tokenAmountInWei,
       required this.payAmountInWei,
       required this.state,
-      this.transactionMetaData});
+      final List<TransactionMetaData> transactionsMetaData = const []})
+      : _transactionsMetaData = transactionsMetaData;
 
   factory _$HistoryOrderImpl.fromJson(Map<String, dynamic> json) =>
       _$$HistoryOrderImplFromJson(json);
@@ -454,12 +435,19 @@ class _$HistoryOrderImpl implements _HistoryOrder {
   final String payAmountInWei;
   @override
   final HistoryOrderState state;
+  final List<TransactionMetaData> _transactionsMetaData;
   @override
-  final TransactionMetaData? transactionMetaData;
+  @JsonKey()
+  List<TransactionMetaData> get transactionsMetaData {
+    if (_transactionsMetaData is EqualUnmodifiableListView)
+      return _transactionsMetaData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_transactionsMetaData);
+  }
 
   @override
   String toString() {
-    return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, userPublicKey: $userPublicKey, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, quantity: $quantity, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, state: $state, transactionMetaData: $transactionMetaData)';
+    return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, userPublicKey: $userPublicKey, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, quantity: $quantity, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, state: $state, transactionsMetaData: $transactionsMetaData)';
   }
 
   @override
@@ -504,8 +492,8 @@ class _$HistoryOrderImpl implements _HistoryOrder {
             (identical(other.payAmountInWei, payAmountInWei) ||
                 other.payAmountInWei == payAmountInWei) &&
             (identical(other.state, state) || other.state == state) &&
-            (identical(other.transactionMetaData, transactionMetaData) ||
-                other.transactionMetaData == transactionMetaData));
+            const DeepCollectionEquality()
+                .equals(other._transactionsMetaData, _transactionsMetaData));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -532,7 +520,7 @@ class _$HistoryOrderImpl implements _HistoryOrder {
         tokenAmountInWei,
         payAmountInWei,
         state,
-        transactionMetaData
+        const DeepCollectionEquality().hash(_transactionsMetaData)
       ]);
 
   /// Create a copy of HistoryOrder
@@ -553,27 +541,28 @@ class _$HistoryOrderImpl implements _HistoryOrder {
 
 abstract class _HistoryOrder implements HistoryOrder {
   const factory _HistoryOrder(
-      {required final String orderId,
-      required final String createdMoment,
-      required final String userPublicKey,
-      required final String walletAddress,
-      required final String userStageId,
-      required final String stage,
-      required final String tokenName,
-      required final double quantity,
-      required final String tokenNetwork,
-      required final String tokenAddress,
-      required final double tokenEffectivePrice,
-      required final double loanAmount,
-      required final double loanInterestAmount,
-      required final double finalAmount,
-      required final double profitRatePerMonth,
-      required final double monthDuration,
-      required final String payOffDate,
-      required final String tokenAmountInWei,
-      required final String payAmountInWei,
-      required final HistoryOrderState state,
-      final TransactionMetaData? transactionMetaData}) = _$HistoryOrderImpl;
+          {required final String orderId,
+          required final String createdMoment,
+          required final String userPublicKey,
+          required final String walletAddress,
+          required final String userStageId,
+          required final String stage,
+          required final String tokenName,
+          required final double quantity,
+          required final String tokenNetwork,
+          required final String tokenAddress,
+          required final double tokenEffectivePrice,
+          required final double loanAmount,
+          required final double loanInterestAmount,
+          required final double finalAmount,
+          required final double profitRatePerMonth,
+          required final double monthDuration,
+          required final String payOffDate,
+          required final String tokenAmountInWei,
+          required final String payAmountInWei,
+          required final HistoryOrderState state,
+          final List<TransactionMetaData> transactionsMetaData}) =
+      _$HistoryOrderImpl;
 
   factory _HistoryOrder.fromJson(Map<String, dynamic> json) =
       _$HistoryOrderImpl.fromJson;
@@ -619,7 +608,7 @@ abstract class _HistoryOrder implements HistoryOrder {
   @override
   HistoryOrderState get state;
   @override
-  TransactionMetaData? get transactionMetaData;
+  List<TransactionMetaData> get transactionsMetaData;
 
   /// Create a copy of HistoryOrder
   /// with the given fields replaced by the non-null parameter values.

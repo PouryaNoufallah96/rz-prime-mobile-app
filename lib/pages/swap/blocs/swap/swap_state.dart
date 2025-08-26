@@ -18,23 +18,19 @@ enum SubmitSwapStatus { idle, inProgress }
 
 class SwapState with EquatableMixin {
   SwapState({
-    required this.stats,
-    String? selectedLevel,
     this.selectedToken,
     this.swapPayOfTime,
     this.fromValue = 0,
     this.submitSwapStatus = SubmitSwapStatus.idle,
-  }) : selectedLevel = selectedLevel ?? stats.stage;
+  });
 
-  final UserStats stats;
-  final String selectedLevel;
   final InventoryModel? selectedToken;
   final SwapPayOfTime? swapPayOfTime;
   final double fromValue;
   final SubmitSwapStatus submitSwapStatus;
 
   SwapState copyWith({
-    String? selectedLevel,
+    UserStage? selectedLevel,
     InventoryModel? Function()? selectedToken,
     SwapPayOfTime? Function()? swapPayOfTime,
     double? fromValue,
@@ -42,8 +38,6 @@ class SwapState with EquatableMixin {
   }) {
     return SwapState(
       submitSwapStatus: submitSwapStatus ?? this.submitSwapStatus,
-      stats: stats,
-      selectedLevel: selectedLevel ?? this.selectedLevel,
       selectedToken:
           selectedToken == null ? this.selectedToken : selectedToken(),
       swapPayOfTime:
@@ -54,8 +48,6 @@ class SwapState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        stats,
-        selectedLevel,
         selectedToken,
         fromValue,
         swapPayOfTime,

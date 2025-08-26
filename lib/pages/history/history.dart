@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gainx/core/services/orders_service/models.dart';
+import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -38,13 +41,14 @@ class _Body extends StatelessWidget {
         Expanded(
           child: BlocBuilder<FinalizeOrderCubit, FinalizeOrderState>(
             builder: (context, state) {
-              return switch (state) {
-                FinalizeOrderInitialState _ => const SizedBox.shrink(),
-                FinalizeOrderInProgressState _ => const Center(
+              return switch (state.loadingStaus) {
+                FinalizeOrderLoadingStatus.idle => const SizedBox.shrink(),
+                FinalizeOrderLoadingStatus.inProgress => const Center(
                     child: CircularProgressIndicator.adaptive(),
                   ),
-                FinalizeOrderSuccessState(:final orders) =>
-                  _Orders(orders: orders),
+                FinalizeOrderLoadingStatus.success =>
+                  _Orders(orders: state.orders),
+                _ => const _Orders(orders: []),
               };
             },
           ),
@@ -54,7 +58,7 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _Orders extends StatelessWidget {
+class _Orders extends HookWidget {
   const _Orders({
     required this.orders,
   });
@@ -63,19 +67,74 @@ class _Orders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = useScrollController();
+
+    useEffect(() {
+      void onScroll() {
+        bool isBottom() {
+          if (!scrollController.hasClients) return false;
+          final maxScroll = scrollController.position.maxScrollExtent;
+          final currentScroll = scrollController.offset;
+          return currentScroll >= (maxScroll * 0.9);
+        }
+
+        if (isBottom()) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.read<FinalizeOrderCubit>().nextPage();
+          });
+        }
+      }
+
+      scrollController.addListener(onScroll);
+
+      return () => scrollController.removeListener(onScroll);
+    }, []);
+
     return RefreshIndicator(
-        onRefresh: () => context.read<FinalizeOrderCubit>().getOrders(),
-        child: ListView.separated(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-          separatorBuilder: (context, index) {
-            return const SizedBox(height: 16);
-          },
-          itemCount: orders.length,
-          itemBuilder: (context, index) {
-            final order = orders[index];
-            return _Order(order: order);
-          },
-        ));
+      onRefresh: () => context.read<FinalizeOrderCubit>().getOrders(),
+      child: CustomScrollView(
+        controller: scrollController,
+        slivers: <Widget>[
+          SliverList.separated(
+            separatorBuilder: (context, index) {
+              return const Padding(
+                padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                child: SizedBox(height: 16),
+              );
+            },
+            itemCount: orders.length,
+            itemBuilder: (context, index) {
+              final order = orders[index];
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                child: _Order(order: order),
+              );
+            },
+          ),
+          SliverToBoxAdapter(
+            child: BlocSelector<FinalizeOrderCubit, FinalizeOrderState, bool>(
+              selector: (state) {
+                return state.loadingMoreStatus ==
+                    FinalizeOrderLoadingStatus.inProgress;
+              },
+              builder: (context, state) {
+                if (!state) {
+                  return const SizedBox.shrink();
+                }
+
+                return const Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 100)),
+        ],
+      ),
+    );
   }
 }
 
@@ -113,14 +172,52 @@ class _Order extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              date(DateTime.parse(order.payOffDate).toLocal()),
-              style: TextStyle(
-                fontFamily: 'CentraNo1-Book',
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: context.colorExtension.neutral[300],
-              ),
+            Row(
+              children: [
+                if (order.transactionsMetaData.isNotEmpty) ...[
+                  InkWell(
+                    onTap: () async {
+                      final explorer = context
+                          .read<ReownService>()
+                          .appKitModal
+                          .selectedChain
+                          ?.explorerUrl;
+
+                      if (explorer == null) {
+                        return;
+                      }
+
+                      final uri = Uri.parse(
+                          '$explorer/tx/${order.transactionsMetaData.first.hash}');
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri);
+                      }
+                    },
+                    child: Text(
+                      order.transactionsMetaData.first.hash.substring(0, 8),
+                      style: TextStyle(
+                        fontFamily: 'CentraNo1-Book',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: context.colorExtension.neutral[300],
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                ],
+                Flexible(
+                  child: Text(
+                    date(DateTime.parse(order.payOffDate).toLocal()),
+                    style: TextStyle(
+                      fontFamily: 'CentraNo1-Book',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: context.colorExtension.neutral[300],
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 12),
             Row(

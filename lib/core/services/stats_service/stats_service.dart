@@ -8,15 +8,17 @@ class StatsService {
 
   final HttpService _adapter;
 
-  Future<UserStats?> userStats() async {
+  Future<List<UserStats>> userStats() async {
     final res = await _adapter.requestUri<Map<String, dynamic>>(
       Uri.parse('User/GetUserStats'),
     );
 
     return switch (res) {
-      AppSuccessResponse(:final data) => UserStats.fromJson(
-          (data!['data'] as List<dynamic>).first as Map<String, dynamic>),
-      _ => null,
+      AppSuccessResponse(:final data) => (data!['data'] as List<dynamic>)
+          .cast<Map<String, dynamic>>()
+          .map(UserStats.fromJson)
+          .toList(),
+      _ => [],
     };
   }
 
