@@ -27,6 +27,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
   final StatsService _statsService;
   final AuthInterceptor _authInterceptor;
   late WebSocket _hub;
+  late Timer _timer;
 
   Future<void> _onInventoryStartedEvent(
     InventoryStartedEvent event,
@@ -52,6 +53,10 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
       token: token.token,
     ).build();
 
+    _timer = Timer.periodic(const Duration(seconds: 15), (timer) {
+      _hub.send('{"type":6}');
+    });
+
     final st = _hub.messages.transform(
         StreamTransformer<dynamic, List<dynamic>>.fromHandlers(
             handleData: (data, sink) {
@@ -73,17 +78,15 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     await emit.forEach(
       st,
       onData: (data) {
-        final newData = data.cast<Map<String, dynamic>>().map(
-          (e) {
-            final token = e.keys.first;
-            final data = e[token] as Map<String, dynamic>;
-            final quantity = data['quantity'] as num;
-            final priceJson = data['price'] as Map<String, dynamic>;
-            final price = priceJson['price'] as num;
-
-            return (token, price, quantity);
-          },
-        );
+        final json = data.first as Map<String, dynamic>;
+        final newData = json.entries.map((e) {
+          final token = e.key;
+          final value = e.value as Map<String, dynamic>;
+          final quantity = value['quantity'] as num;
+          final priceJson = value['price'] as Map<String, dynamic>;
+          final price = priceJson['price'] as num;
+          return (token, price, quantity);
+        });
 
         if (state is InventorySuccessState) {
           return InventorySuccessState(
@@ -91,6 +94,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
               (e) {
                 final update = newData
                     .firstWhereOrNull((element) => element.$1 == e.tokenName);
+
                 return e.copyWith(
                   price: update?.$2.toDouble() ?? e.price,
                   quantity: update?.$3.toDouble() ?? e.quantity,
@@ -108,6 +112,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
   @override
   Future<void> close() async {
     _hub.close();
+    _timer.cancel();
     return super.close();
   }
 }

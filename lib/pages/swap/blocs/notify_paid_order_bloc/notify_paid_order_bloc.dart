@@ -24,6 +24,7 @@ class NotifyPaidOrderBloc
   }
 
   late WebSocket _socket;
+  late Timer _timer;
   final AuthInterceptor _authInterceptor;
   final ReownService _reownService;
 
@@ -50,23 +51,27 @@ class NotifyPaidOrderBloc
 
     invoke(rawAddress);
 
-    _connectionSub = _socket.connection
-        .where((event) => event is Reconnected)
-        .listen((event) {
-      final chainId = _reownService.appKitModal.selectedChain!.chainId;
+    _connectionSub = _socket.connection.listen((event) {
+      print('RegisterWallet Status: $event');
 
-      final namespace = NamespaceUtils.getNamespaceFromChain(
-        chainId,
-      );
+      // final chainId = _reownService.appKitModal.selectedChain!.chainId;
 
-      final rawAddress =
-          _reownService.appKitModal.session!.getAddress(namespace)!;
+      // final namespace = NamespaceUtils.getNamespaceFromChain(
+      //   chainId,
+      // );
 
-      invoke(rawAddress);
+      // final rawAddress =
+      //     _reownService.appKitModal.session!.getAddress(namespace)!;
+
+      // invoke(rawAddress);
     });
 
     _sub = _socket.messages.listen((event) {
-      print('paidOrderHub $event');
+      print('RegisterWallet $event');
+    });
+
+    _timer = Timer.periodic(const Duration(seconds: 15), (timer) {
+      _socket.send('{"type":6}');
     });
   }
 
@@ -79,6 +84,7 @@ class NotifyPaidOrderBloc
 
   @override
   Future<void> close() async {
+    _timer.cancel();
     _socket.close();
     await _connectionSub.cancel();
     await _sub.cancel();
