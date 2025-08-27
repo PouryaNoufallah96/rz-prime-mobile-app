@@ -4,7 +4,6 @@ enum DropOrderStatus { idle, inProgress }
 
 enum PayOrderStatus { idle, inProgress }
 
-@freezed
 class OrderActionState with EquatableMixin {
   OrderActionState({
     this.updateTime = 0,

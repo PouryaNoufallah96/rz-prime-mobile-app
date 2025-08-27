@@ -179,9 +179,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/premium.png
   AssetGenImage get premium => const AssetGenImage('assets/images/premium.png');
 
-  /// File path: assets/images/premium_ِdisable.png
+  /// File path: assets/images/premium_disable.png
   AssetGenImage get premiumDisable =>
-      const AssetGenImage('assets/images/premium_ِdisable.png');
+      const AssetGenImage('assets/images/premium_disable.png');
 
   /// File path: assets/images/realestate.png
   AssetGenImage get realestate =>
