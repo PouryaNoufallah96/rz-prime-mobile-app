@@ -33,6 +33,7 @@ dependencies:
   reown_appkit: ^1.5.0
   reown_walletkit: ^1.2.0
   rxdart: ^0.28.0
+  signalr_netcore: ^1.4.3
   toastification: ^3.0.3
   url_launcher: ^6.3.2
   web3dart: ^2.7.3

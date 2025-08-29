@@ -109,6 +109,12 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
         status: AppReownLoadingStatus.signing,
       ));
 
+      Timer(const Duration(seconds: 20), () {
+        emit(state.copyWith(
+          status: AppReownLoadingStatus.none,
+        ));
+      });
+
       final signature = await appKitModal.request(
         topic: topic,
         chainId: chainId,

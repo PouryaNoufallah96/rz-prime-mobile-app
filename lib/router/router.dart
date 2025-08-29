@@ -45,12 +45,31 @@ mixin GainXAppRouter on State<GainXApp> {
                     reownService: context.read(),
                   ),
                 ),
+                RepositoryProvider(
+                  create: (context) {
+                    final reownService = context.read<ReownService>();
+                    final chainId =
+                        reownService.appKitModal.selectedChain!.chainId;
+
+                    final namespace = NamespaceUtils.getNamespaceFromChain(
+                      chainId,
+                    );
+
+                    final rawAddress = reownService.appKitModal.session!
+                        .getAddress(namespace)!;
+
+                    return SocketService(
+                      authInterceptor: context.read(),
+                    )..connect(EthereumAddress.fromHex(rawAddress).hexEip55);
+                  },
+                  dispose: (value) => value.dispose(),
+                ),
               ],
               child: MultiBlocProvider(
                 providers: [
                   BlocProvider(
                     create: (context) => InventoryBloc(
-                      authInterceptor: context.read(),
+                      socketService: context.read(),
                       statsService: context.read(),
                     )..add(InventoryStartedEvent()),
                   ),
@@ -62,8 +81,7 @@ mixin GainXAppRouter on State<GainXApp> {
                   BlocProvider(
                     lazy: false,
                     create: (context) => NotifyPaidOrderBloc(
-                      authInterceptor: context.read(),
-                      reownService: context.read(),
+                      socketService: context.read(),
                     )..add(NotifyPaidOrderStarted()),
                   ),
                 ],

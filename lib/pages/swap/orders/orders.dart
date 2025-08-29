@@ -1,6 +1,9 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/components/app_token.dart';
 import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
@@ -86,7 +89,7 @@ class SwapOrders extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${AppNumberFromatter.format(order.quantity)}'
+                            '${AppNumberFromatter.format(order.quantity, decimal: 9)}'
                             ' ${order.tokenName}',
                             style: const TextStyle(
                               fontFamily: 'CentraNo1-Medium',
@@ -135,7 +138,7 @@ class SwapOrders extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BlocSelector<InventoryBloc, InventoryState, double>(
+                          BlocSelector<InventoryBloc, InventoryState, double?>(
                             selector: (state) {
                               if (state is! InventorySuccessState) {
                                 return 0;
@@ -148,6 +151,10 @@ class SwapOrders extends StatelessWidget {
                                   0;
                             },
                             builder: (context, livePrice) {
+                              if (livePrice == null) {
+                                return const _Loading();
+                              }
+
                               final price = order.quantity * livePrice;
 
                               Color getColor() {
@@ -191,6 +198,39 @@ class SwapOrders extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class _Loading extends HookWidget {
+  const _Loading();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller =
+        useAnimationController(duration: const Duration(seconds: 2));
+
+    useEffect(() {
+      controller.repeat(reverse: true);
+      return null;
+    }, []);
+
+    final animation = ColorTween(
+            begin: context.colorExtension.neutral[700],
+            end: context.colorExtension.neutral[900])
+        .animate(controller);
+
+    final value = useAnimation(animation);
+
+    return SizedBox(
+      height: 24,
+      width: 48,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: value,
+          borderRadius: BorderRadius.circular(100),
+        ),
+      ),
     );
   }
 }
