@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:crypto/crypto.dart';
+
 class Env {
   static final _env = _Env.get();
 
@@ -13,6 +18,27 @@ class Env {
   static String erc20Address = _env.erc20Address;
   static String erc20Name = _env.erc20Name;
   static String applicationId = _env.applicationId;
+
+  static Map<String, dynamic> authHeaders() {
+    final now = DateTime.now().millisecondsSinceEpoch.toString();
+    final randomPart = (Random().nextDouble() * 1000000000).toInt().toString();
+    final nonce = now + randomPart;
+
+    final key = utf8.encode(publicSignature);
+    final message = utf8.encode(nonce);
+
+    final hmacSha256 = Hmac(sha256, key);
+    final digest = hmacSha256.convert(message);
+
+    final signature = base64Encode(digest.bytes);
+
+    return {
+      'Origin': 'https://app.rzprime.com',
+      'Applicationid': applicationId,
+      'Nonce': nonce,
+      'Signature': signature,
+    };
+  }
 }
 
 sealed class _Env {
@@ -53,16 +79,16 @@ class _StageEnv extends _Env {
   _StageEnv()
       : super(
           reownProjectId: '7ce040c7d04f5849ebb722c29a169483',
-          apiEndPoint: 'https://testnetapi.rzprime.com/api/v1/',
-          clientId: 'app_iiastsswqz',
-          clientSecret: 'chdnisuxnvvhsdswq',
-          publicSignature: 'ikjhyfgrtydhAqHCUjV5P5Fjv5y',
-          inventroyOrderHub: 'wss://testnetapi.rzprime.com/hubs/inventory',
-          paidOrderHub: 'wss://testnetapi.rzprime.com/hubs/paidOrder',
-          appContractAddress: '0xB0D6B2805C09A37c762c3599fA932DC5Dc0D65c3',
+          apiEndPoint: 'https://api.rzprime.com/api/v1/',
+          clientId: 'app_mainappful',
+          clientSecret: 'LilIlldfhgkaynvvhsdswq',
+          publicSignature: 'iliuyiLilkdhAqHCUjV5P5Fjv5y',
+          inventroyOrderHub: 'wss://api.rzprime.com/hubs/inventory',
+          paidOrderHub: 'wss://api.rzprime.com/hubs/paidOrder',
+          appContractAddress: '0xa6d0FA6D03ebfA679CC8F4F1d048aCeE54f674Ba',
           appContractName: 'TokenForwardSale',
-          erc20Address: '0xbeeAF6AEa7D96015b27a3D5a11eB47D0cF330E16',
-          erc20Name: 'MockERC20',
-          applicationId: 'rzprime.app',
+          erc20Address: '0x55d398326f99059fF775485246999027B3197955',
+          erc20Name: 'BEP20USDT',
+          applicationId: 'rzprime.mainapp',
         );
 }

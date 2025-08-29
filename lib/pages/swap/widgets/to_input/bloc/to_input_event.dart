@@ -1,12 +1,12 @@
-part of 'price_per_unit_bloc.dart';
+part of 'to_input_bloc.dart';
 
-sealed class PricePerUnitEvent with EquatableMixin {
+sealed class ToInputEvent with EquatableMixin {
   @override
   List<Object?> get props => [];
 }
 
-class PricePerUnitChanged extends PricePerUnitEvent {
-  PricePerUnitChanged({
+class ToInputChanged extends ToInputEvent {
+  ToInputChanged({
     required this.asset,
     required this.value,
   });

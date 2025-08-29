@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gainx/core/utils/number_formatter.dart';
 
 class AppToken extends StatelessWidget {
   const AppToken({
     required this.src,
     required this.name,
     this.textStyle,
+    this.price,
     this.size = 24,
     super.key,
   });
@@ -14,6 +16,7 @@ class AppToken extends StatelessWidget {
   final String name;
   final double size;
   final TextStyle? textStyle;
+  final double? price;
 
   bool get _isSvg => src.endsWith('.svg');
 
@@ -34,14 +37,29 @@ class AppToken extends StatelessWidget {
             width: size,
           ),
         const SizedBox(width: 8),
-        Text(
-          name,
-          style: textStyle ??
-              const TextStyle(
-                fontFamily: 'CentraNo1-Book',
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 2,
+          children: [
+            Text(
+              name,
+              style: textStyle ??
+                  const TextStyle(
+                    fontFamily: 'CentraNo1-Book',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+            ),
+            if (price != null)
+              Text(
+                '\$ ${AppNumberFromatter.format(price!)}',
+                style: const TextStyle(
+                  fontFamily: 'CentraNo1-Medium',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
+          ],
         ),
       ],
     );

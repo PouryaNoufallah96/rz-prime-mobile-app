@@ -18,8 +18,9 @@ class OrdersService {
       Uri.parse('Order/SubmitOrder'),
       method: HttpMethod.post,
       body: {
+        'selectedStage': selectedStage,
         'tokenName': assetName,
-        'tokenAmount': loanAmount,
+        'usdtAmount': loanAmount,
         'monthDuration': monthDuration,
       },
     );
@@ -75,22 +76,21 @@ class OrdersService {
     };
   }
 
-  Future<EffectivePriceModel?> effectivePrice({
+  Future<double?> effectivePrice({
     required String assetName,
     required double loanAmount,
   }) async {
     final res = await _adapter.requestUri<Map<String, dynamic>>(
-      Uri.parse('Price/GetEffectivePrice'),
+      Uri.parse('Price/GetSwapAmount'),
       body: {
         'tokenName': assetName,
-        'tokenAmount': loanAmount,
+        'usdtAmount': loanAmount,
       },
       method: HttpMethod.post,
     );
 
     return switch (res) {
-      AppSuccessResponse(:final data) =>
-        EffectivePriceModel.fromJson(data!['data'] as Map<String, dynamic>),
+      AppSuccessResponse(:final data) => data!['data'] as double?,
       _ => null,
     };
   }

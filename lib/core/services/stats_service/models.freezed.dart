@@ -20,17 +20,10 @@ InventoryModel _$InventoryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$InventoryModel {
-  String get tokenAddress => throw _privateConstructorUsedError;
   String get tokenName => throw _privateConstructorUsedError;
   String get tokenNetwork => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   double get quantity => throw _privateConstructorUsedError;
-  double get liquidityUsd => throw _privateConstructorUsedError;
-  double get volume24hUsd => throw _privateConstructorUsedError;
-  double get reserveBaseUsd => throw _privateConstructorUsedError;
-  double get reserveQuoteUsd => throw _privateConstructorUsedError;
-  double get quoteTokenPriceUsd => throw _privateConstructorUsedError;
-  String get fakeAddress => throw _privateConstructorUsedError;
   String get lastUpdated => throw _privateConstructorUsedError;
 
   /// Serializes this InventoryModel to a JSON map.
@@ -50,17 +43,10 @@ abstract class $InventoryModelCopyWith<$Res> {
       _$InventoryModelCopyWithImpl<$Res, InventoryModel>;
   @useResult
   $Res call(
-      {String tokenAddress,
-      String tokenName,
+      {String tokenName,
       String tokenNetwork,
       double price,
       double quantity,
-      double liquidityUsd,
-      double volume24hUsd,
-      double reserveBaseUsd,
-      double reserveQuoteUsd,
-      double quoteTokenPriceUsd,
-      String fakeAddress,
       String lastUpdated});
 }
 
@@ -79,24 +65,13 @@ class _$InventoryModelCopyWithImpl<$Res, $Val extends InventoryModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? tokenAddress = null,
     Object? tokenName = null,
     Object? tokenNetwork = null,
     Object? price = null,
     Object? quantity = null,
-    Object? liquidityUsd = null,
-    Object? volume24hUsd = null,
-    Object? reserveBaseUsd = null,
-    Object? reserveQuoteUsd = null,
-    Object? quoteTokenPriceUsd = null,
-    Object? fakeAddress = null,
     Object? lastUpdated = null,
   }) {
     return _then(_value.copyWith(
-      tokenAddress: null == tokenAddress
-          ? _value.tokenAddress
-          : tokenAddress // ignore: cast_nullable_to_non_nullable
-              as String,
       tokenName: null == tokenName
           ? _value.tokenName
           : tokenName // ignore: cast_nullable_to_non_nullable
@@ -113,30 +88,6 @@ class _$InventoryModelCopyWithImpl<$Res, $Val extends InventoryModel>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as double,
-      liquidityUsd: null == liquidityUsd
-          ? _value.liquidityUsd
-          : liquidityUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      volume24hUsd: null == volume24hUsd
-          ? _value.volume24hUsd
-          : volume24hUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      reserveBaseUsd: null == reserveBaseUsd
-          ? _value.reserveBaseUsd
-          : reserveBaseUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      reserveQuoteUsd: null == reserveQuoteUsd
-          ? _value.reserveQuoteUsd
-          : reserveQuoteUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      quoteTokenPriceUsd: null == quoteTokenPriceUsd
-          ? _value.quoteTokenPriceUsd
-          : quoteTokenPriceUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      fakeAddress: null == fakeAddress
-          ? _value.fakeAddress
-          : fakeAddress // ignore: cast_nullable_to_non_nullable
-              as String,
       lastUpdated: null == lastUpdated
           ? _value.lastUpdated
           : lastUpdated // ignore: cast_nullable_to_non_nullable
@@ -154,17 +105,10 @@ abstract class _$$InventoryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String tokenAddress,
-      String tokenName,
+      {String tokenName,
       String tokenNetwork,
       double price,
       double quantity,
-      double liquidityUsd,
-      double volume24hUsd,
-      double reserveBaseUsd,
-      double reserveQuoteUsd,
-      double quoteTokenPriceUsd,
-      String fakeAddress,
       String lastUpdated});
 }
 
@@ -181,24 +125,13 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? tokenAddress = null,
     Object? tokenName = null,
     Object? tokenNetwork = null,
     Object? price = null,
     Object? quantity = null,
-    Object? liquidityUsd = null,
-    Object? volume24hUsd = null,
-    Object? reserveBaseUsd = null,
-    Object? reserveQuoteUsd = null,
-    Object? quoteTokenPriceUsd = null,
-    Object? fakeAddress = null,
     Object? lastUpdated = null,
   }) {
     return _then(_$InventoryModelImpl(
-      tokenAddress: null == tokenAddress
-          ? _value.tokenAddress
-          : tokenAddress // ignore: cast_nullable_to_non_nullable
-              as String,
       tokenName: null == tokenName
           ? _value.tokenName
           : tokenName // ignore: cast_nullable_to_non_nullable
@@ -215,30 +148,6 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as double,
-      liquidityUsd: null == liquidityUsd
-          ? _value.liquidityUsd
-          : liquidityUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      volume24hUsd: null == volume24hUsd
-          ? _value.volume24hUsd
-          : volume24hUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      reserveBaseUsd: null == reserveBaseUsd
-          ? _value.reserveBaseUsd
-          : reserveBaseUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      reserveQuoteUsd: null == reserveQuoteUsd
-          ? _value.reserveQuoteUsd
-          : reserveQuoteUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      quoteTokenPriceUsd: null == quoteTokenPriceUsd
-          ? _value.quoteTokenPriceUsd
-          : quoteTokenPriceUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      fakeAddress: null == fakeAddress
-          ? _value.fakeAddress
-          : fakeAddress // ignore: cast_nullable_to_non_nullable
-              as String,
       lastUpdated: null == lastUpdated
           ? _value.lastUpdated
           : lastUpdated // ignore: cast_nullable_to_non_nullable
@@ -251,24 +160,15 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$InventoryModelImpl implements _InventoryModel {
   const _$InventoryModelImpl(
-      {required this.tokenAddress,
-      required this.tokenName,
+      {required this.tokenName,
       required this.tokenNetwork,
       required this.price,
       required this.quantity,
-      required this.liquidityUsd,
-      required this.volume24hUsd,
-      required this.reserveBaseUsd,
-      required this.reserveQuoteUsd,
-      required this.quoteTokenPriceUsd,
-      required this.fakeAddress,
       required this.lastUpdated});
 
   factory _$InventoryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InventoryModelImplFromJson(json);
 
-  @override
-  final String tokenAddress;
   @override
   final String tokenName;
   @override
@@ -278,23 +178,11 @@ class _$InventoryModelImpl implements _InventoryModel {
   @override
   final double quantity;
   @override
-  final double liquidityUsd;
-  @override
-  final double volume24hUsd;
-  @override
-  final double reserveBaseUsd;
-  @override
-  final double reserveQuoteUsd;
-  @override
-  final double quoteTokenPriceUsd;
-  @override
-  final String fakeAddress;
-  @override
   final String lastUpdated;
 
   @override
   String toString() {
-    return 'InventoryModel(tokenAddress: $tokenAddress, tokenName: $tokenName, tokenNetwork: $tokenNetwork, price: $price, quantity: $quantity, liquidityUsd: $liquidityUsd, volume24hUsd: $volume24hUsd, reserveBaseUsd: $reserveBaseUsd, reserveQuoteUsd: $reserveQuoteUsd, quoteTokenPriceUsd: $quoteTokenPriceUsd, fakeAddress: $fakeAddress, lastUpdated: $lastUpdated)';
+    return 'InventoryModel(tokenName: $tokenName, tokenNetwork: $tokenNetwork, price: $price, quantity: $quantity, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -302,8 +190,6 @@ class _$InventoryModelImpl implements _InventoryModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InventoryModelImpl &&
-            (identical(other.tokenAddress, tokenAddress) ||
-                other.tokenAddress == tokenAddress) &&
             (identical(other.tokenName, tokenName) ||
                 other.tokenName == tokenName) &&
             (identical(other.tokenNetwork, tokenNetwork) ||
@@ -311,18 +197,6 @@ class _$InventoryModelImpl implements _InventoryModel {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
-            (identical(other.liquidityUsd, liquidityUsd) ||
-                other.liquidityUsd == liquidityUsd) &&
-            (identical(other.volume24hUsd, volume24hUsd) ||
-                other.volume24hUsd == volume24hUsd) &&
-            (identical(other.reserveBaseUsd, reserveBaseUsd) ||
-                other.reserveBaseUsd == reserveBaseUsd) &&
-            (identical(other.reserveQuoteUsd, reserveQuoteUsd) ||
-                other.reserveQuoteUsd == reserveQuoteUsd) &&
-            (identical(other.quoteTokenPriceUsd, quoteTokenPriceUsd) ||
-                other.quoteTokenPriceUsd == quoteTokenPriceUsd) &&
-            (identical(other.fakeAddress, fakeAddress) ||
-                other.fakeAddress == fakeAddress) &&
             (identical(other.lastUpdated, lastUpdated) ||
                 other.lastUpdated == lastUpdated));
   }
@@ -330,19 +204,7 @@ class _$InventoryModelImpl implements _InventoryModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      tokenAddress,
-      tokenName,
-      tokenNetwork,
-      price,
-      quantity,
-      liquidityUsd,
-      volume24hUsd,
-      reserveBaseUsd,
-      reserveQuoteUsd,
-      quoteTokenPriceUsd,
-      fakeAddress,
-      lastUpdated);
+      runtimeType, tokenName, tokenNetwork, price, quantity, lastUpdated);
 
   /// Create a copy of InventoryModel
   /// with the given fields replaced by the non-null parameter values.
@@ -363,24 +225,15 @@ class _$InventoryModelImpl implements _InventoryModel {
 
 abstract class _InventoryModel implements InventoryModel {
   const factory _InventoryModel(
-      {required final String tokenAddress,
-      required final String tokenName,
+      {required final String tokenName,
       required final String tokenNetwork,
       required final double price,
       required final double quantity,
-      required final double liquidityUsd,
-      required final double volume24hUsd,
-      required final double reserveBaseUsd,
-      required final double reserveQuoteUsd,
-      required final double quoteTokenPriceUsd,
-      required final String fakeAddress,
       required final String lastUpdated}) = _$InventoryModelImpl;
 
   factory _InventoryModel.fromJson(Map<String, dynamic> json) =
       _$InventoryModelImpl.fromJson;
 
-  @override
-  String get tokenAddress;
   @override
   String get tokenName;
   @override
@@ -389,18 +242,6 @@ abstract class _InventoryModel implements InventoryModel {
   double get price;
   @override
   double get quantity;
-  @override
-  double get liquidityUsd;
-  @override
-  double get volume24hUsd;
-  @override
-  double get reserveBaseUsd;
-  @override
-  double get reserveQuoteUsd;
-  @override
-  double get quoteTokenPriceUsd;
-  @override
-  String get fakeAddress;
   @override
   String get lastUpdated;
 

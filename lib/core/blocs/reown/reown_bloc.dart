@@ -69,7 +69,7 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
 
       if (appKitModal.selectedChain == null) {
         await appKitModal.selectChain(
-          ReownAppKitModalNetworks.getNetworkInfo('eip155', '97'),
+          ReownAppKitModalNetworks.getNetworkInfo('eip155', '56'),
           switchChain: true,
         );
       }

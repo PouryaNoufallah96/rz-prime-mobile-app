@@ -52,30 +52,34 @@ class ReownService {
     ReownAppKitModalNetworks.removeSupportedNetworks('eip155');
 
     ReownAppKitModalNetworks.addSupportedNetworks('eip155', [
-      const ReownAppKitModalNetworkInfo(
-        name: 'BSC Testnet',
-        chainId: '97',
-        currency: 'tBNB',
-        rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-        explorerUrl: 'https://testnet.bscscan.com',
-        isTestNetwork: true,
-      ),
+      // const ReownAppKitModalNetworkInfo(
+      //   name: 'BSC Testnet',
+      //   chainId: '97',
+      //   currency: 'tBNB',
+      //   rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+      //   explorerUrl: 'https://testnet.bscscan.com',
+      //   isTestNetwork: true,
+      // ),
       const ReownAppKitModalNetworkInfo(
         name: 'Binance Smart Chain',
         chainId: '56',
         chainIcon: '93564157-2e8e-4ce7-81df-b264dbee9b00',
         currency: 'BNB',
-        rpcUrl: 'https://bsc-dataseed.binance.org/',
+        extraRpcUrls: [
+          'https://rpc.ankr.com/bsc/cea6f21cc6dc0df6ac58a42690aa0581b0e1981309f47385e0257994874b121e',
+        ],
+        rpcUrl:
+            'https://special-sly-sanctuary.bsc.quiknode.pro/ce247854099f34d852fdeff393e6262ba7b3e7ca/',
         explorerUrl: 'https://bscscan.com',
       ),
-      const ReownAppKitModalNetworkInfo(
-        name: 'Sepolia',
-        chainId: '11155111',
-        currency: 'SEP',
-        rpcUrl: 'https://ethereum-sepolia.publicnode.com',
-        explorerUrl: 'https://sepolia.etherscan.io/',
-        isTestNetwork: true,
-      ),
+      // const ReownAppKitModalNetworkInfo(
+      //   name: 'Sepolia',
+      //   chainId: '11155111',
+      //   currency: 'SEP',
+      //   rpcUrl: 'https://ethereum-sepolia.publicnode.com',
+      //   explorerUrl: 'https://sepolia.etherscan.io/',
+      //   isTestNetwork: true,
+      // ),
       // const ReownAppKitModalNetworkInfo(
       //   name: 'Sepolia testnet',
       //   chainId: '11155111',

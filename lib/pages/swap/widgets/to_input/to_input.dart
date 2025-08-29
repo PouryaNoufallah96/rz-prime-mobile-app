@@ -8,9 +8,10 @@ import 'package:gainx/core/utils/input_formatter.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
-import 'package:gainx/pages/swap/widgets/price_per_unit/price_per_unit.dart';
+import 'package:gainx/pages/swap/widgets/to_input/bloc/to_input_bloc.dart';
+import 'package:gainx/pages/swap/widgets/to_input/widgets/price_per_unit.dart';
 
-class SwapToInput extends HookWidget {
+class SwapToInput extends StatelessWidget {
   const SwapToInput({
     required this.stats,
     super.key,
@@ -20,22 +21,45 @@ class SwapToInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ToInputBloc(
+        ordersService: context.read(),
+      ),
+      child: _SwapToInput(
+        stats: stats,
+      ),
+    );
+  }
+}
+
+class _SwapToInput extends HookWidget {
+  const _SwapToInput({
+    required this.stats,
+  });
+
+  final UserStats stats;
+
+  @override
+  Widget build(BuildContext context) {
     final controller = useTextEditingController(text: '0');
 
-    return BlocListener<SwapBloc, SwapState>(
-      listenWhen: (p, c) {
-        return p.selectedToken != c.selectedToken || p.fromValue != c.fromValue;
-      },
-      listener: (context, state) {
-        if (state.selectedToken == null) {
-          controller.text = '0';
-          return;
-        }
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ToInputBloc, ToInputState>(
+          listener: (context, state) {
+            if (state is ToInputStateSuccessState) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                controller.text = '${state.price}';
+              });
+              return;
+            }
 
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          controller.text = '${state.fromValue / state.selectedToken!.price}';
-        });
-      },
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              controller.text = '0';
+            });
+          },
+        ),
+      ],
       child: BlocSelector<SwapBloc, SwapState, InventoryModel?>(
         selector: (state) {
           return state.selectedToken;
@@ -293,6 +317,7 @@ class _SelectToken extends HookWidget {
                                     size: 34,
                                     src: e.imageSrc,
                                     name: e.tokenName,
+                                    price: e.price,
                                     textStyle: const TextStyle(
                                       fontFamily: 'CentraNo1-Book',
                                       fontSize: 16,

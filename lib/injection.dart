@@ -37,10 +37,6 @@ Widget appInjection(Widget child) {
         create: (context) => Dio(
           BaseOptions(
             baseUrl: Env.apiEndPoint,
-            headers: {
-              'Origin': 'https://testnetapi.rzprime.com',
-              'applicationid': Env.applicationId,
-            },
           ),
         )..interceptors.addAll([
             // CurlLoggerDioInterceptor(),

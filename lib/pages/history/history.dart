@@ -93,45 +93,63 @@ class _Orders extends HookWidget {
     return RefreshIndicator(
       onRefresh: () => context.read<FinalizeOrderCubit>().getOrders(),
       child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         controller: scrollController,
         slivers: <Widget>[
-          SliverList.separated(
-            separatorBuilder: (context, index) {
-              return const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-                child: SizedBox(height: 16),
-              );
-            },
-            itemCount: orders.length,
-            itemBuilder: (context, index) {
-              final order = orders[index];
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                child: _Order(order: order),
-              );
-            },
-          ),
-          SliverToBoxAdapter(
-            child: BlocSelector<FinalizeOrderCubit, FinalizeOrderState, bool>(
-              selector: (state) {
-                return state.loadingMoreStatus ==
-                    FinalizeOrderLoadingStatus.inProgress;
-              },
-              builder: (context, state) {
-                if (!state) {
-                  return const SizedBox.shrink();
-                }
-
-                return const Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Center(
-                    child: CircularProgressIndicator(),
+          if (orders.isEmpty)
+            const SliverFillRemaining(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 12,
+                children: [
+                  Icon(
+                    Icons.hourglass_empty_rounded,
+                    size: 28,
+                    color: Colors.white,
                   ),
+                  Text('No data'),
+                ],
+              ),
+            )
+          else ...[
+            SliverList.separated(
+              separatorBuilder: (context, index) {
+                return const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  child: SizedBox(height: 16),
+                );
+              },
+              itemCount: orders.length,
+              itemBuilder: (context, index) {
+                final order = orders[index];
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  child: _Order(order: order),
                 );
               },
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 100)),
+            SliverToBoxAdapter(
+              child: BlocSelector<FinalizeOrderCubit, FinalizeOrderState, bool>(
+                selector: (state) {
+                  return state.loadingMoreStatus ==
+                      FinalizeOrderLoadingStatus.inProgress;
+                },
+                builder: (context, state) {
+                  if (!state) {
+                    return const SizedBox.shrink();
+                  }
+
+                  return const Padding(
+                    padding: EdgeInsets.all(24),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 100)),
+          ],
         ],
       ),
     );

@@ -3,15 +3,15 @@ import 'package:equatable/equatable.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:rxdart/rxdart.dart';
 
-part 'price_per_unit_event.dart';
-part 'price_per_unit_state.dart';
+part 'to_input_event.dart';
+part 'to_input_state.dart';
 
-class PricePerUnitBloc extends Bloc<PricePerUnitEvent, PricePerUnitState> {
-  PricePerUnitBloc({
+class ToInputBloc extends Bloc<ToInputEvent, ToInputState> {
+  ToInputBloc({
     required OrdersService ordersService,
   })  : _ordersService = ordersService,
-        super(PricePerUnitStateInitialState()) {
-    on<PricePerUnitChanged>(_onPricePerUnitChanged,
+        super(ToInputStateInitialState()) {
+    on<ToInputChanged>(_onPricePerUnitChanged,
         transformer: (events, mapper) => events
             .debounceTime(const Duration(milliseconds: 400))
             .switchMap(mapper));
@@ -20,10 +20,10 @@ class PricePerUnitBloc extends Bloc<PricePerUnitEvent, PricePerUnitState> {
   final OrdersService _ordersService;
 
   Future<void> _onPricePerUnitChanged(
-    PricePerUnitChanged event,
-    Emitter<PricePerUnitState> emit,
+    ToInputChanged event,
+    Emitter<ToInputState> emit,
   ) async {
-    emit(PricePerUnitStateInProgressState());
+    emit(ToInputStateInProgressState());
 
     if (event.asset == null || event.value <= 0) {
       return;
@@ -35,8 +35,7 @@ class PricePerUnitBloc extends Bloc<PricePerUnitEvent, PricePerUnitState> {
       );
 
       if (price != null) {
-        emit(PricePerUnitStateSuccessState(
-            effectivePrice: price.effectivePrice));
+        emit(ToInputStateSuccessState(price: price));
       }
     } catch (_) {}
   }

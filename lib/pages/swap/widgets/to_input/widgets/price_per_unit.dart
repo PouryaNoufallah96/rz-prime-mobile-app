@@ -4,19 +4,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
-import 'package:gainx/pages/swap/widgets/price_per_unit/bloc/price_per_unit_bloc.dart';
+import 'package:gainx/pages/swap/widgets/to_input/bloc/to_input_bloc.dart';
 
 class PricePerUnit extends StatelessWidget {
   const PricePerUnit({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PricePerUnitBloc(
-        ordersService: context.read(),
-      ),
-      child: const _Body(),
-    );
+    return const _Body();
   }
 }
 
@@ -30,7 +25,7 @@ class _Body extends StatelessWidget {
         return p.selectedToken != c.selectedToken || p.fromValue != c.fromValue;
       },
       listener: (context, state) {
-        context.read<PricePerUnitBloc>().add(PricePerUnitChanged(
+        context.read<ToInputBloc>().add(ToInputChanged(
               asset: state.selectedToken?.tokenName,
               value: state.fromValue,
             ));
@@ -66,20 +61,27 @@ class _Price extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PricePerUnitBloc, PricePerUnitState>(
-      builder: (context, state) {
-        if (state is! PricePerUnitStateSuccessState) {
-          return const _Loading();
-        }
+    return BlocSelector<SwapBloc, SwapState, double>(
+      selector: (state) {
+        return state.fromValue;
+      },
+      builder: (context, amount) {
+        return BlocBuilder<ToInputBloc, ToInputState>(
+          builder: (context, state) {
+            if (state is! ToInputStateSuccessState) {
+              return const _Loading();
+            }
 
-        return Text(
-          '\$${AppNumberFromatter.format(state.effectivePrice)}',
-          style: TextStyle(
-            fontFamily: 'CentraNo1-Book',
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: context.colorExtension.neutral[300],
-          ),
+            return Text(
+              '\$${AppNumberFromatter.format(amount / state.price)}',
+              style: TextStyle(
+                fontFamily: 'CentraNo1-Book',
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: context.colorExtension.neutral[300],
+              ),
+            );
+          },
         );
       },
     );

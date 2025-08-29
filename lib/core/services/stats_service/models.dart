@@ -6,17 +6,10 @@ part 'models.g.dart';
 @freezed
 class InventoryModel with _$InventoryModel {
   const factory InventoryModel({
-    required String tokenAddress,
     required String tokenName,
     required String tokenNetwork,
     required double price,
     required double quantity,
-    required double liquidityUsd,
-    required double volume24hUsd,
-    required double reserveBaseUsd,
-    required double reserveQuoteUsd,
-    required double quoteTokenPriceUsd,
-    required String fakeAddress,
     required String lastUpdated,
   }) = _InventoryModel;
 

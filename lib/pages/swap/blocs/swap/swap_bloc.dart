@@ -69,7 +69,7 @@ class SwapBloc extends Bloc<SwapEvent, SwapState> {
     final isSucceed = await _ordersService.submitOrder(
       selectedStage: event.selectedStage,
       assetName: state.selectedToken!.tokenName,
-      loanAmount: state.fromValue / state.selectedToken!.price,
+      loanAmount: state.fromValue,
       monthDuration: state.swapPayOfTime!.month,
     );
 

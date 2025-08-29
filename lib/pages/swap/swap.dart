@@ -12,7 +12,7 @@ import 'package:gainx/pages/swap/orders/orders.dart';
 import 'package:gainx/pages/swap/widgets/from_input.dart';
 import 'package:gainx/pages/swap/widgets/pay_of_time.dart';
 import 'package:gainx/pages/swap/widgets/submit_swap.dart';
-import 'package:gainx/pages/swap/widgets/to_input.dart';
+import 'package:gainx/pages/swap/widgets/to_input/to_input.dart';
 import 'package:gainx/pages/swap/widgets/user_balance.dart';
 import 'package:gainx/pages/swap/widgets/user_level.dart';
 
