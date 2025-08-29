@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:gainx/core/services/socket_service/socket_service.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/services/stats_service/stats_service.dart';
-import 'package:web_socket_client/web_socket_client.dart';
 
 part 'inventory_event.dart';
 part 'inventory_state.dart';
@@ -18,16 +17,17 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
         _socketService = socketService,
         super(InventoryInitialState()) {
     on<InventoryStartedEvent>(_onInventoryStartedEvent);
+    on<InventorySocketStartedEvent>(_onInventorySocketStartedEvent);
   }
 
   final SocketService _socketService;
   final StatsService _statsService;
-  late WebSocket _hub;
 
   Future<void> _onInventoryStartedEvent(
     InventoryStartedEvent event,
     Emitter<InventoryState> emit,
   ) async {
+    add(InventorySocketStartedEvent());
     if (state is! InventorySuccessState) {
       emit(InventoryInProgressState());
     }
@@ -37,7 +37,12 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     if (inventories.isNotEmpty) {
       emit(InventorySuccessState(inventories: inventories));
     }
+  }
 
+  Future<void> _onInventorySocketStartedEvent(
+    InventorySocketStartedEvent event,
+    Emitter<InventoryState> emit,
+  ) async {
     final stream =
         _socketService.stream.where((event) => event.name == 'NotifyInventory');
 
@@ -56,11 +61,5 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
         ]);
       },
     );
-  }
-
-  @override
-  Future<void> close() async {
-    _hub.close();
-    return super.close();
   }
 }

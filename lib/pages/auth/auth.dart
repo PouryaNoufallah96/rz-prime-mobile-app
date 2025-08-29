@@ -8,6 +8,7 @@ import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/gen/assets.gen.dart';
 import 'package:reown_appkit/modal/i_appkit_modal_impl.dart';
 import 'package:reown_appkit/reown_appkit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -51,9 +52,9 @@ class _AuthPage extends StatelessWidget {
             const SizedBox(height: 16),
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 320),
-              child: const Column(
+              child: Column(
                 children: [
-                  Text(
+                  const Text(
                     'Set Up Your Wallet',
                     style: TextStyle(
                       fontFamily: 'CentraNo1-Bold',
@@ -62,14 +63,49 @@ class _AuthPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    // ignore: lines_longer_than_80_chars
-                    'Choose how you like to get started: Please choose a wallet to proceed',
-                    style: TextStyle(
-                      fontFamily: 'CentraNo1-Book',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
+                  const SizedBox(height: 16),
+                  // Binance SmartChain to proceed
+                  Text.rich(
+                    TextSpan(
+                      text:
+                          // ignore: lines_longer_than_80_chars
+                          'Choose how you like to get started Please choose a wallet connected to ',
+                      style: const TextStyle(
+                        fontFamily: 'CentraNo1-Book',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      children: [
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: InkWell(
+                            onTap: () async {
+                              final uri =
+                                  Uri.parse('https://docs.bnbchain.org/');
+                              if (await canLaunchUrl(uri)) {
+                                await launchUrl(uri);
+                              }
+                            },
+                            child: const Text(
+                              'Binance SmartChain',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontFamily: 'CentraNo1-Bold',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const TextSpan(
+                          text: ' to proceed',
+                          style: TextStyle(
+                            fontFamily: 'CentraNo1-Book',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
                     textAlign: TextAlign.center,
                   ),

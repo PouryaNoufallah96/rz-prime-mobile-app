@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/transaction_service/transaction_service.dart';
+import 'package:gainx/core/utils/future_timeout.dart';
 import 'package:toastification/toastification.dart';
 
 part 'order_action_event.dart';
@@ -36,7 +37,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
       toastification.show(
         style: ToastificationStyle.fillColored,
         type: ToastificationType.success,
-        title: const Text('Order Dropped Successfully.'),
+        title: const Text('Order dropped Successfully.'),
         borderRadius: BorderRadius.circular(6),
         autoCloseDuration: const Duration(seconds: 4),
       );
@@ -62,12 +63,34 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
       final isApproved = await _transactionService.approve(event.amount);
 
       if (isApproved) {
-        await _transactionService.payOrder(event.id);
-      }
+        final isPayed = await futureTimeout(
+          _transactionService.payOrder(event.id),
+          const Duration(seconds: 30),
+          () {
+            emit(state.copyWith(payOrderStatus: PayOrderStatus.idle));
 
-      Timer(const Duration(seconds: 30), () {
-        emit(state.copyWith(payOrderStatus: PayOrderStatus.idle));
-      });
+            toastification.show(
+              style: ToastificationStyle.fillColored,
+              type: ToastificationType.error,
+              title:
+                  const Text('There was a problem connecting to your wallet'),
+              borderRadius: BorderRadius.circular(6),
+              autoCloseDuration: const Duration(seconds: 4),
+            );
+          },
+        );
+
+        if (isPayed ?? false) {
+          toastification.show(
+            style: ToastificationStyle.fillColored,
+            type: ToastificationType.info,
+            title: const Text(
+                'Transaction is in progress. This may take a while.'),
+            borderRadius: BorderRadius.circular(6),
+            autoCloseDuration: const Duration(seconds: 4),
+          );
+        }
+      }
 
       emit(
         state.copyWith(
@@ -78,6 +101,14 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
         ),
       );
     } catch (e) {
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.error,
+        title: const Text('There was a problem connecting to your wallet'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+
       emit(
         state.copyWith(
           payOrderStatus: PayOrderStatus.idle,

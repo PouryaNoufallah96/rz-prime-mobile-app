@@ -77,7 +77,7 @@ class SwapBloc extends Bloc<SwapEvent, SwapState> {
       toastification.show(
         style: ToastificationStyle.fillColored,
         type: ToastificationType.success,
-        title: const Text('Order Created Successfully.'),
+        title: const Text('Order Created successfully.'),
         borderRadius: BorderRadius.circular(6),
         autoCloseDuration: const Duration(seconds: 4),
       );

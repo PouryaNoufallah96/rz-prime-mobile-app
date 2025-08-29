@@ -7,6 +7,7 @@ import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/services/auth_service/models.dart';
 import 'package:gainx/core/services/reown/reown.dart';
+import 'package:gainx/core/utils/future_timeout.dart';
 import 'package:reown_appkit/reown_appkit.dart';
 import 'package:toastification/toastification.dart';
 
@@ -38,6 +39,14 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
     Emitter<ReownState> emit,
   ) async {
     _sub = _mainReownService.onModalConnectStream.listen((event) async {
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.success,
+        title: const Text('Wallet connected! Please sign the message..'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+
       add(ReownConnected(event: event));
     });
 
@@ -109,19 +118,29 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
         status: AppReownLoadingStatus.signing,
       ));
 
-      Timer(const Duration(seconds: 20), () {
-        emit(state.copyWith(
-          status: AppReownLoadingStatus.none,
-        ));
-      });
-
-      final signature = await appKitModal.request(
-        topic: topic,
-        chainId: chainId,
-        request: SessionRequestParams(
-          method: 'personal_sign',
-          params: [nonce.message, hexEip55],
+      final signature = await futureTimeout(
+        appKitModal.request(
+          topic: topic,
+          chainId: chainId,
+          request: SessionRequestParams(
+            method: 'personal_sign',
+            params: [nonce.message, hexEip55],
+          ),
         ),
+        const Duration(seconds: 30),
+        () {
+          emit(state.copyWith(
+            status: AppReownLoadingStatus.none,
+          ));
+          toastification.show(
+            style: ToastificationStyle.fillColored,
+            type: ToastificationType.error,
+            title: const Text(
+                'Connection timed out! Please reconnect your wallet.'),
+            borderRadius: BorderRadius.circular(6),
+            autoCloseDuration: const Duration(seconds: 4),
+          );
+        },
       );
 
       emit(state.copyWith(

@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:toastification/toastification.dart';
 
 class AppAuthToken with EquatableMixin {
   AppAuthToken({
@@ -127,6 +129,14 @@ class AuthInterceptor extends QueuedInterceptor {
     ResponseInterceptorHandler handler,
   ) {
     if (response.statusCode == 403 || response.statusCode == 401) {
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.error,
+        title: const Text('You need to login first'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+
       clear();
     }
 

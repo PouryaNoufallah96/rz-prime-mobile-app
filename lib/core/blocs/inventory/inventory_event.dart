@@ -6,3 +6,5 @@ class InventoryEvent with EquatableMixin {
 }
 
 class InventoryStartedEvent extends InventoryEvent {}
+
+class InventorySocketStartedEvent extends InventoryEvent {}

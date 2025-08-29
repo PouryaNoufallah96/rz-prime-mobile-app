@@ -79,6 +79,9 @@ mixin GainXAppRouter on State<GainXApp> {
                     )..getOrders(),
                   ),
                   BlocProvider(
+                    create: (context) => OverlayCubit(),
+                  ),
+                  BlocProvider(
                     lazy: false,
                     create: (context) => NotifyPaidOrderBloc(
                       socketService: context.read(),

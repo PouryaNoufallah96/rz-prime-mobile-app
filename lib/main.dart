@@ -14,6 +14,7 @@ import 'package:gainx/injection.dart';
 import 'package:gainx/pages/auth/auth.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
 import 'package:gainx/pages/history/history.dart';
+import 'package:gainx/pages/nested_page/cubit/overlay_cubit.dart';
 import 'package:gainx/pages/nested_page/nested_page.dart';
 import 'package:gainx/pages/on_boarding/on_boarding.dart';
 import 'package:gainx/pages/settings/settings.dart';

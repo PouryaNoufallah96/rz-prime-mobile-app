@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/services/orders_service/models.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
+import 'package:gainx/pages/nested_page/cubit/overlay_cubit.dart';
 import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 import 'package:gainx/pages/swap/orders/cubit/open_orders_cubit.dart';
 import 'package:gainx/pages/swap/orders/widgets/bloc/order_action_bloc.dart';
@@ -39,13 +40,25 @@ class _OrderActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<OrderActionBloc, OrderActionState>(
-      listenWhen: (p, c) => p.updateTime != c.updateTime,
-      listener: (_, __) {
-        context.read<UserStatsCubit>().fetch(skipLoading: true);
-        context.read<OpenOrdersCubit>().getOrders();
-        context.read<FinalizeOrderCubit>().getOrders();
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<OrderActionBloc, OrderActionState>(
+          listenWhen: (p, c) => p.updateTime != c.updateTime,
+          listener: (_, __) {
+            context.read<UserStatsCubit>().fetch(skipLoading: true);
+            context.read<OpenOrdersCubit>().getOrders();
+            context.read<FinalizeOrderCubit>().getOrders();
+          },
+        ),
+        BlocListener<OrderActionBloc, OrderActionState>(
+          listenWhen: (p, c) => p.payOrderStatus != c.payOrderStatus,
+          listener: (_, state) {
+            context
+                .read<OverlayCubit>()
+                .isLock(state.payOrderStatus == PayOrderStatus.inProgress);
+          },
+        ),
+      ],
       child: Row(
         spacing: 16,
         children: [

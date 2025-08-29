@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
+import 'package:gainx/pages/nested_page/cubit/overlay_cubit.dart';
 import 'package:go_router/go_router.dart';
 
 class NestedPage extends StatelessWidget {
@@ -13,25 +15,35 @@ class NestedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            child,
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+    return BlocSelector<OverlayCubit, AppOverlayState, bool>(
+      selector: (state) {
+        return state.isAppLocked;
+      },
+      builder: (context, isAppLocked) {
+        return IgnorePointer(
+          ignoring: isAppLocked,
+          child: Scaffold(
+            body: SafeArea(
+              child: Stack(
                 children: [
-                  _BottomNav(
-                    shell: child,
+                  child,
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _BottomNav(
+                          shell: child,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
