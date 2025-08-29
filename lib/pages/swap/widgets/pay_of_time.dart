@@ -50,8 +50,15 @@ class SelectPayOfTime extends StatelessWidget {
                     maxHeight: context.mSize.height * .8,
                   ),
                   showDragHandle: true,
-                  builder: (context) => _SelectPayOfTime(
-                    payOfTime: payOfTime,
+                  builder: (_) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(
+                        value: context.read<UserStatsCubit>(),
+                      ),
+                    ],
+                    child: _SelectPayOfTime(
+                      payOfTime: payOfTime,
+                    ),
                   ),
                 );
 

@@ -141,7 +141,7 @@ class SwapOrders extends StatelessWidget {
                           BlocSelector<InventoryBloc, InventoryState, double?>(
                             selector: (state) {
                               if (state is! InventorySuccessState) {
-                                return 0;
+                                return null;
                               }
 
                               return state.inventories

@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/transaction_service/transaction_service.dart';
+import 'package:toastification/toastification.dart';
 
 part 'order_action_event.dart';
 part 'order_action_state.dart';
@@ -28,6 +32,16 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
 
     final isSucceed = await _ordersService.dropOrder(orderId: event.id);
 
+    if (isSucceed) {
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.success,
+        title: const Text('Order Dropped Successfully.'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+    }
+
     emit(
       state.copyWith(
         updateTime: isSucceed
@@ -50,6 +64,10 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
       if (isApproved) {
         await _transactionService.payOrder(event.id);
       }
+
+      Timer(const Duration(seconds: 30), () {
+        emit(state.copyWith(payOrderStatus: PayOrderStatus.idle));
+      });
 
       emit(
         state.copyWith(

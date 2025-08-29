@@ -104,8 +104,12 @@ class _SwapToInput extends HookWidget {
                                   maxHeight: context.mSize.height * .8,
                                 ),
                                 showDragHandle: true,
-                                builder: (_) => BlocProvider.value(
-                                  value: context.read<InventoryBloc>(),
+                                builder: (_) => MultiBlocProvider(
+                                  providers: [
+                                    BlocProvider.value(
+                                      value: context.read<InventoryBloc>(),
+                                    ),
+                                  ],
                                   child: _SelectToken(
                                     selectedInventory: selectedToken,
                                   ),

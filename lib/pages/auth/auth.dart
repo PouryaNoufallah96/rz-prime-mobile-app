@@ -100,7 +100,7 @@ class _Auth extends StatefulHookWidget {
 
 class __AuthState extends State<_Auth> {
   ConnectButtonState _state = ConnectButtonState.none;
-  ReownAppKitModalStatus _status = ReownAppKitModalStatus.initializing;
+  ReownAppKitModalStatus _status = ReownAppKitModalStatus.idle;
   bool _isConnected = false;
 
   @override
@@ -173,7 +173,7 @@ class __AuthState extends State<_Auth> {
     // };
 
     final isLoading =
-        _state == ConnectButtonState.connecting || _status.isLoading;
+        _state == ConnectButtonState.connecting || !_status.isInitialized;
 
     return Column(
       children: [
