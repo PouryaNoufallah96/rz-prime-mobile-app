@@ -44,21 +44,27 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
   ) async {
     emit(state.copyWith(payOrderStatus: PayOrderStatus.inProgress));
 
-    final isApproved = await _transactionService.approve(event.amount);
+    try {
+      final isApproved = await _transactionService.approve(event.amount);
 
-    if (isApproved) {
-      await _transactionService.payOrder(event.id);
+      if (isApproved) {
+        await _transactionService.payOrder(event.id);
+      }
+
+      emit(
+        state.copyWith(
+          updateTime: isApproved
+              ? DateTime.now().millisecondsSinceEpoch
+              : state.updateTime,
+          payOrderStatus: PayOrderStatus.idle,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          payOrderStatus: PayOrderStatus.idle,
+        ),
+      );
     }
-
-    // final isSucceed = await _ordersService.dropOrder(orderId: event.id);
-
-    emit(
-      state.copyWith(
-        updateTime: isApproved
-            ? DateTime.now().millisecondsSinceEpoch
-            : state.updateTime,
-        payOrderStatus: PayOrderStatus.idle,
-      ),
-    );
   }
 }
