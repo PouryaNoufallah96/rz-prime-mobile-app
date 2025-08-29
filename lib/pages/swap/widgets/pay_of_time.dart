@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
+import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 
 class SelectPayOfTime extends StatelessWidget {
   const SelectPayOfTime({super.key});
@@ -94,82 +96,93 @@ class _SelectPayOfTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const Text(
-            'Pay of time',
-            style: TextStyle(
-              fontFamily: 'CentraNo1-Bold',
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 20),
-          ...SwapPayOfTime.values.map(
-            (e) {
-              return Material(
-                color: e == payOfTime
-                    ? context.colorScheme.primary.withValues(alpha: .24)
-                    : Colors.transparent,
-                child: InkWell(
-                  onTap: () => Navigator.pop(context, e),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: e == payOfTime
-                                ? context.colorScheme.primary
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const SizedBox(
-                            width: 4,
-                            height: 56,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 16,
-                          ),
-                          child: Text.rich(
-                            TextSpan(
-                              text: '${e.month}',
-                              style: const TextStyle(
-                                fontFamily: 'CentraNo1-Medium',
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
+    return BlocSelector<UserStatsCubit, UserStatsState, List<SwapPayOfTime>>(
+      selector: (state) {
+        if (state is UserStatsSuccessState) {
+          return state.selectedStage.stages();
+        }
+
+        return [];
+      },
+      builder: (context, stages) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              const Text(
+                'Pay of time',
+                style: TextStyle(
+                  fontFamily: 'CentraNo1-Bold',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 20),
+              ...stages.map(
+                (e) {
+                  return Material(
+                    color: e == payOfTime
+                        ? context.colorScheme.primary.withValues(alpha: .24)
+                        : Colors.transparent,
+                    child: InkWell(
+                      onTap: () => Navigator.pop(context, e),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: e == payOfTime
+                                    ? context.colorScheme.primary
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              children: const [
-                                TextSpan(
-                                  text: '   month',
-                                  style: TextStyle(
-                                    fontFamily: 'CentraNo1-Book',
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
+                              child: const SizedBox(
+                                width: 4,
+                                height: 56,
+                              ),
                             ),
                           ),
-                        ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 16,
+                              ),
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '${e.month}',
+                                  style: const TextStyle(
+                                    fontFamily: 'CentraNo1-Medium',
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  children: const [
+                                    TextSpan(
+                                      text: '   month',
+                                      style: TextStyle(
+                                        fontFamily: 'CentraNo1-Book',
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              );
-            },
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 24),
+            ],
           ),
-          const SizedBox(height: 24),
-        ],
-      ),
+        );
+      },
     );
   }
 }

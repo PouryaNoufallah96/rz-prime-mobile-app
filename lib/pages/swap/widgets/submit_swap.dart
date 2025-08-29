@@ -8,57 +8,68 @@ class SubmitSwap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: BlocSelector<SwapBloc, SwapState, bool>(
-        selector: (state) {
-          return state.selectedToken != null &&
-              state.swapPayOfTime != null &&
-              state.fromValue > 0;
-        },
-        builder: (context, isValid) {
-          return BlocSelector<SwapBloc, SwapState, bool>(
+    return BlocSelector<UserStatsCubit, UserStatsState,
+        (double min, double max)>(
+      selector: (state) {
+        final stage = (state as UserStatsSuccessState).selectedStage;
+        return (stage.min, stage.max);
+      },
+      builder: (context, minMax) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: BlocSelector<SwapBloc, SwapState, bool>(
             selector: (state) {
-              return state.submitSwapStatus == SubmitSwapStatus.inProgress;
+              return state.selectedToken != null &&
+                  state.swapPayOfTime != null &&
+                  state.fromValue > 0 &&
+                  state.fromValue >= minMax.$1 &&
+                  state.fromValue <= minMax.$2;
             },
-            builder: (context, isInProgress) {
-              return FilledButton(
-                style: FilledButton.styleFrom(
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: isInProgress || !isValid
-                    ? null
-                    : () {
-                        final selectedStage = (context
-                                .read<UserStatsCubit>()
-                                .state as UserStatsSuccessState)
-                            .selectedStage;
+            builder: (context, isValid) {
+              return BlocSelector<SwapBloc, SwapState, bool>(
+                selector: (state) {
+                  return state.submitSwapStatus == SubmitSwapStatus.inProgress;
+                },
+                builder: (context, isInProgress) {
+                  return FilledButton(
+                    style: FilledButton.styleFrom(
+                      foregroundColor: Colors.white,
+                    ),
+                    onPressed: isInProgress || !isValid
+                        ? null
+                        : () {
+                            final selectedStage = (context
+                                    .read<UserStatsCubit>()
+                                    .state as UserStatsSuccessState)
+                                .selectedStage;
 
-                        context.read<SwapBloc>().add(
-                              SwapSubmited(
-                                selectedStage: selectedStage.value,
-                              ),
-                            );
-                      },
-                child: isInProgress
-                    ? const SizedBox.square(
-                        dimension: 24,
-                        child: CircularProgressIndicator.adaptive(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        ))
-                    : const Text(
-                        'Swap',
-                        style: TextStyle(
-                          fontFamily: 'CentraNo1-Medium',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                            context.read<SwapBloc>().add(
+                                  SwapSubmited(
+                                    selectedStage: selectedStage.value,
+                                  ),
+                                );
+                          },
+                    child: isInProgress
+                        ? const SizedBox.square(
+                            dimension: 24,
+                            child: CircularProgressIndicator.adaptive(
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                            ))
+                        : const Text(
+                            'Swap',
+                            style: TextStyle(
+                              fontFamily: 'CentraNo1-Medium',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                  );
+                },
               );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
 
 part 'models.freezed.dart';
 part 'models.g.dart';
@@ -38,18 +39,41 @@ class UserStats with _$UserStats {
 
 enum UserStage {
   @JsonValue('Regular')
-  regular('Regular'),
+  regular('Regular', 1, 1000),
   @JsonValue('Gold')
-  gold('Gold'),
+  gold('Gold', 1100, 10000),
   @JsonValue('Premium')
-  premium('Premium'),
+  premium('Premium', 10100, 100000),
   @JsonValue('X')
-  x('X');
+  x('X', 100100, 1000000);
 
-  const UserStage(this.value);
+  const UserStage(
+    this.value,
+    this.min,
+    this.max,
+  );
+
   final String value;
+  final double min;
+  final double max;
 }
 
 extension UserStatsX on UserStats {
   double get balance => availableLoanAmount + sumOfMining;
+}
+
+extension UserStageX on UserStage {
+  List<SwapPayOfTime> stages() {
+    return switch (this) {
+      UserStage.x => [
+          SwapPayOfTime.one,
+        ],
+      UserStage.premium => [
+          SwapPayOfTime.one,
+          SwapPayOfTime.two,
+          SwapPayOfTime.three,
+        ],
+      _ => [...SwapPayOfTime.values],
+    };
+  }
 }
