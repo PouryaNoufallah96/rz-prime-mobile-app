@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
@@ -42,6 +43,11 @@ Future<void> main() async {
   );
 
   HydratedBloc.storage = storage;
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(appInjection(const GainXApp()));
 }
