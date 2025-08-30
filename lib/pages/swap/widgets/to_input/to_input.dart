@@ -288,7 +288,9 @@ class _SelectToken extends HookWidget {
                         ? context.colorScheme.primary.withValues(alpha: .24)
                         : Colors.transparent,
                     child: InkWell(
-                      onTap: () => Navigator.pop(context, e),
+                      onTap: e.quantity == 0
+                          ? null
+                           : () => Navigator.pop(context, e),
                       child: Row(
                         children: [
                           Padding(
