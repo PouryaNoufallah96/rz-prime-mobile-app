@@ -112,8 +112,10 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
         },
       );
 
+      bool? isPayed;
+
       if (isApproved ?? false) {
-        final isPayed = await futureTimeout(
+        isPayed = await futureTimeout(
           _transactionService.payOrder(event.id),
           const Duration(seconds: 30),
           () {
@@ -152,6 +154,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
 
       emit(
         state.copyWith(
+          isOrderCompeleted: () => isPayed,
           updateTime: isApproved ?? false
               ? DateTime.now().millisecondsSinceEpoch
               : state.updateTime,

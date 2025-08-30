@@ -23,7 +23,7 @@ class OpenOrdersCubit extends Cubit<OpenOrdersState> {
     emit(OpenOrdersSuccessState(orders: data));
   }
 
-  Future<void> getOrdersAndCheck() async {
+  Future<void> getOrdersAndCheck({required bool? isOrderCompeleted}) async {
     final lastOrderLength = (state as OpenOrdersSuccessState).orders.length;
 
     emit(OpenOrdersInProgressState());
@@ -31,6 +31,10 @@ class OpenOrdersCubit extends Cubit<OpenOrdersState> {
     final data = await _ordersService.listOfOrders();
 
     emit(OpenOrdersSuccessState(orders: data));
+
+    if (isOrderCompeleted == null) {
+      return;
+    }
 
     if (data.length < lastOrderLength) {
       toastification.show(
@@ -43,7 +47,7 @@ class OpenOrdersCubit extends Cubit<OpenOrdersState> {
     } else if (data.length == lastOrderLength) {
       toastification.show(
         style: ToastificationStyle.fillColored,
-        type: ToastificationType.success,
+        type: ToastificationType.error,
         title: const Text('On-chain rejected Your order did not execute.'),
         borderRadius: BorderRadius.circular(6),
         autoCloseDuration: const Duration(seconds: 4),

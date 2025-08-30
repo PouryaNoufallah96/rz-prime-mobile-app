@@ -46,7 +46,9 @@ class _OrderActions extends StatelessWidget {
           listenWhen: (p, c) => p.updateTime != c.updateTime,
           listener: (_, state) {
             context.read<UserStatsCubit>().fetch(skipLoading: true);
-            context.read<OpenOrdersCubit>().getOrdersAndCheck();
+            context.read<OpenOrdersCubit>().getOrdersAndCheck(
+                  isOrderCompeleted: state.isOrderCompeleted,
+                );
             context.read<FinalizeOrderCubit>().getOrders();
           },
         ),
