@@ -24,7 +24,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reown_appkit/appkit_modal.dart';
 import 'package:reown_appkit/reown_appkit.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:toastification/toastification.dart';
@@ -66,6 +65,7 @@ class _GainXAppState extends State<GainXApp> with GainXAppRouter {
           child: ToastificationWrapper(
             config: const ToastificationConfig(
               maxToastLimit: 1,
+              maxTitleLines: 4,
             ),
             child: MaterialApp.router(
               routerConfig: appRouter,

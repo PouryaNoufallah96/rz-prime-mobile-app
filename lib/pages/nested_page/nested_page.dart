@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/nested_page/cubit/overlay_cubit.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
-class NestedPage extends StatelessWidget {
+class NestedPage extends StatefulWidget {
   const NestedPage({
     required this.child,
     super.key,
@@ -14,36 +16,133 @@ class NestedPage extends StatelessWidget {
   final StatefulNavigationShell child;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocSelector<OverlayCubit, AppOverlayState, bool>(
-      selector: (state) {
-        return state.isAppLocked;
-      },
-      builder: (context, isAppLocked) {
-        return IgnorePointer(
-          ignoring: isAppLocked,
-          child: Scaffold(
-            body: SafeArea(
-              child: Stack(
-                children: [
-                  child,
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _BottomNav(
-                          shell: child,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+  State<NestedPage> createState() => _NestedPageState();
+}
+
+class _NestedPageState extends State<NestedPage> {
+  OverlayEntry? _entry;
+
+  void _hideOverlay() {
+    _entry?.remove();
+    _entry = null;
+  }
+
+  @override
+  void dispose() {
+    _hideOverlay();
+    super.dispose();
+  }
+
+  void _showOverlay() {
+    if (_entry != null) return;
+    final overlay = Overlay.of(context, rootOverlay: true);
+
+    _entry = OverlayEntry(
+      builder: (_) => Stack(
+        children: [
+          Positioned.fill(
+            child: IgnorePointer(
+              ignoring: false,
+              child: Container(color: const Color(0x99000000)),
             ),
           ),
-        );
+          Positioned.fill(
+            child: Center(
+              child: HookBuilder(builder: (context) {
+                final cont = useAnimationController();
+
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Material(
+                    elevation: 12,
+                    borderRadius: BorderRadius.circular(12),
+                    clipBehavior: Clip.antiAlias,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 360),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          spacing: 12,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: 120,
+                              child: Lottie.asset(
+                                'assets/images/animation.json',
+                                controller: cont,
+                                onLoaded: (p0) {
+                                  cont
+                                    ..duration = p0.duration
+                                    ..forward();
+                                },
+                              ),
+                            ),
+                            const Text(
+                              'You transaction is being submitted.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'CentraNo1-Medium',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const Text(
+                              // ignore: lines_longer_than_80_chars
+                              'You will be redirected to your wallet to confirm the transaction. This process may take time.',
+                              textAlign: TextAlign.center,
+
+                              style: TextStyle(
+                                fontFamily: 'CentraNo1-Book',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    overlay.insert(_entry!);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<OverlayCubit, AppOverlayState>(
+      listener: (context, state) {
+        if (state.isAppLocked) {
+          _showOverlay();
+        } else {
+          _hideOverlay();
+        }
       },
+      child: Scaffold(
+        body: SafeArea(
+          child: Stack(
+            children: [
+              widget.child,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _BottomNav(
+                      shell: widget.child,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

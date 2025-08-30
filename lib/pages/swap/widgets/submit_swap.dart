@@ -22,7 +22,11 @@ class SubmitSwap extends StatelessWidget {
             return previous.fromValue != current.fromValue;
           },
           listener: (context, state) {
-            if (state.fromValue >= stage.max) {
+            if (state.fromValue == 0) {
+              return;
+            }
+
+            if (state.fromValue > stage.max) {
               toastification.show(
                 style: ToastificationStyle.fillColored,
                 type: ToastificationType.error,
@@ -31,7 +35,7 @@ class SubmitSwap extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6),
                 autoCloseDuration: const Duration(seconds: 4),
               );
-            } else if (state.fromValue <= stage.min) {
+            } else if (state.fromValue < stage.min) {
               toastification.show(
                 style: ToastificationStyle.fillColored,
                 type: ToastificationType.error,
@@ -49,8 +53,11 @@ class SubmitSwap extends StatelessWidget {
                 return state.selectedToken != null &&
                     state.swapPayOfTime != null &&
                     state.fromValue > 0 &&
-                    state.fromValue >= stage.max &&
-                    state.fromValue <= stage.min;
+                    state.fromValue <= stage.max &&
+                    state.fromValue >= stage.min &&
+                    (state.selectedToken != null &&
+                        state.selectedToken!.quantity >=
+                            (state.fromValue / state.selectedToken!.price));
               },
               builder: (context, isValid) {
                 return BlocSelector<SwapBloc, SwapState, bool>(

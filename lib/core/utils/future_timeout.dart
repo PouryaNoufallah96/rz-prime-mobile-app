@@ -12,5 +12,8 @@ Future<T?> futureTimeout<T>(
   } on TimeoutException {
     onTimeout();
     return null;
+  } catch (_) {
+    onTimeout();
+    return null;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart' show Decimal;
 import 'package:gainx/contract_abi/contract_abi.dart';
 import 'package:gainx/core/services/reown/reown.dart';
 import 'package:reown_appkit/reown_appkit.dart';
@@ -8,6 +9,58 @@ class TransactionService {
   }) : _reownService = reownService;
 
   final ReownService _reownService;
+
+  Future<void> loadAccountData() async {
+    try {
+      await _reownService.appKitModal.loadAccountData();
+    } catch (_) {}
+  }
+
+  Future<(String network, double balance)> balance() async {
+    final topic = _reownService.appKitModal.session?.topic;
+    final chainId = _reownService.appKitModal.selectedChain!.chainId;
+    final namespace = NamespaceUtils.getNamespaceFromChain(chainId);
+    final owner = _reownService.appKitModal.session!.getAddress(namespace);
+    final ownerAddress = EthereumAddress.fromHex(owner!);
+
+    final decRes = await _reownService.appKitModal.requestReadContract(
+      topic: _reownService.appKitModal.session?.topic,
+      chainId: chainId,
+      deployedContract: AppContractAbi.erc20Contract,
+      functionName: AppContractAbi.erc20Contract.function('decimals').name,
+    );
+
+    final decimals = (decRes.first as BigInt).toInt();
+
+    final balRes = await _reownService.appKitModal.requestReadContract(
+      topic: topic,
+      chainId: chainId,
+      deployedContract: AppContractAbi.erc20Contract,
+      functionName: 'balanceOf',
+      parameters: [ownerAddress],
+    );
+    final raw = balRes.first as BigInt;
+
+    final balance = toHumanDouble(raw, decimals, fractionDigits: 4);
+    return (_reownService.appKitModal.selectedChain?.name ?? '', balance);
+  }
+
+  Decimal toHumanExact(BigInt raw, int decimals) {
+    if (decimals <= 0) return Decimal.parse(raw.toString());
+
+    final s = raw.toString().padLeft(decimals + 1, '0');
+    final whole = s.substring(0, s.length - decimals);
+    final frac = s.substring(s.length - decimals);
+
+    return Decimal.parse('$whole.$frac');
+  }
+
+  double toHumanDouble(BigInt raw, int decimals, {int fractionDigits = 6}) {
+    final d = toHumanExact(raw, decimals).toDouble();
+    return fractionDigits >= 0
+        ? double.parse(d.toStringAsFixed(fractionDigits))
+        : d;
+  }
 
   Future<bool> approve(double amount) async {
     final chainId = _reownService.appKitModal.selectedChain?.chainId;

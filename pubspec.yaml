@@ -12,6 +12,7 @@ dependencies:
   collection: ^1.19.1
   crypto: ^3.0.6
   curl_logger_dio_interceptor: ^1.0.0
+  decimal: ^3.2.4
   dio: ^5.9.0
   equatable: ^2.0.7
   flutter:
@@ -28,6 +29,7 @@ dependencies:
   hydrated_bloc: ^10.1.1
   intl: ^0.20.2
   json_annotation: ^4.9.0
+  lottie: ^3.3.1
   path_provider: ^2.1.5
   pretty_dio_logger: ^1.4.0
   reown_appkit: ^1.5.0

@@ -160,18 +160,6 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
   ) async {
     _authInterceptor.check();
 
-    // if (!(state.nonce?.isNonceValid ?? true) &&
-    //     _mainReownService.appKitModal.session != null) {
-    //   emit(state.copyWith(
-    //     nonce: () => null,
-    //   ));
-
-    //   add(ReownConnected(
-    //       event: ModalConnect(_mainReownService.appKitModal.session!)));
-
-    //   return;
-    // }
-
     if (!_mainReownService.appKitModal.isConnected) {
       await _mainReownService.appKitModal.openModalView();
       return;
@@ -206,6 +194,10 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
 
       if (token != null) {
         _authInterceptor.setToken(token);
+
+        try {
+          unawaited(_mainReownService.appKitModal.loadAccountData());
+        } catch (_) {}
 
         toastification.show(
           style: ToastificationStyle.fillColored,
