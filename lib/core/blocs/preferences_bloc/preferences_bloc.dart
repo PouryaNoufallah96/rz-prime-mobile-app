@@ -10,6 +10,12 @@ class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
   PreferencesBloc() : super(const PreferencesState()) {
     on<PreferencesThemeToggled>(_onPreferencesThemeToggled);
     on<PreferencesOnBoardingPassed>(_onPreferencesOnBoardingPassed);
+    on<PreferencesTermsOfUsePassed>(_onPreferencesTermsOfUsePassed);
+  }
+
+  @override
+  String get storagePrefix {
+    return 'PreferencesBlocV2';
   }
 
   void _onPreferencesThemeToggled(
@@ -23,7 +29,14 @@ class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
     PreferencesOnBoardingPassed _,
     Emitter<PreferencesState> emit,
   ) {
-    emit(state.copyWith(isOnBoardingPass: !state.isOnBoardingPass));
+    emit(state.copyWith(isOnBoardingPass: true));
+  }
+
+  void _onPreferencesTermsOfUsePassed(
+    PreferencesTermsOfUsePassed _,
+    Emitter<PreferencesState> emit,
+  ) {
+    emit(state.copyWith(isTermsAccepted: true));
   }
 
   @override

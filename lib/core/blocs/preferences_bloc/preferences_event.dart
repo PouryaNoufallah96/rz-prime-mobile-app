@@ -10,3 +10,5 @@ sealed class PreferencesEvent extends Equatable {
 class PreferencesThemeToggled extends PreferencesEvent {}
 
 class PreferencesOnBoardingPassed extends PreferencesEvent {}
+
+class PreferencesTermsOfUsePassed extends PreferencesEvent {}

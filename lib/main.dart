@@ -20,6 +20,7 @@ import 'package:gainx/pages/on_boarding/on_boarding.dart';
 import 'package:gainx/pages/settings/settings.dart';
 import 'package:gainx/pages/swap/blocs/notify_paid_order_bloc/notify_paid_order_bloc.dart';
 import 'package:gainx/pages/swap/swap.dart';
+import 'package:gainx/pages/terms_of_use/terms_of_use.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';

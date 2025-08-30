@@ -5,6 +5,7 @@ final class PreferencesState extends Equatable {
   const PreferencesState({
     this.isDark = true,
     this.isOnBoardingPass = false,
+    this.isTermsAccepted = false,
   });
 
   factory PreferencesState.fromJson(Map<String, dynamic> json) =>
@@ -12,19 +13,22 @@ final class PreferencesState extends Equatable {
 
   final bool isOnBoardingPass;
   final bool isDark;
+  final bool isTermsAccepted;
 
   PreferencesState copyWith({
     bool? isOnBoardingPass,
     bool? isDark,
+    bool? isTermsAccepted,
   }) {
     return PreferencesState(
       isDark: isDark ?? this.isDark,
       isOnBoardingPass: isOnBoardingPass ?? this.isOnBoardingPass,
+      isTermsAccepted: isTermsAccepted ?? this.isTermsAccepted,
     );
   }
 
   @override
-  List<Object> get props => [isDark, isOnBoardingPass];
+  List<Object> get props => [isDark, isOnBoardingPass, isTermsAccepted];
 
   Map<String, dynamic> toJson() => _$PreferencesStateToJson(this);
 }

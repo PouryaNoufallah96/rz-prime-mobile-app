@@ -17,12 +17,18 @@ mixin GainXAppRouter on State<GainXApp> {
 
         final isOnBoardingPassed =
             context.read<PreferencesBloc>().state.isOnBoardingPass;
+        final isTermsAccepted =
+            context.read<PreferencesBloc>().state.isTermsAccepted;
 
         if (!isOnBoardingPassed) {
           return '/on_boarding';
         }
 
-        if (isOnBoardingPassed && path == '/on_boarding') {
+        if (!isTermsAccepted) {
+          return '/terms_of_use';
+        }
+
+        if (isTermsAccepted && path == '/terms_of_use') {
           return '/';
         }
 
@@ -151,6 +157,10 @@ mixin GainXAppRouter on State<GainXApp> {
         GoRoute(
           path: '/on_boarding',
           builder: (context, state) => const OnBoardingPage(),
+        ),
+        GoRoute(
+          path: '/terms_of_use',
+          builder: (context, state) => const TermsOfUsePage(),
         )
       ],
     );
