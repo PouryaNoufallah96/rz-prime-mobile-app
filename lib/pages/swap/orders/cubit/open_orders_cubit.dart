@@ -36,7 +36,7 @@ class OpenOrdersCubit extends Cubit<OpenOrdersState> {
       toastification.show(
         style: ToastificationStyle.fillColored,
         type: ToastificationType.success,
-        title: const Text('Your order was confirmed on-chain.'),
+        title: const Text('On-chain confirmed, Your order is finalized.'),
         borderRadius: BorderRadius.circular(6),
         autoCloseDuration: const Duration(seconds: 4),
       );
@@ -44,7 +44,7 @@ class OpenOrdersCubit extends Cubit<OpenOrdersState> {
       toastification.show(
         style: ToastificationStyle.fillColored,
         type: ToastificationType.success,
-        title: const Text('Your order was rejected on-chain.'),
+        title: const Text('On-chain rejected Your order did not execute.'),
         borderRadius: BorderRadius.circular(6),
         autoCloseDuration: const Duration(seconds: 4),
       );
