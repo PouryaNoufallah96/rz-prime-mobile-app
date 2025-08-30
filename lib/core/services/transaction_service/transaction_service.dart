@@ -17,6 +17,8 @@ class TransactionService {
   }
 
   Future<(String network, double balance)> balance() async {
+    await loadAccountData();
+
     final topic = _reownService.appKitModal.session?.topic;
     final chainId = _reownService.appKitModal.selectedChain!.chainId;
     final namespace = NamespaceUtils.getNamespaceFromChain(chainId);

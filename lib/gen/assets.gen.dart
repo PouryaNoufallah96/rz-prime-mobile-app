@@ -133,6 +133,9 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/animation.json
+  String get animation => 'assets/images/animation.json';
+
   /// File path: assets/images/app_icon.webp
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
@@ -209,6 +212,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        animation,
         appIcon,
         car,
         gold,

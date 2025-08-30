@@ -66,7 +66,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
         toastification.show(
           style: ToastificationStyle.fillColored,
           type: ToastificationType.error,
-          title: const Text('There was a problem connecting to your wallet'),
+          title: const Text('There was a problem connecting to your wallet.'),
           borderRadius: BorderRadius.circular(6),
           autoCloseDuration: const Duration(seconds: 4),
         );
@@ -105,7 +105,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
           toastification.show(
             style: ToastificationStyle.fillColored,
             type: ToastificationType.error,
-            title: const Text('There was a problem connecting to your wallet'),
+            title: const Text('There was a problem connecting to your wallet.'),
             borderRadius: BorderRadius.circular(6),
             autoCloseDuration: const Duration(seconds: 4),
           );
@@ -123,7 +123,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
               style: ToastificationStyle.fillColored,
               type: ToastificationType.error,
               title:
-                  const Text('There was a problem connecting to your wallet'),
+                  const Text('There was a problem connecting to your wallet.'),
               borderRadius: BorderRadius.circular(6),
               autoCloseDuration: const Duration(seconds: 4),
             );
@@ -140,6 +140,14 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
             autoCloseDuration: const Duration(seconds: 4),
           );
         }
+      } else {
+        toastification.show(
+          style: ToastificationStyle.fillColored,
+          type: ToastificationType.error,
+          title: const Text('The transaction was rejected.'),
+          borderRadius: BorderRadius.circular(6),
+          autoCloseDuration: const Duration(seconds: 4),
+        );
       }
 
       emit(

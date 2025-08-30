@@ -5,6 +5,8 @@ import 'package:gainx/components/app_un_focuser.dart';
 import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
+import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
+import 'package:gainx/pages/swap/blocs/notify_paid_order_bloc/notify_paid_order_bloc.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
 import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 import 'package:gainx/pages/swap/orders/cubit/open_orders_cubit.dart';
@@ -87,6 +89,16 @@ class _SwapBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
+        BlocListener<NotifyPaidOrderBloc, NotifyPaidOrderState>(
+          listenWhen: (p, c) {
+            return p.lastUpdated != c.lastUpdated;
+          },
+          listener: (context, state) {
+            context.read<UserStatsCubit>().fetch(skipLoading: true);
+            context.read<OpenOrdersCubit>().getOrders();
+            context.read<FinalizeOrderCubit>().getOrders();
+          },
+        ),
         BlocListener<SwapBloc, SwapState>(
           listenWhen: (p, c) {
             return p.submitSwapStatus == SubmitSwapStatus.inProgress &&

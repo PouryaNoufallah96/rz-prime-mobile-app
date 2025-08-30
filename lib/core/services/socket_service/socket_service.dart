@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
+import 'package:logging/logging.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:signalr_netcore/http_connection_options.dart';
 import 'package:signalr_netcore/hub_connection.dart';
 import 'package:signalr_netcore/hub_connection_builder.dart';
+import 'package:signalr_netcore/json_hub_protocol.dart';
 
 class HubEvent {
   const HubEvent({required this.name, this.data});
@@ -38,17 +40,15 @@ class SocketService {
   final Set<String> _paidOrderHandlers = {_methodNotifyPaidOrder};
 
   final _controller = StreamController<HubEvent>.broadcast();
-  Stream<HubEvent> get stream => _controller.stream.doOnData((event) {
-        print('SocketHubStream ${event.name} ${event.data}');
-      });
+  Stream<HubEvent> get stream => _controller.stream.doOnData((event) {});
 
   Future<void> connect(String address) async {
     _walletAddress = address;
 
     await disconnect();
 
-    await _startInventory();
     await _startPaidOrderAndInvoke();
+    await _startInventory();
   }
 
   Future<void> disconnect({bool closeStreams = false}) async {
@@ -103,6 +103,8 @@ class SocketService {
     _paidOrderConn = await _buildConnection(_paidOrderHubPath);
 
     _paidOrderConn!.on(_methodNotifyPaidOrder, (args) {
+      print('SocketHubStream _methodNotifyPaidOrder $args');
+
       _controller.add(HubEvent(
         name: _methodNotifyPaidOrder,
         data: _normalizeArgs(args),
@@ -128,20 +130,19 @@ class SocketService {
         : '$_baseUrl$hubPath?access_token=$token';
 
     final options = HttpConnectionOptions(
-      accessTokenFactory: () async => _getAccessToken(),
-    );
+        accessTokenFactory: () async => _getAccessToken(),
+        logMessageContent: true,
+        logger: Logger('SocketService'));
 
     final builder = HubConnectionBuilder()
         .withUrl(url, options: options)
-        .withAutomaticReconnect(retryDelays: const [
-      0,
-      2000,
-      5000,
-      10000,
-    ]);
+        .configureLogging(Logger('SocketService'))
+        .withHubProtocol(JsonHubProtocol())
+        .withAutomaticReconnect(
+            retryDelays: const [0, 2000, 5000, 10000, 20000, 30000]);
 
     final conn = builder.build()
-      ..serverTimeoutInMilliseconds = 30 * 1000
+      ..serverTimeoutInMilliseconds = 1000 * 1000
       ..keepAliveIntervalInMilliseconds = 15 * 1000;
     return conn;
   }
@@ -165,6 +166,7 @@ class SocketService {
     try {
       await _paidOrderConn!
           .invoke(_invokeRegisterWallet, args: ['$_walletAddress']);
+      print('SocketHubStream $_invokeRegisterWallet $_walletAddress');
     } catch (_) {}
   }
 
