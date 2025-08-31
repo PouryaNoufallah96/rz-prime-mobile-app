@@ -100,7 +100,7 @@ class SwapOrders extends StatelessWidget {
                           ),
                           Text(
                             '${AppNumberFromatter.format(order.loanAmount)}'
-                            ' USDT',
+                            ' Rzusd',
                             style: const TextStyle(
                               fontFamily: 'CentraNo1-Medium',
                               fontSize: 14,
