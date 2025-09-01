@@ -117,6 +117,16 @@ mixin GainXAppRouter on State<GainXApp> {
                   builder: (context, state) {
                     return const SwapPage();
                   },
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: routerKey,
+                      path: 'qr_code',
+                      name: 'qr_cdoe',
+                      builder: (context, state) {
+                        return const QrCodeScanPage();
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -137,7 +147,7 @@ mixin GainXAppRouter on State<GainXApp> {
           pageBuilder: (context, state) {
             return CustomTransitionPage(
               key: state.pageKey,
-              child: const AuthPage(),
+              child: const QrCodeScanPage(),
               transitionDuration: const Duration(milliseconds: 400),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {

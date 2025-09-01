@@ -17,6 +17,7 @@ import 'package:gainx/pages/swap/widgets/submit_swap.dart';
 import 'package:gainx/pages/swap/widgets/to_input/to_input.dart';
 import 'package:gainx/pages/swap/widgets/user_balance.dart';
 import 'package:gainx/pages/swap/widgets/user_level.dart';
+import 'package:go_router/go_router.dart';
 
 class SwapPage extends StatelessWidget {
   const SwapPage({super.key});
@@ -133,7 +134,21 @@ class _SwapBody extends StatelessWidget {
               sliver: SliverList.list(
                 children: [
                   const SizedBox(height: 20),
-                  const UserLevel(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () => context.goNamed ('qr_cdoe'),
+                        icon: SvgPicture.asset(
+                          'assets/icons/qr_code.svg',
+                          height: 24,
+                          width: 24,
+                        ),
+                      ),
+                      const UserLevel(),
+                      const SizedBox.square(dimension: 24),
+                    ],
+                  ),
                   const SizedBox(height: 20),
                   UserBalance(
                     balance: stats.availableLoanAmount,

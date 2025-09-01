@@ -18,6 +18,7 @@ import 'package:gainx/pages/history/history.dart';
 import 'package:gainx/pages/nested_page/cubit/overlay_cubit.dart';
 import 'package:gainx/pages/nested_page/nested_page.dart';
 import 'package:gainx/pages/on_boarding/on_boarding.dart';
+import 'package:gainx/pages/qr_code_scan/qr_code_scan.dart';
 import 'package:gainx/pages/settings/settings.dart';
 import 'package:gainx/pages/swap/blocs/notify_paid_order_bloc/notify_paid_order_bloc.dart';
 import 'package:gainx/pages/swap/swap.dart';

@@ -1,4 +1,5 @@
 import 'package:gainx/core/services/auth_service/models.dart';
+import 'package:gainx/core/services/device_id/device_id.dart';
 import 'package:gainx/core/services/http_service/http_service.dart';
 
 class AuthService {
@@ -10,9 +11,10 @@ class AuthService {
 
   Future<NonceData?> getNonce(String walletAddress) async {
     final res = await _adapter.requestUri<Map<String, dynamic>>(
-      Uri.parse('User/GetNonce'),
+      Uri.parse('User/GetNonceForApp'),
       method: HttpMethod.post,
       body: {
+        'maker': await DeviceIdService.encryptToHex(),
         'walletAddress': walletAddress,
       },
     );
@@ -45,12 +47,33 @@ class AuthService {
     };
   }
 
+  Future<bool> activateNonce({
+    required String address,
+    String? nonce,
+    String? code,
+  }) async {
+    final res = await _adapter.requestUri<bool>(
+      Uri.parse('User/ActivateNonce'),
+      method: HttpMethod.post,
+      body: {
+        'code': code,
+        'nonce': nonce,
+        'walletAddress': address,
+        'marker': await DeviceIdService.encryptToHex(),
+      },
+    );
+
+    return switch (res) {
+      AppSuccessResponse(:final data) => data ?? false,
+      _ => false,
+    };
+  }
+
   Future<bool> logout() async {
     final res = await _adapter.requestUri<Map<String, dynamic>>(
       Uri.parse('User/logout'),
       method: HttpMethod.post,
     );
-
 
     return res is AppSuccessResponse;
   }
