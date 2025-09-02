@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/services/reown/reown.dart';
 import 'package:reown_appkit/reown_appkit.dart';
+import 'package:toastification/toastification.dart';
 
 part 'qr_code_event.dart';
 part 'qr_code_state.dart';
@@ -41,7 +43,13 @@ class QrCodeBloc extends Bloc<QrCodeEvent, QrCodeState> {
     if (isSucceed) {
       emit(state.copyWith(status: SubmitQrCodeStatus.success));
     } else {
-      emit(state.copyWith(status: SubmitQrCodeStatus.failure));
+      emit(
+        state.copyWith(
+          status: SubmitQrCodeStatus.failure,
+          code: () => null,
+          message: () => null,
+        ),
+      );
     }
   }
 
@@ -49,9 +57,31 @@ class QrCodeBloc extends Bloc<QrCodeEvent, QrCodeState> {
     QrCodeReceivedEvent event,
     Emitter<QrCodeState> emit,
   ) async {
+    if (state.code != null) {
+      return;
+    }
+
+    final url = Uri.tryParse(event.nonce);
+
+    if (url == null ||
+        url.queryParameters['nonce'] == null ||
+        url.scheme != 'rzprime') {
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.error,
+        title: const Text('Unable to Scan'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+
+      return;
+    }
+
+    final nonce = url.queryParameters['nonce']!;
+
     emit(
       state.copyWith(
-        code: () => event.nonce,
+        code: () => nonce,
         message: () => null,
       ),
     );

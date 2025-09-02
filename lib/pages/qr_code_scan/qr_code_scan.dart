@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/qr_code_scan/bloc/qr_code_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:toastification/toastification.dart';
 
 class QrCodeScanPage extends StatelessWidget {
@@ -74,8 +74,10 @@ class _BodyState extends State<_Body> {
     }
 
     useEffect(() {
-      final sub = controller?.barcodes.take(1).listen((event) {
-        final data = event.barcodes.first.rawValue;
+      final sub = controller?.barcodes
+          .map((event) => event.barcodes.first.rawValue)
+          .distinctUnique()
+          .listen((data) {
         if (data != null && context.mounted) {
           context.read<QrCodeBloc>().add(QrCodeReceivedEvent(nonce: data));
         }
@@ -182,11 +184,7 @@ class _Manual extends HookWidget {
           Padding(
             padding: const EdgeInsets.all(16),
             child: TextFormField(
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              maxLength: 8,
+              maxLength: 6,
               style: const TextStyle(
                 fontFamily: 'CentraNo1-medium',
                 fontSize: 16,
@@ -226,7 +224,7 @@ class _Manual extends HookWidget {
                   borderRadius: BorderRadiusGeometry.circular(80),
                 ),
               ),
-              onPressed: message.value.length != 8
+              onPressed: message.value.length != 6
                   ? null
                   : () {
                       Navigator.pop(context, message.value);
