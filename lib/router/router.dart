@@ -147,7 +147,7 @@ mixin GainXAppRouter on State<GainXApp> {
           pageBuilder: (context, state) {
             return CustomTransitionPage(
               key: state.pageKey,
-              child: const QrCodeScanPage(),
+              child: const AuthPage(),
               transitionDuration: const Duration(milliseconds: 400),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {

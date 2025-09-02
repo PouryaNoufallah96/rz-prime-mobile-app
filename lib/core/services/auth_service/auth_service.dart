@@ -14,7 +14,7 @@ class AuthService {
       Uri.parse('User/GetNonceForApp'),
       method: HttpMethod.post,
       body: {
-        'maker': await DeviceIdService.encryptToHex(),
+        'marker': await DeviceIdService.encryptToHex(),
         'walletAddress': walletAddress,
       },
     );
