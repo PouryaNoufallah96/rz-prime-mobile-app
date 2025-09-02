@@ -58,8 +58,8 @@ class SwapFromInput extends HookWidget {
                       child: Padding(
                         padding: EdgeInsetsGeometry.fromLTRB(8, 8, 0, 8),
                         child: AppToken(
-                          src: 'assets/icons/tether.svg',
-                          name: 'Tether',
+                          src: 'assets/icons/tether.png',
+                          name: 'RZusd',
                         ),
                       ),
                     ),

@@ -12,7 +12,12 @@ import 'package:rxdart/rxdart.dart';
 import 'package:toastification/toastification.dart';
 
 class QrCodeScanPage extends StatelessWidget {
-  const QrCodeScanPage({super.key});
+  const QrCodeScanPage({
+    required this.nonce,
+    super.key,
+  });
+
+  final String? nonce;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +25,7 @@ class QrCodeScanPage extends StatelessWidget {
       create: (context) => QrCodeBloc(
         authService: context.read(),
         reownService: context.read(),
+        nonce: nonce,
       ),
       child: Scaffold(
         appBar: AppBar(
@@ -34,7 +40,18 @@ class QrCodeScanPage extends StatelessWidget {
             ),
           ),
         ),
-        body: const _Body(),
+        body: HookBuilder(builder: (context) {
+          useEffect(() {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (nonce != null) {
+                context.read<QrCodeBloc>().add(QrCodeSubmitedEvent());
+              }
+            });
+            return null;
+          });
+
+          return const _Body();
+        }),
       ),
     );
   }
@@ -87,11 +104,13 @@ class _BodyState extends State<_Body> {
     }, []);
 
     return BlocListener<QrCodeBloc, QrCodeState>(
-      listenWhen: (previous, current) {
-        return previous.status == SubmitQrCodeStatus.inProgress &&
-            previous.status == SubmitQrCodeStatus.success;
+      listenWhen: (p, c) {
+        return p.status == SubmitQrCodeStatus.inProgress &&
+            c.status == SubmitQrCodeStatus.success;
       },
-      listener: (context, state) {
+      listener: (context, state) async {
+        await Future<void>.delayed(const Duration(seconds: 1));
+
         toastification.show(
           style: ToastificationStyle.fillColored,
           type: ToastificationType.success,
@@ -99,7 +118,10 @@ class _BodyState extends State<_Body> {
           borderRadius: BorderRadius.circular(6),
           autoCloseDuration: const Duration(seconds: 4),
         );
-        context.pop();
+
+        if (context.mounted) {
+          context.go('/swap');
+        }
       },
       child: Stack(
         children: [
@@ -135,7 +157,7 @@ class _BodyState extends State<_Body> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 40),
+              padding: const EdgeInsets.only(bottom: 126),
               child: TextButton.icon(
                 onPressed: () async {
                   final res = await showModalBottomSheet<String>(
@@ -145,8 +167,11 @@ class _BodyState extends State<_Body> {
                     useSafeArea: true,
                     backgroundColor: const Color(0xff202023),
                     showDragHandle: true,
-                    builder: (context) {
-                      return const _Manual();
+                    builder: (_) {
+                      return BlocProvider.value(
+                        value: context.read<QrCodeBloc>(),
+                        child: const _Manual(),
+                      );
                     },
                   );
 
@@ -156,8 +181,19 @@ class _BodyState extends State<_Body> {
                         .add(QrCodeManulaEvent(message: res));
                   }
                 },
-                icon: const Icon(Icons.edit),
-                label: const Text('Enter code manually'),
+                icon: const Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
+                label: const Text(
+                  'Enter code manually',
+                  style: TextStyle(
+                    fontFamily: 'CentraNo1-Medium',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ),
@@ -174,74 +210,108 @@ class _Manual extends HookWidget {
   Widget build(BuildContext context) {
     final message = useState('');
 
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.viewInsetsOf(context).bottom,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextFormField(
-              maxLength: 6,
-              style: const TextStyle(
-                fontFamily: 'CentraNo1-medium',
-                fontSize: 16,
-              ),
-              onChanged: (value) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  message.value = value;
-                });
-              },
-              decoration: InputDecoration(
-                counterText: '',
-                filled: false,
-                hintText: 'Enter code manually',
-                prefixIcon: const Icon(Icons.search_rounded),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: context.colorScheme.primary,
-                  ),
-                  borderRadius: BorderRadius.circular(6),
+    return BlocListener<QrCodeBloc, QrCodeState>(
+      listenWhen: (p, c) {
+        return p.status == SubmitQrCodeStatus.inProgress &&
+            c.status == SubmitQrCodeStatus.success;
+      },
+      listener: (context, state) {
+        Navigator.pop(context);
+      },
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: TextFormField(
+                maxLength: 6,
+                style: const TextStyle(
+                  fontFamily: 'CentraNo1-medium',
+                  fontSize: 16,
                 ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
+                onChanged: (value) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    message.value = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  counterText: '',
+                  filled: false,
+                  hintText: 'Enter code manually',
+                  hintStyle: TextStyle(
+                    fontFamily: 'CentraNo1-Book',
+                    fontSize: 14,
                     color: context.colorExtension.neutral,
                   ),
-                  borderRadius: BorderRadius.circular(6),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: context.colorScheme.primary,
+                    ),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: context.colorExtension.neutral,
+                    ),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: context.colorExtension.neutral,
+                    ),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 74),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 36),
-            child: FilledButton(
-              style: FilledButton.styleFrom(
-                minimumSize: const Size.fromHeight(48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(80),
-                ),
-              ),
-              onPressed: message.value.length != 6
-                  ? null
-                  : () {
-                      Navigator.pop(context, message.value);
-                    },
-              child: const Text(
-                'Confirm',
-                style: TextStyle(
-                  fontFamily: 'CentraNo1-Medium',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
+            const SizedBox(height: 74),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 36),
+              child: BlocSelector<QrCodeBloc, QrCodeState, bool>(
+                selector: (state) {
+                  return state.status == SubmitQrCodeStatus.inProgress;
+                },
+                builder: (context, isInProgress) {
+                  return FilledButton(
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size.fromHeight(48),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(80),
+                      ),
+                    ),
+                    onPressed: message.value.length != 6 || isInProgress
+                        ? null
+                        : () {
+                            context
+                                .read<QrCodeBloc>()
+                                .add(QrCodeManulaEvent(message: message.value));
+                          },
+                    child: isInProgress
+                        ? const Center(
+                            child: SizedBox.square(
+                                dimension: 24,
+                                child: CircularProgressIndicator.adaptive()),
+                          )
+                        : const Text(
+                            'Confirm',
+                            style: TextStyle(
+                              fontFamily: 'CentraNo1-Medium',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                  );
+                },
               ),
             ),
-          ),
-          const SizedBox(height: 16),
-        ],
+            const SizedBox(height: 16),
+          ],
+        ),
       ),
     );
   }
@@ -285,7 +355,7 @@ class _Overlay extends StatelessWidget {
                     ? context.colorExtension.success
                     : context.colorScheme.primary,
                 cornerLength: 24,
-                borderRadius: BorderRadius.zero,
+                borderRadius: BorderRadius.circular(8),
                 borderStrokeCap: StrokeCap.round,
                 borderStrokeJoin: StrokeJoin.miter,
                 borderStyle: PaintingStyle.stroke,
@@ -335,7 +405,6 @@ class _CornerBorderPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (scanWindow.isEmpty || scanWindow.isInfinite) return;
 
-    // 1) پس‌زمینه + کاتِ پنجره
     final backgroundPath = Path()..addRect(Offset.zero & size);
 
     final cutoutRect = borderRadius == BorderRadius.zero
@@ -360,93 +429,122 @@ class _CornerBorderPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..blendMode = BlendMode.srcOver;
 
-    // 2) قلم خطوط گوشه
     final borderPaint = Paint()
       ..color = borderColor
-      ..style = PaintingStyle.stroke // فقط خط می‌کشیم
+      ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth
       ..strokeCap = borderStrokeCap
       ..strokeJoin = borderStrokeJoin
       ..isAntiAlias = true;
 
-    // 3) رسم Overlay
     canvas.drawPath(overlayWithCutoutPath, overlayWithCutoutPaint);
 
-    // 4) فقط خطوط گوشه‌ها
-    final left = cutoutRect.left;
-    final top = cutoutRect.top;
-    final right = cutoutRect.right;
-    final bottom = cutoutRect.bottom;
+    final cutout = RRect.fromRectAndCorners(scanWindow);
 
-    final tlrx = cutoutRect.tlRadiusX;
-    final tlry = cutoutRect.tlRadiusY;
-    final trrx = cutoutRect.trRadiusX;
-    final trry = cutoutRect.trRadiusY;
-    final blrx = cutoutRect.blRadiusX;
-    final blry = cutoutRect.blRadiusY;
-    final brrx = cutoutRect.brRadiusX;
-    final brry = cutoutRect.brRadiusY;
+    final left = cutout.left;
+    final top = cutout.top;
+    final right = cutout.right;
+    final bottom = cutout.bottom;
 
-    final width = cutoutRect.width;
-    final height = cutoutRect.height;
+    final tlrx = cutout.tlRadiusX;
+    final tlry = cutout.tlRadiusY;
+    final trrx = cutout.trRadiusX;
+    final trry = cutout.trRadiusY;
+    final blrx = cutout.blRadiusX;
+    final blry = cutout.blRadiusY;
+    final brrx = cutout.brRadiusX;
+    final brry = cutout.brRadiusY;
+
+    final width = cutout.width;
+    final height = cutout.height;
 
     final topH = math.max(0, math.min(cornerLength, width - tlrx - trrx));
     final bottomH = math.max(0, math.min(cornerLength, width - blrx - brrx));
     final leftV = math.max(0, math.min(cornerLength, height - tlry - blry));
     final rightV = math.max(0, math.min(cornerLength, height - trry - brry));
 
+    final rTL = math.min(8, math.min(topH, leftV));
+    final rTR = math.min(8, math.min(topH, rightV));
+    final rBL = math.min(8, math.min(bottomH, leftV));
+    final rBR = math.min(8, math.min(bottomH, rightV));
+
     canvas
       ..drawLine(
-        Offset(left + tlrx, top),
+        Offset(left + tlrx + rTL, top),
         Offset(left + tlrx + topH, top),
         borderPaint,
       )
       ..drawLine(
-        Offset(left, top + tlry),
+        Offset(left, top + tlry + rTL),
         Offset(left, top + tlry + leftV),
         borderPaint,
       )
       ..drawLine(
         Offset(right - trrx - topH, top),
-        Offset(right - trrx, top),
+        Offset(right - trrx - rTR, top),
         borderPaint,
       )
       ..drawLine(
-        Offset(right, top + trry),
+        Offset(right, top + trry + rTR),
         Offset(right, top + trry + rightV),
         borderPaint,
       )
       ..drawLine(
-        Offset(left + blrx, bottom),
+        Offset(left + blrx + rBL, bottom),
         Offset(left + blrx + bottomH, bottom),
         borderPaint,
       )
       ..drawLine(
         Offset(left, bottom - blry - leftV),
-        Offset(left, bottom - blry),
+        Offset(left, bottom - blry - rBL),
         borderPaint,
       )
       ..drawLine(
         Offset(right - brrx - bottomH, bottom),
-        Offset(right - brrx, bottom),
+        Offset(right - brrx - rBR, bottom),
         borderPaint,
       )
       ..drawLine(
         Offset(right, bottom - brry - rightV),
-        Offset(right, bottom - brry),
+        Offset(right, bottom - brry - rBR),
         borderPaint,
       );
+
+    final path = Path()
+      ..moveTo(left + tlrx + rTL, top)
+      ..quadraticBezierTo(
+        left + tlrx,
+        top + tlry,
+        left,
+        top + tlry + rTL,
+      )
+      ..moveTo(right - trrx - rTR, top)
+      ..quadraticBezierTo(
+        right - trrx,
+        top + trry,
+        right,
+        top + trry + rTR,
+      )
+      ..moveTo(left + blrx + rBL, bottom)
+      ..quadraticBezierTo(
+        left + blrx,
+        bottom - blry,
+        left,
+        bottom - blry - rBL,
+      )
+      ..moveTo(right - brrx - rBR, bottom)
+      ..quadraticBezierTo(
+        right - brrx,
+        bottom - brry,
+        right,
+        bottom - brry - rBR,
+      );
+
+    canvas.drawPath(path, borderPaint);
   }
 
   @override
   bool shouldRepaint(_CornerBorderPainter oldDelegate) {
-    return oldDelegate.scanWindow != scanWindow ||
-        oldDelegate.color != color ||
-        oldDelegate.borderRadius != borderRadius ||
-        oldDelegate.cornerLength != cornerLength ||
-        oldDelegate.borderColor != borderColor ||
-        oldDelegate.borderWidth != borderWidth ||
-        oldDelegate.borderStrokeCap != borderStrokeCap ||
-        oldDelegate.borderStrokeJoin != borderStrokeJoin;
+    return true;
   }
 }

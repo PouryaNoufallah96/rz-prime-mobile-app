@@ -39,6 +39,13 @@ mixin GainXAppRouter on State<GainXApp> {
 
         if (isLoggingIn) return token != null ? '/swap' : null;
 
+        final uri = state.uri;
+
+        if (uri.toString().startsWith('rzprime://app/qr_code?nonce')) {
+          final query = uri.query;
+          return '/swap/qr_code${query.isNotEmpty ? '?$query' : ''}';
+        }
+
         return token != null ? null : '/';
       },
       routes: [
@@ -123,7 +130,9 @@ mixin GainXAppRouter on State<GainXApp> {
                       path: 'qr_code',
                       name: 'qr_cdoe',
                       builder: (context, state) {
-                        return const QrCodeScanPage();
+                        return QrCodeScanPage(
+                          nonce: state.uri.queryParameters['nonce'],
+                        );
                       },
                     ),
                   ],

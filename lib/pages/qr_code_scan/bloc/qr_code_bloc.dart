@@ -13,9 +13,10 @@ class QrCodeBloc extends Bloc<QrCodeEvent, QrCodeState> {
   QrCodeBloc({
     required ReownService reownService,
     required AuthService authService,
+    String? nonce,
   })  : _authService = authService,
         _reownService = reownService,
-        super(QrCodeState()) {
+        super(QrCodeState(code: nonce)) {
     on<QrCodeSubmitedEvent>(_onQrCodeSubmitedEvent);
     on<QrCodeReceivedEvent>(_onQrCodeReceivedEvent);
     on<QrCodeManulaEvent>(_onQrCodeManulaEvent);
