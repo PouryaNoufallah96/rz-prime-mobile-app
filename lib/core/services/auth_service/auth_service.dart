@@ -52,7 +52,7 @@ class AuthService {
     String? nonce,
     String? code,
   }) async {
-    final res = await _adapter.requestUri<bool>(
+    final res = await _adapter.requestUri<Map<String, dynamic>>(
       Uri.parse('User/ActivateNonce'),
       method: HttpMethod.post,
       body: {
@@ -64,7 +64,7 @@ class AuthService {
     );
 
     return switch (res) {
-      AppSuccessResponse(:final data) => data ?? false,
+      AppSuccessResponse(:final data) => (data?['data'] as bool?) ?? false,
       _ => false,
     };
   }

@@ -35,6 +35,7 @@ class QrCodeBloc extends Bloc<QrCodeEvent, QrCodeState> {
     final address = EthereumAddress.fromHex(owner!);
 
     emit(state.copyWith(status: SubmitQrCodeStatus.inProgress));
+
     final isSucceed = await _authService.activateNonce(
       address: address.hexEip55,
       code: state.message,
