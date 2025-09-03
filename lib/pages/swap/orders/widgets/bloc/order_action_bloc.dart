@@ -85,7 +85,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
         type: ToastificationType.error,
         title: Text(
             // ignore: lines_longer_than_80_chars
-            'Insufficient Rzusd on ${balance.$1}. Switch network or fund your wallet.'),
+            'Insufficient RZUSD on ${balance.$1}. Switch network or fund your wallet.'),
         borderRadius: BorderRadius.circular(6),
         autoCloseDuration: const Duration(seconds: 4),
       );
