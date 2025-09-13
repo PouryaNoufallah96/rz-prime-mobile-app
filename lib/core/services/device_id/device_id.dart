@@ -3,12 +3,15 @@ import 'dart:io';
 
 import 'package:android_id/android_id.dart';
 import 'package:crypto/crypto.dart' as c;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:uuid/uuid.dart';
 
 class DeviceIdService {
   static const String _pepper =
       String.fromEnvironment('APP_DEVICE_PEPPER', defaultValue: 'test1');
 
   static const String _packageName = 'com.your.app';
+  static const _storage = FlutterSecureStorage();
 
   static Future<String> encryptToBase64() async {
     if (_pepper.isEmpty) {
@@ -21,10 +24,19 @@ class DeviceIdService {
     if (Platform.isAndroid) {
       try {
         final id = await const AndroidId().getId();
+        if (id != null && id.isNotEmpty) ssaid = id;
+      } catch (_) {}
+    } else if (Platform.isIOS) {
+      try {
+        final id = await _storage.read(key: 'device_id');
         if (id != null && id.isNotEmpty) {
           ssaid = id;
+        } else {
+          final id = const Uuid().v4();
+          await _storage.write(key: 'device_id', value: id);
+          ssaid = id;
         }
-      } catch (_) {/* نادیده بگیر */}
+      } catch (_) {}
     }
 
     final message = utf8.encode('$ssaid::$_packageName');
@@ -48,7 +60,19 @@ class DeviceIdService {
         final id = await const AndroidId().getId();
         if (id != null && id.isNotEmpty) ssaid = id;
       } catch (_) {}
+    } else if (Platform.isIOS) {
+      try {
+        final id = await _storage.read(key: 'device_id');
+        if (id != null && id.isNotEmpty) {
+          ssaid = id;
+        } else {
+          final id = const Uuid().v4();
+          await _storage.write(key: 'device_id', value: id);
+          ssaid = id;
+        }
+      } catch (_) {}
     }
+
     final message = utf8.encode('$ssaid::$_packageName');
     final hmacSha256 = c.Hmac(c.sha256, utf8.encode(_pepper));
     final mac = hmacSha256.convert(message);
