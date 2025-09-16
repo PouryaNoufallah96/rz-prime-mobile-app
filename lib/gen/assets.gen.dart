@@ -141,15 +141,39 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Car.png
+  AssetGenImage get car => const AssetGenImage('assets/images/Car.png');
+
+  /// File path: assets/images/Industrial.png
+  AssetGenImage get industrial =>
+      const AssetGenImage('assets/images/Industrial.png');
+
+  /// File path: assets/images/Insurance.png
+  AssetGenImage get insurance =>
+      const AssetGenImage('assets/images/Insurance.png');
+
+  /// File path: assets/images/Jewelry.png
+  AssetGenImage get jewelry => const AssetGenImage('assets/images/Jewelry.png');
+
+  /// File path: assets/images/MGC.png
+  AssetGenImage get mgc => const AssetGenImage('assets/images/MGC.png');
+
+  /// File path: assets/images/RZ.png
+  AssetGenImage get rz => const AssetGenImage('assets/images/RZ.png');
+
+  /// File path: assets/images/RealEstate.png
+  AssetGenImage get realEstate =>
+      const AssetGenImage('assets/images/RealEstate.png');
+
+  /// File path: assets/images/Trip.png
+  AssetGenImage get trip => const AssetGenImage('assets/images/Trip.png');
+
   /// File path: assets/images/animation.json
   String get animation => 'assets/images/animation.json';
 
   /// File path: assets/images/app_icon.webp
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
-
-  /// File path: assets/images/car.png
-  AssetGenImage get car => const AssetGenImage('assets/images/car.png');
 
   /// File path: assets/images/gold.png
   AssetGenImage get gold => const AssetGenImage('assets/images/gold.png');
@@ -158,22 +182,8 @@ class $AssetsImagesGen {
   AssetGenImage get goldDisable =>
       const AssetGenImage('assets/images/gold_disable.png');
 
-  /// File path: assets/images/industrial.png
-  AssetGenImage get industrial =>
-      const AssetGenImage('assets/images/industrial.png');
-
-  /// File path: assets/images/insurance.png
-  AssetGenImage get insurance =>
-      const AssetGenImage('assets/images/insurance.png');
-
-  /// File path: assets/images/jewelry.png
-  AssetGenImage get jewelry => const AssetGenImage('assets/images/jewelry.png');
-
   /// File path: assets/images/logo_text.svg
   SvgGenImage get logoText => const SvgGenImage('assets/images/logo_text.svg');
-
-  /// File path: assets/images/mgc.png
-  AssetGenImage get mgc => const AssetGenImage('assets/images/mgc.png');
 
   /// File path: assets/images/on_boarding_1.webp
   AssetGenImage get onBoarding1 =>
@@ -194,22 +204,12 @@ class $AssetsImagesGen {
   AssetGenImage get premiumDisable =>
       const AssetGenImage('assets/images/premium_disable.png');
 
-  /// File path: assets/images/realestate.png
-  AssetGenImage get realestate =>
-      const AssetGenImage('assets/images/realestate.png');
-
   /// File path: assets/images/regular.png
   AssetGenImage get regular => const AssetGenImage('assets/images/regular.png');
 
   /// File path: assets/images/regular_disable.png
   AssetGenImage get regularDisable =>
       const AssetGenImage('assets/images/regular_disable.png');
-
-  /// File path: assets/images/rz.png
-  AssetGenImage get rz => const AssetGenImage('assets/images/rz.png');
-
-  /// File path: assets/images/trip.png
-  AssetGenImage get trip => const AssetGenImage('assets/images/trip.png');
 
   /// File path: assets/images/x.png
   AssetGenImage get x => const AssetGenImage('assets/images/x.png');
@@ -220,26 +220,26 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        animation,
-        appIcon,
         car,
-        gold,
-        goldDisable,
         industrial,
         insurance,
         jewelry,
-        logoText,
         mgc,
+        rz,
+        realEstate,
+        trip,
+        animation,
+        appIcon,
+        gold,
+        goldDisable,
+        logoText,
         onBoarding1,
         onBoarding2,
         onBoarding3,
         premium,
         premiumDisable,
-        realestate,
         regular,
         regularDisable,
-        rz,
-        trip,
         x,
         xDisable
       ];

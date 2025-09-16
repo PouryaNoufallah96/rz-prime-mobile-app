@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/env.dart';
@@ -17,10 +15,10 @@ import 'package:reown_appkit/reown_appkit.dart';
 Widget appInjection(Widget child) {
   return MultiRepositoryProvider(
     providers: [
-      RepositoryProvider(
-        create: (context) => DeepLinkHandler()..init(),
-        lazy: false,
-      ),
+      // RepositoryProvider(
+      //   create: (context) => DeepLinkHandler()..init(),
+      //   lazy: false,
+      // ),
       RepositoryProvider(
         create: (context) {
           const rpc = 'https://sepolia.drpc.org';
@@ -80,25 +78,25 @@ Widget appInjection(Widget child) {
   );
 }
 
-class DeepLinkHandler {
-  DeepLinkHandler()
-      : _eventChannel = const EventChannel('com.exampledapp/events');
+// class DeepLinkHandler {
+//   DeepLinkHandler()
+//       : _eventChannel = const EventChannel('com.exampledapp/events');
 
-  final EventChannel _eventChannel;
+//   final EventChannel _eventChannel;
 
-  void init() {
-    if (kIsWeb) return;
+//   void init() {
+//     if (kIsWeb) return;
 
-    try {
-      _eventChannel.receiveBroadcastStream().listen(_onLink, onError: _onError);
-    } catch (e) {
-      debugPrint('[SampleDapp] checkInitialLink $e');
-    }
-  }
+//     try {
+//       _eventChannel.receiveBroadcastStream().listen(_onLink, onError: _onError);
+//     } catch (e) {
+//       debugPrint('[SampleDapp] checkInitialLink $e');
+//     }
+//   }
 
-  Future<void> _onLink(dynamic link) async {
-    try {} catch (_) {}
-  }
+//   Future<void> _onLink(dynamic link) async {
+//     try {} catch (_) {}
+//   }
 
-  void _onError(dynamic error) {}
-}
+//   void _onError(dynamic error) {}
+// }

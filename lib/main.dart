@@ -77,7 +77,7 @@ class _GainXAppState extends State<GainXApp> with GainXAppRouter {
             ),
             child: MaterialApp.router(
               routerConfig: appRouter,
-              title: 'RZPrime',
+              title: 'RZ Prime',
               theme: GainXTheme()(isDark),
               builder: (context, child) {
                 return RepositoryProvider(

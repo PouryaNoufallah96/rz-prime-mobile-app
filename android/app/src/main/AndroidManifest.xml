@@ -72,7 +72,7 @@
     </queries>
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="RZPrime"
+        android:label="RZ Prime"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

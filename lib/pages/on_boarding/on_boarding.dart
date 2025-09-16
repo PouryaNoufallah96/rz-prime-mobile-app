@@ -30,7 +30,7 @@ class _Body extends HookWidget {
     final texts = useMemoized(
         () => [
               (
-                'Why GainX?',
+                'Why RZ Prime?',
                 'Invest in tokens without upfront payment and commit only when you Gain X times!'
               ),
               (

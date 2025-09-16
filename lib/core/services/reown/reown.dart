@@ -90,7 +90,7 @@ class ReownService {
     ]);
 
     const metadata = PairingMetadata(
-      name: 'RZPrime',
+      name: 'RZ Prime',
       description: 'Swap & Gain',
       url: 'https://rzprime.com',
       icons: ['https://rzprime.com/icon.png'],
