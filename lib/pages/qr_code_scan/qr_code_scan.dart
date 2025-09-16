@@ -40,25 +40,18 @@ class QrCodeScanPage extends StatelessWidget {
             ),
           ),
         ),
-        body: HookBuilder(builder: (context) {
-          useEffect(() {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (nonce != null) {
-                context.read<QrCodeBloc>().add(QrCodeSubmitedEvent());
-              }
-            });
-            return null;
-          });
-
-          return const _Body();
-        }),
+        body: _Body(nonce: nonce),
       ),
     );
   }
 }
 
 class _Body extends StatefulHookWidget {
-  const _Body();
+  const _Body({
+    required this.nonce,
+  });
+
+  final String? nonce;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -89,6 +82,15 @@ class _BodyState extends State<_Body> {
     if (controller == null) {
       return const SizedBox.shrink();
     }
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (widget.nonce != null) {
+          context.read<QrCodeBloc>().add(QrCodeSubmitedEvent());
+        }
+      });
+      return null;
+    }, []);
 
     useEffect(() {
       final sub = controller?.barcodes

@@ -33,6 +33,8 @@ class HistoryOrder with _$HistoryOrder {
       _$HistoryOrderFromJson(json);
 }
 
+
+
 @freezed
 class TransactionMetaData with _$TransactionMetaData {
   const factory TransactionMetaData({

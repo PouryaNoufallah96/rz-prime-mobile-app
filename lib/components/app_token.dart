@@ -35,6 +35,9 @@ class AppToken extends StatelessWidget {
             src,
             height: size,
             width: size,
+            errorBuilder: (context, error, stackTrace) {
+              return const SizedBox();
+            },
           ),
         const SizedBox(width: 8),
         Column(
@@ -52,7 +55,7 @@ class AppToken extends StatelessWidget {
             ),
             if (price != null)
               Text(
-                '\$ ${AppNumberFromatter.format(price!)}',
+                '\$ ${AppNumberFromatter.format(price!, decimal: 2)}',
                 style: const TextStyle(
                   fontFamily: 'CentraNo1-Medium',
                   fontSize: 14,

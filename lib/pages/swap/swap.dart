@@ -138,7 +138,7 @@ class _SwapBody extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: () => context.goNamed ('qr_cdoe'),
+                        onPressed: () => context.goNamed ('qr_code'),
                         icon: SvgPicture.asset(
                           'assets/icons/qr_code.svg',
                           height: 24,

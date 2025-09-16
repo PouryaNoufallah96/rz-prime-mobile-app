@@ -69,8 +69,9 @@ class SwapFromInput extends HookWidget {
                       text: 'Balance: ',
                       children: [
                         TextSpan(
-                          text: '${AppNumberFromatter.format(stats.balance)}'
-                              ' RZUSD',
+                          text:
+                              '${AppNumberFromatter.format(stats.balance, decimal: 2)}'
+                              ' USD',
                           style: const TextStyle(
                             fontFamily: 'CentraNo1-Medium',
                             fontSize: 14,

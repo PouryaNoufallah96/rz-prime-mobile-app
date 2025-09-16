@@ -171,8 +171,9 @@ class _Order extends StatelessWidget {
         ? context.colorExtension.error
         : context.colorExtension.success;
 
-    final finalAmount = AppNumberFromatter.format(order.finalAmount);
-    final loanAmount = AppNumberFromatter.format(order.loanAmount, decimal: 0);
+    final finalAmount =
+        AppNumberFromatter.format(order.finalAmount, decimal: 2);
+    final loanAmount = AppNumberFromatter.format(order.loanAmount, decimal: 2);
 
     String date(DateTime dateTime) {
       final datePart = DateFormat('MMM d').format(dateTime);

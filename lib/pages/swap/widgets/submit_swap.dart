@@ -31,7 +31,7 @@ class SubmitSwap extends StatelessWidget {
                 style: ToastificationStyle.fillColored,
                 type: ToastificationType.error,
                 title: Text('Maximum buy amount in ${stage.value} stage is '
-                    '${AppNumberFromatter.format(stage.max, decimal: 0)}'),
+                    '${AppNumberFromatter.format(stage.max, decimal: 2)}'),
                 borderRadius: BorderRadius.circular(6),
                 autoCloseDuration: const Duration(seconds: 4),
               );
@@ -40,7 +40,7 @@ class SubmitSwap extends StatelessWidget {
                 style: ToastificationStyle.fillColored,
                 type: ToastificationType.error,
                 title: Text('Minimum  buy amount in ${stage.value} stage is '
-                    '${AppNumberFromatter.format(stage.min, decimal: 0)}'),
+                    '${AppNumberFromatter.format(stage.min, decimal: 2)}'),
                 borderRadius: BorderRadius.circular(6),
                 autoCloseDuration: const Duration(seconds: 4),
               );
