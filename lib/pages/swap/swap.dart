@@ -171,7 +171,7 @@ class _SwapBody extends StatelessWidget {
                   const SubmitSwap(),
                   const SizedBox(height: 24),
                   const OrdersTotal(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12),
                   const Text(
                     'Orders',
                     style: TextStyle(
