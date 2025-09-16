@@ -12,6 +12,7 @@ import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 import 'package:gainx/pages/swap/orders/cubit/open_orders_cubit.dart';
 import 'package:gainx/pages/swap/orders/orders.dart';
 import 'package:gainx/pages/swap/widgets/from_input.dart';
+import 'package:gainx/pages/swap/widgets/orders_total/orders_total.dart';
 import 'package:gainx/pages/swap/widgets/pay_of_time.dart';
 import 'package:gainx/pages/swap/widgets/submit_swap.dart';
 import 'package:gainx/pages/swap/widgets/to_input/to_input.dart';
@@ -138,7 +139,7 @@ class _SwapBody extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: () => context.goNamed ('qr_code'),
+                        onPressed: () => context.goNamed('qr_code'),
                         icon: SvgPicture.asset(
                           'assets/icons/qr_code.svg',
                           height: 24,
@@ -168,6 +169,8 @@ class _SwapBody extends StatelessWidget {
                   const SelectPayOfTime(),
                   const SizedBox(height: 24),
                   const SubmitSwap(),
+                  const SizedBox(height: 24),
+                  const OrdersTotal(),
                   const SizedBox(height: 24),
                   const Text(
                     'Orders',
