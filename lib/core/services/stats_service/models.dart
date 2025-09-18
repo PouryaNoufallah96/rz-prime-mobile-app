@@ -39,23 +39,25 @@ class UserStats with _$UserStats {
 
 enum UserStage {
   @JsonValue('Regular')
-  regular('Regular', 1, 1000),
+  regular('Regular', 1, 1000, 0.03),
   @JsonValue('Gold')
-  gold('Gold', 1100, 10000),
+  gold('Gold', 1100, 10000, 0.03),
   @JsonValue('Premium')
-  premium('Premium', 10100, 100000),
+  premium('Premium', 10100, 100000, 0.02),
   @JsonValue('X')
-  x('X', 100100, 1000000);
+  x('X', 100100, 1000000, 0.01);
 
   const UserStage(
     this.value,
     this.min,
     this.max,
+    this.feePercent,
   );
 
   final String value;
   final double min;
   final double max;
+  final double feePercent;
 }
 
 extension UserStatsX on UserStats {

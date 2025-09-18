@@ -13,12 +13,22 @@ class AppNumberFromatter {
     double value, {
     int? decimal,
   }) {
-    final t = _truncateToDecimals(value, decimal ?? 0);
+    // اگر decimal نال بود خودش تعداد اعشار واقعی رو پیدا کنه
+    int effectiveDecimal = decimal ??
+        (() {
+          final str = value.toString();
+          if (!str.contains('.')) return 0;
+          // حذف صفرهای آخر
+          final cleaned = str.replaceFirst(RegExp(r'0+$'), '');
+          return cleaned.split('.').last.length;
+        })();
+
+    final t = _truncateToDecimals(value, effectiveDecimal);
 
     return NumberFormat.currency(
       symbol: '',
       locale: 'en',
-      decimalDigits: (t % 1 == 0) ? 0 : decimal,
+      decimalDigits: (t % 1 == 0) ? 0 : effectiveDecimal,
     ).format(t);
   }
 }
