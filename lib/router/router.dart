@@ -128,7 +128,7 @@ mixin GainXAppRouter on State<GainXApp> {
                     GoRoute(
                       parentNavigatorKey: routerKey,
                       path: 'qr_code',
-                      name: 'qr_cdoe',
+                      name: 'qr_code',
                       builder: (context, state) {
                         return QrCodeScanPage(
                           nonce: state.uri.queryParameters['nonce'],
