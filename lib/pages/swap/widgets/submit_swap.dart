@@ -32,7 +32,7 @@ class SubmitSwap extends StatelessWidget {
                 style: ToastificationStyle.fillColored,
                 type: ToastificationType.error,
                 title: Text('Maximum buy amount in ${stage.value} stage is '
-                    '${AppNumberFromatter.format(stage.max, decimal: 2)}'),
+                    '${AppNumberFormatter.format(stage.max, decimal: 2)}'),
                 borderRadius: BorderRadius.circular(6),
                 autoCloseDuration: const Duration(seconds: 4),
               );
@@ -41,79 +41,79 @@ class SubmitSwap extends StatelessWidget {
                 style: ToastificationStyle.fillColored,
                 type: ToastificationType.error,
                 title: Text('Minimum  buy amount in ${stage.value} stage is '
-                    '${AppNumberFromatter.format(stage.min, decimal: 2)}'),
+                    '${AppNumberFormatter.format(stage.min, decimal: 2)}'),
                 borderRadius: BorderRadius.circular(6),
                 autoCloseDuration: const Duration(seconds: 4),
               );
             }
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: BlocSelector<SwapBloc, SwapState, bool>(
-              selector: (state) {
-                return state.selectedToken != null &&
-                    state.swapPayOfTime != null &&
-                    state.fromValue > 0 &&
-                    state.fromValue <= stage.max &&
-                    state.fromValue >= stage.min &&
-                    (state.selectedToken != null &&
-                        state.selectedToken!.quantity >=
-                            (state.fromValue / state.selectedToken!.price));
-              },
-              builder: (context, isValid) {
-                return BlocSelector<SwapBloc, SwapState, (bool, double, int?)>(
-                  selector: (state) {
-                    return (
-                      state.submitSwapStatus == SubmitSwapStatus.inProgress,
-                      state.fromValue,
-                      state.swapPayOfTime?.month,
-                    );
-                  },
-                  builder: (context, state) {
-                    final isInProgress = state.$1;
-                    final value = state.$2;
-                    final month = state.$3;
+          child: BlocSelector<SwapBloc, SwapState, bool>(
+            selector: (state) {
+              return state.selectedToken != null &&
+                  state.swapPayOfTime != null &&
+                  state.fromValue > 0 &&
+                  state.fromValue <= stage.max &&
+                  state.fromValue >= stage.min &&
+                  (state.selectedToken != null &&
+                      state.selectedToken!.quantity >=
+                          (state.fromValue / state.selectedToken!.price));
+            },
+            builder: (context, isValid) {
+              return BlocSelector<SwapBloc, SwapState, (bool, double, int?)>(
+                selector: (state) {
+                  return (
+                    state.submitSwapStatus == SubmitSwapStatus.inProgress,
+                    state.fromValue,
+                    state.swapPayOfTime?.month,
+                  );
+                },
+                builder: (context, state) {
+                  final isInProgress = state.$1;
+                  final value = state.$2;
+                  final month = state.$3;
 
-                    return Column(
-                      spacing: 24,
-                      children: [
-                        if (month != null && value > 0)
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: context.colorScheme.outlineVariant,
-                              borderRadius: BorderRadiusGeometry.circular(12),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsetsGeometry.all(16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${AppNumberFromatter.format(value + (stage.feePercent * month))} RZUSD',
-                                    style: const TextStyle(
-                                      fontFamily: 'CentraNo1-Medium',
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xffffffff),
-                                    ),
+                  return Column(
+                    spacing: 24,
+                    children: [
+                      if (month != null && value > 0)
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: context.colorScheme.outlineVariant,
+                            borderRadius: BorderRadiusGeometry.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsetsGeometry.all(16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '${AppNumberFormatter.format(value + (stage.feePercent * month))} RZUSD',
+                                  style: const TextStyle(
+                                    fontFamily: 'CentraNo1-Medium',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xffffffff),
                                   ),
-                                  Text(
-                                    'Final Price',
-                                    style: TextStyle(
-                                      fontFamily: 'CentraNo1-Book',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: context.colorExtension.neutral,
-                                    ),
-                                  )
-                                ],
-                              ),
+                                ),
+                                Text(
+                                  'Final Price',
+                                  style: TextStyle(
+                                    fontFamily: 'CentraNo1-Book',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: context.colorExtension.neutral,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                        FilledButton(
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: FilledButton(
                           style: FilledButton.styleFrom(
                             foregroundColor: Colors.white,
+                            minimumSize: const Size.fromHeight(40)
                           ),
                           onPressed: isInProgress || !isValid
                               ? null
@@ -145,12 +145,12 @@ class SubmitSwap extends StatelessWidget {
                                   ),
                                 ),
                         ),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         );
       },

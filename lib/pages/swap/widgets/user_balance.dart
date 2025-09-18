@@ -18,7 +18,7 @@ class UserBalance extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '\$ ${AppNumberFromatter.format(balance, decimal:2)}',
+          '\$ ${AppNumberFormatter.format(balance, decimal:2)}',
           style: const TextStyle(
             fontFamily: 'CentraNo1-Bold',
             fontSize: 24,

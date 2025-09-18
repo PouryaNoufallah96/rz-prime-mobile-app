@@ -28,7 +28,7 @@ class OrdersTotal extends StatelessWidget {
             });
 
             return Text(
-              'Total: \$${AppNumberFromatter.format(total,decimal: 2)}',
+              'Total: \$${AppNumberFormatter.format(total,decimal: 2)}',
               style: const TextStyle(
                 fontFamily: 'CentraNo1-Medium',
                 fontSize: 20,

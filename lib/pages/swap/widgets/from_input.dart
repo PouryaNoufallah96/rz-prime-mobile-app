@@ -70,7 +70,7 @@ class SwapFromInput extends HookWidget {
                       children: [
                         TextSpan(
                           text:
-                              '${AppNumberFromatter.format(stats.balance, decimal: 2)}'
+                              '${AppNumberFormatter.format(stats.balance, decimal: 2)}'
                               ' USD',
                           style: const TextStyle(
                             fontFamily: 'CentraNo1-Medium',

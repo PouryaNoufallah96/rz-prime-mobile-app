@@ -89,7 +89,7 @@ class SwapOrders extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${AppNumberFromatter.format(order.quantity, decimal: 9)}'
+                            '${AppNumberFormatter.format(order.quantity, decimal: 9)}'
                             ' ${order.tokenName}',
                             style: const TextStyle(
                               fontFamily: 'CentraNo1-Medium',
@@ -99,7 +99,7 @@ class SwapOrders extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${AppNumberFromatter.format(order.loanAmount, decimal: 2)}'
+                            '${AppNumberFormatter.format(order.loanAmount, decimal: 2)}'
                             ' USD',
                             style: const TextStyle(
                               fontFamily: 'CentraNo1-Medium',
@@ -115,7 +115,7 @@ class SwapOrders extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '\$${AppNumberFromatter.format(order.finalAmount, decimal: 2)}',
+                            '\$${AppNumberFormatter.format(order.finalAmount, decimal: 2)}',
                             style: const TextStyle(
                               fontFamily: 'CentraNo1-Book',
                               fontSize: 16,
@@ -168,7 +168,7 @@ class SwapOrders extends StatelessWidget {
 
 
                               return Text(
-                                '\$${AppNumberFromatter.format(price, decimal: 2)}',
+                                '\$${AppNumberFormatter.format(price, decimal: 2)}',
                                 style: TextStyle(
                                   fontFamily: 'CentraNo1-Book',
                                   fontSize: 16,

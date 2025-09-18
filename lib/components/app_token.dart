@@ -55,7 +55,7 @@ class AppToken extends StatelessWidget {
             ),
             if (price != null)
               Text(
-                '\$ ${AppNumberFromatter.format(price!, decimal: 2)}',
+                '\$ ${AppNumberFormatter.format(price!, decimal: 2)}',
                 style: const TextStyle(
                   fontFamily: 'CentraNo1-Medium',
                   fontSize: 14,

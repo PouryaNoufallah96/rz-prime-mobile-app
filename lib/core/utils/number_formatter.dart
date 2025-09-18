@@ -1,8 +1,7 @@
 import 'dart:math' as math;
-
 import 'package:intl/intl.dart';
 
-class AppNumberFromatter {
+class AppNumberFormatter {
   static double _truncateToDecimals(double x, int fractionDigits) {
     if (!x.isFinite) return x;
     final p = math.pow(10, fractionDigits);
@@ -11,17 +10,29 @@ class AppNumberFromatter {
 
   static String format(
     double value, {
-    int? decimal,
+    int? decimal,       // دقیقاً همین تعداد اعشار (اگر مقداردهی شد)
+    int? maxDecimal,    // حداکثر اعشار قابل نمایش
   }) {
-    // اگر decimal نال بود خودش تعداد اعشار واقعی رو پیدا کنه
-    int effectiveDecimal = decimal ??
-        (() {
-          final str = value.toString();
-          if (!str.contains('.')) return 0;
-          // حذف صفرهای آخر
-          final cleaned = str.replaceFirst(RegExp(r'0+$'), '');
-          return cleaned.split('.').last.length;
-        })();
+    int effectiveDecimal;
+
+    if (decimal != null) {
+      // اگر decimal صریح داده شده، همون رو استفاده کن
+      effectiveDecimal = decimal;
+    } else {
+      // تعداد اعشار واقعی رو پیدا کن (بدون صفرهای آخر)
+      final str = value.toString();
+      if (!str.contains('.')) {
+        effectiveDecimal = 0;
+      } else {
+        final cleaned = str.replaceFirst(RegExp(r'0+$'), '');
+        effectiveDecimal = cleaned.split('.').last.length;
+      }
+
+      // اگر maxDecimal مشخص شده بود، محدودش کن
+      if (maxDecimal != null && effectiveDecimal > maxDecimal) {
+        effectiveDecimal = maxDecimal;
+      }
+    }
 
     final t = _truncateToDecimals(value, effectiveDecimal);
 

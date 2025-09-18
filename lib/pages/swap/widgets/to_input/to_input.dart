@@ -159,7 +159,7 @@ class _SwapToInput extends HookWidget {
                           text: 'Balance: ',
                           children: [
                             TextSpan(
-                              text: AppNumberFromatter.format(balance,
+                              text: AppNumberFormatter.format(balance,
                                   decimal: 2),
                               style: const TextStyle(
                                 fontFamily: 'CentraNo1-Medium',
@@ -332,7 +332,7 @@ class _SelectToken extends HookWidget {
                                     ),
                                   ),
                                   Text(
-                                    AppNumberFromatter.format(e.quantity),
+                                    AppNumberFormatter.format(e.quantity),
                                     style: const TextStyle(
                                       fontFamily: 'CentraNo1-Book',
                                       fontSize: 16,
