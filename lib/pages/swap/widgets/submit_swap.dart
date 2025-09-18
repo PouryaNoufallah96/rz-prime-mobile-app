@@ -87,7 +87,7 @@ class SubmitSwap extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '${AppNumberFormatter.format(value + (stage.feePercent * month))} RZUSD',
+                                  '${AppNumberFormatter.format(value * (1 + (stage.feePercent * month)), maxDecimal: 5)} RZUSD',
                                   style: const TextStyle(
                                     fontFamily: 'CentraNo1-Medium',
                                     fontSize: 20,
@@ -112,9 +112,8 @@ class SubmitSwap extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 18),
                         child: FilledButton(
                           style: FilledButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size.fromHeight(40)
-                          ),
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size.fromHeight(40)),
                           onPressed: isInProgress || !isValid
                               ? null
                               : () {
