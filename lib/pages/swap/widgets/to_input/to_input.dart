@@ -159,7 +159,8 @@ class _SwapToInput extends HookWidget {
                           text: 'Balance: ',
                           children: [
                             TextSpan(
-                              text: AppNumberFromatter.format(balance,decimal:2),
+                              text: AppNumberFromatter.format(balance,
+                                  decimal: 2),
                               style: const TextStyle(
                                 fontFamily: 'CentraNo1-Medium',
                                 fontSize: 14,
@@ -290,7 +291,7 @@ class _SelectToken extends HookWidget {
                     child: InkWell(
                       onTap: e.quantity == 0
                           ? null
-                           : () => Navigator.pop(context, e),
+                          : () => Navigator.pop(context, e),
                       child: Row(
                         children: [
                           Padding(

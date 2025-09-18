@@ -73,7 +73,7 @@ class _Price extends StatelessWidget {
             }
 
             return Text(
-              '\$${AppNumberFromatter.format(amount / state.price)}',
+              '\$${AppNumberFromatter.format(amount / state.price, decimal: 2)}',
               style: TextStyle(
                 fontFamily: 'CentraNo1-Book',
                 fontSize: 14,
