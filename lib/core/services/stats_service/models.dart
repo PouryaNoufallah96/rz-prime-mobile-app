@@ -39,7 +39,7 @@ class UserStats with _$UserStats {
 
 enum UserStage {
   @JsonValue('Regular')
-  regular('Regular', 1, 1000, 0.03),
+  regular('Regular', 100, 1000, 0.03),
   @JsonValue('Gold')
   gold('Gold', 1100, 10000, 0.03),
   @JsonValue('Premium')
