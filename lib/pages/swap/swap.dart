@@ -245,43 +245,54 @@ class _SwapSectionAdaptiveState extends State<SwapSectionAdaptive> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      key: _stackKey,
-      clipBehavior: Clip.none,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            KeyedSubtree(key: _fromKey, child: widget.from),
-            const SizedBox(height: kGapBetweenCards),
-            widget.to,
-          ],
-        ),
-        if (_buttonTop != null)
-          Positioned(
-            left: 0,
-            right: 0,
-            top: _buttonTop,
-            child: Center(
-              child: Material(
-                elevation: 6,
-                shape: const CircleBorder(),
-                color: context.colorScheme.primary,
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: SizedBox.square(
-                    dimension: 24,
-                    child: SvgPicture.asset(
-                      'assets/icons/arrow_down.svg',
-                      height: 24,
-                      width: 24,
+    return NotificationListener<SizeChangedLayoutNotification>(
+      onNotification: (_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => _measure());
+        return false;
+      },
+      child: Stack(
+        key: _stackKey,
+        clipBehavior: Clip.none,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizeChangedLayoutNotifier(
+                child: KeyedSubtree(
+                  key: _fromKey,
+                  child: widget.from,
+                ),
+              ),
+              const SizedBox(height: kGapBetweenCards),
+              widget.to,
+            ],
+          ),
+          if (_buttonTop != null)
+            Positioned(
+              left: 0,
+              right: 0,
+              top: _buttonTop,
+              child: Center(
+                child: Material(
+                  elevation: 6,
+                  shape: const CircleBorder(),
+                  color: context.colorScheme.primary,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: SizedBox.square(
+                      dimension: 24,
+                      child: SvgPicture.asset(
+                        'assets/icons/arrow_down.svg',
+                        height: 24,
+                        width: 24,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

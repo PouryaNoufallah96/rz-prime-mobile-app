@@ -11,6 +11,14 @@ class GainXTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: const Color(0xff121314),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(80),
+          borderSide: BorderSide(color: scheme.error),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(80),
+          borderSide: BorderSide(color: scheme.error),
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(80),
           borderSide: BorderSide.none,

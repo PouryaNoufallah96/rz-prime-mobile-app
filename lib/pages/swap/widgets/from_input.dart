@@ -7,6 +7,7 @@ import 'package:gainx/core/utils/input_formatter.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
+import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 import 'package:intl/intl.dart';
 
 class SwapFromInput extends HookWidget {
@@ -91,41 +92,71 @@ class SwapFromInput extends HookWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: 'CentraNo1-Medium',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xffffffff),
-                ),
-                controller: controller,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                inputFormatters: [
-                  SwapAmountFormatter(
-                    max: '${stats.balance}',
-                    maxDecimals: 12,
-                  ),
-                ],
-                cursorHeight: 24,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                  suffixIcon: TextButton(
-                    onPressed: () {
-                      controller.text = '${stats.balance}';
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: context.colorExtension.neutral,
-                    ),
-                    child: const Text('Max'),
-                  ),
-                ),
-                onChanged: (value) {
-                  final amount = NumberFormat().tryParse(value) ?? 0;
+              BlocSelector<UserStatsCubit, UserStatsState, UserStage>(
+                selector: (state) {
+                  final stage = (state as UserStatsSuccessState).selectedStage;
+                  return stage;
+                },
+                builder: (context, stage) {
+                  return BlocSelector<SwapBloc, SwapState, String?>(
+                    selector: (state) {
+                      if (state.fromValue == 0) {
+                        return null;
+                      }
 
-                  context
-                      .read<SwapBloc>()
-                      .add(SwapFromValueChanged(value: amount.toDouble()));
+                      if (state.fromValue > stage.max) {
+                        return 'Maximum buy amount in ${stage.value} stage is '
+                            // ignore: lines_longer_than_80_chars
+                            '${AppNumberFormatter.format(stage.max, decimal: 2)}';
+                      } else if (state.fromValue < stage.min) {
+                        return 'Minimum buy amount in ${stage.value} stage is '
+                            // ignore: lines_longer_than_80_chars
+                            '${AppNumberFormatter.format(stage.min, decimal: 2)}';
+                      }
+                      return null;
+                    },
+                    builder: (context, errorMessage) {
+                      return TextFormField(
+                        style: const TextStyle(
+                          fontFamily: 'CentraNo1-Medium',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
+                        ),
+                        controller: controller,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: [
+                          SwapAmountFormatter(
+                            max: '${stats.balance}',
+                            maxDecimals: 12,
+                          ),
+                        ],
+                        cursorHeight: 24,
+                        decoration: InputDecoration(
+                          errorText: errorMessage,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 12),
+                          suffixIcon: TextButton(
+                            onPressed: () {
+                              controller.text = '${stats.balance}';
+                            },
+                            style: TextButton.styleFrom(
+                              foregroundColor: context.colorExtension.neutral,
+                            ),
+                            child: const Text('Max'),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          final amount = NumberFormat().tryParse(value) ?? 0;
+
+                          context.read<SwapBloc>().add(
+                              SwapFromValueChanged(value: amount.toDouble()));
+                        },
+                      );
+                    },
+                  );
                 },
               ),
             ],
