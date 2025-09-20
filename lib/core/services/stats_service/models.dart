@@ -39,13 +39,13 @@ class UserStats with _$UserStats {
 
 enum UserStage {
   @JsonValue('Regular')
-  regular('Regular', 1, 1000, 0.03),
+  regular('Regular', 100, 1000, 0.03),
   @JsonValue('Gold')
-  gold('Gold', 1100, 10000, 0.03),
+  gold('Gold', 1001, 10000, 0.03),
   @JsonValue('Premium')
-  premium('Premium', 10100, 100000, 0.02),
+  premium('Premium', 10001, 100000, 0.02),
   @JsonValue('X')
-  x('X', 100100, 1000000, 0.01);
+  x('X', 100001, 1000000, 0.01);
 
   const UserStage(
     this.value,
