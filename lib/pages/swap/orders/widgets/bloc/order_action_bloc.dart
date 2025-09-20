@@ -155,9 +155,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
       emit(
         state.copyWith(
           isOrderCompeleted: () => isPayed,
-          updateTime: isApproved ?? false
-              ? DateTime.now().millisecondsSinceEpoch
-              : state.updateTime,
+          updateTime:  DateTime.now().millisecondsSinceEpoch,
           payOrderStatus: PayOrderStatus.idle,
         ),
       );

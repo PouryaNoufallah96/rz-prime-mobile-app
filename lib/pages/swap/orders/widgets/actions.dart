@@ -43,6 +43,13 @@ class _OrderActions extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<OrderActionBloc, OrderActionState>(
+          listener: (_, state) {
+            context
+                .read<OverlayCubit>()
+                .isLock(state.payOrderStatus == PayOrderStatus.inProgress);
+          },
+        ),
+        BlocListener<OrderActionBloc, OrderActionState>(
           listenWhen: (p, c) => p.updateTime != c.updateTime,
           listener: (_, state) {
             context.read<UserStatsCubit>().fetch(skipLoading: true);
@@ -50,14 +57,6 @@ class _OrderActions extends StatelessWidget {
                   isOrderCompeleted: state.isOrderCompeleted,
                 );
             context.read<FinalizeOrderCubit>().getOrders();
-          },
-        ),
-        BlocListener<OrderActionBloc, OrderActionState>(
-          listenWhen: (p, c) => p.payOrderStatus != c.payOrderStatus,
-          listener: (_, state) {
-            context
-                .read<OverlayCubit>()
-                .isLock(state.payOrderStatus == PayOrderStatus.inProgress);
           },
         ),
       ],
