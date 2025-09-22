@@ -105,11 +105,11 @@ class SwapFromInput extends HookWidget {
                       }
 
                       if (state.fromValue > stage.max) {
-                        return 'Maximum buy amount in ${stage.value} stage is '
+                        return 'Maximum buy amount is '
                             // ignore: lines_longer_than_80_chars
                             '${AppNumberFormatter.format(stage.max, decimal: 2)}';
                       } else if (state.fromValue < stage.min) {
-                        return 'Minimum buy amount in ${stage.value} stage is '
+                        return 'Minimum buy amount is '
                             // ignore: lines_longer_than_80_chars
                             '${AppNumberFormatter.format(stage.min, decimal: 2)}';
                       }

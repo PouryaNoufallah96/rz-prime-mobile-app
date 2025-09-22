@@ -17,7 +17,6 @@ import 'package:gainx/pages/swap/widgets/pay_of_time.dart';
 import 'package:gainx/pages/swap/widgets/submit_swap.dart';
 import 'package:gainx/pages/swap/widgets/to_input/to_input.dart';
 import 'package:gainx/pages/swap/widgets/user_balance.dart';
-import 'package:gainx/pages/swap/widgets/user_level.dart';
 import 'package:go_router/go_router.dart';
 
 class SwapPage extends StatelessWidget {
@@ -146,7 +145,7 @@ class _SwapBody extends StatelessWidget {
                           width: 24,
                         ),
                       ),
-                      const UserLevel(),
+                      // const UserLevel(),
                       const SizedBox.square(dimension: 24),
                     ],
                   ),

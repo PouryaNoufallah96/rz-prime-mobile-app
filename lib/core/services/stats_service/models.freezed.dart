@@ -259,10 +259,10 @@ UserStats _$UserStatsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserStats {
-  UserStage get stage => throw _privateConstructorUsedError;
   double get mining => throw _privateConstructorUsedError;
   double get availableLoanAmount => throw _privateConstructorUsedError;
   double get sumOfMining => throw _privateConstructorUsedError;
+  UserStage get stage => throw _privateConstructorUsedError;
 
   /// Serializes this UserStats to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -280,10 +280,10 @@ abstract class $UserStatsCopyWith<$Res> {
       _$UserStatsCopyWithImpl<$Res, UserStats>;
   @useResult
   $Res call(
-      {UserStage stage,
-      double mining,
+      {double mining,
       double availableLoanAmount,
-      double sumOfMining});
+      double sumOfMining,
+      UserStage stage});
 }
 
 /// @nodoc
@@ -301,16 +301,12 @@ class _$UserStatsCopyWithImpl<$Res, $Val extends UserStats>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stage = null,
     Object? mining = null,
     Object? availableLoanAmount = null,
     Object? sumOfMining = null,
+    Object? stage = null,
   }) {
     return _then(_value.copyWith(
-      stage: null == stage
-          ? _value.stage
-          : stage // ignore: cast_nullable_to_non_nullable
-              as UserStage,
       mining: null == mining
           ? _value.mining
           : mining // ignore: cast_nullable_to_non_nullable
@@ -323,6 +319,10 @@ class _$UserStatsCopyWithImpl<$Res, $Val extends UserStats>
           ? _value.sumOfMining
           : sumOfMining // ignore: cast_nullable_to_non_nullable
               as double,
+      stage: null == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as UserStage,
     ) as $Val);
   }
 }
@@ -336,10 +336,10 @@ abstract class _$$UserStatsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {UserStage stage,
-      double mining,
+      {double mining,
       double availableLoanAmount,
-      double sumOfMining});
+      double sumOfMining,
+      UserStage stage});
 }
 
 /// @nodoc
@@ -355,16 +355,12 @@ class __$$UserStatsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stage = null,
     Object? mining = null,
     Object? availableLoanAmount = null,
     Object? sumOfMining = null,
+    Object? stage = null,
   }) {
     return _then(_$UserStatsImpl(
-      stage: null == stage
-          ? _value.stage
-          : stage // ignore: cast_nullable_to_non_nullable
-              as UserStage,
       mining: null == mining
           ? _value.mining
           : mining // ignore: cast_nullable_to_non_nullable
@@ -377,6 +373,10 @@ class __$$UserStatsImplCopyWithImpl<$Res>
           ? _value.sumOfMining
           : sumOfMining // ignore: cast_nullable_to_non_nullable
               as double,
+      stage: null == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as UserStage,
     ));
   }
 }
@@ -385,26 +385,27 @@ class __$$UserStatsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserStatsImpl implements _UserStats {
   const _$UserStatsImpl(
-      {required this.stage,
-      required this.mining,
+      {required this.mining,
       required this.availableLoanAmount,
-      required this.sumOfMining});
+      required this.sumOfMining,
+      this.stage = UserStage.regular});
 
   factory _$UserStatsImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserStatsImplFromJson(json);
 
-  @override
-  final UserStage stage;
   @override
   final double mining;
   @override
   final double availableLoanAmount;
   @override
   final double sumOfMining;
+  @override
+  @JsonKey()
+  final UserStage stage;
 
   @override
   String toString() {
-    return 'UserStats(stage: $stage, mining: $mining, availableLoanAmount: $availableLoanAmount, sumOfMining: $sumOfMining)';
+    return 'UserStats(mining: $mining, availableLoanAmount: $availableLoanAmount, sumOfMining: $sumOfMining, stage: $stage)';
   }
 
   @override
@@ -412,18 +413,18 @@ class _$UserStatsImpl implements _UserStats {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserStatsImpl &&
-            (identical(other.stage, stage) || other.stage == stage) &&
             (identical(other.mining, mining) || other.mining == mining) &&
             (identical(other.availableLoanAmount, availableLoanAmount) ||
                 other.availableLoanAmount == availableLoanAmount) &&
             (identical(other.sumOfMining, sumOfMining) ||
-                other.sumOfMining == sumOfMining));
+                other.sumOfMining == sumOfMining) &&
+            (identical(other.stage, stage) || other.stage == stage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, stage, mining, availableLoanAmount, sumOfMining);
+      Object.hash(runtimeType, mining, availableLoanAmount, sumOfMining, stage);
 
   /// Create a copy of UserStats
   /// with the given fields replaced by the non-null parameter values.
@@ -443,22 +444,22 @@ class _$UserStatsImpl implements _UserStats {
 
 abstract class _UserStats implements UserStats {
   const factory _UserStats(
-      {required final UserStage stage,
-      required final double mining,
+      {required final double mining,
       required final double availableLoanAmount,
-      required final double sumOfMining}) = _$UserStatsImpl;
+      required final double sumOfMining,
+      final UserStage stage}) = _$UserStatsImpl;
 
   factory _UserStats.fromJson(Map<String, dynamic> json) =
       _$UserStatsImpl.fromJson;
 
-  @override
-  UserStage get stage;
   @override
   double get mining;
   @override
   double get availableLoanAmount;
   @override
   double get sumOfMining;
+  @override
+  UserStage get stage;
 
   /// Create a copy of UserStats
   /// with the given fields replaced by the non-null parameter values.

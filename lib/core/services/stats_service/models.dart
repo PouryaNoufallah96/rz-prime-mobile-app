@@ -27,10 +27,10 @@ extension InventoryModelX on InventoryModel {
 @freezed
 class UserStats with _$UserStats {
   const factory UserStats({
-    required UserStage stage,
     required double mining,
     required double availableLoanAmount,
     required double sumOfMining,
+    @Default(UserStage.regular) UserStage stage,
   }) = _UserStats;
 
   factory UserStats.fromJson(Map<String, dynamic> json) =>
