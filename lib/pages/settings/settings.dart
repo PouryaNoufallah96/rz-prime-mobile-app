@@ -60,28 +60,28 @@ class _Body extends StatelessWidget {
           },
         ),
         const Divider(),
-        SwitchListTile(
-          value: false,
-          onChanged: (_) {},
-          subtitle: const Text(
-            // ignore: lines_longer_than_80_chars
-            'Stay in the loop on what’s happening in your wallet with notification',
-            style: TextStyle(
-              fontFamily: 'CentraNo1-Book',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          title: const Text(
-            'Notifications',
-            style: TextStyle(
-              fontFamily: 'CentraNo1-Medium',
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        const Divider(),
+        // SwitchListTile(
+        //   value: false,
+        //   onChanged: (_) {},
+        //   subtitle: const Text(
+        //     // ignore: lines_longer_than_80_chars
+        //     'Stay in the loop on what’s happening in your wallet with notification',
+        //     style: TextStyle(
+        //       fontFamily: 'CentraNo1-Book',
+        //       fontSize: 14,
+        //       fontWeight: FontWeight.w400,
+        //     ),
+        //   ),
+        //   title: const Text(
+        //     'Notifications',
+        //     style: TextStyle(
+        //       fontFamily: 'CentraNo1-Medium',
+        //       fontSize: 16,
+        //       fontWeight: FontWeight.w500,
+        //     ),
+        //   ),
+        // ),
+        // const Divider(),
         const _Logout()
       ],
     );
