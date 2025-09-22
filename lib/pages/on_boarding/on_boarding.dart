@@ -34,7 +34,7 @@ class _Body extends HookWidget {
                 'Invest in tokens without upfront payment and commit only when you Gain X times!'
               ),
               (
-                'Zero Risk Investment',
+                'Reserve Your Token Now',
                 'Reserve token deals without locking your funds. Cancel anytime, no penalties and pay only if the price goes up.'
               ),
               (
