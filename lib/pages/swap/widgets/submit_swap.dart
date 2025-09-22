@@ -57,7 +57,7 @@ class SubmitSwap extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '${AppNumberFormatter.format(value * (1 + (stage.feePercent * month)), maxDecimal: 4)} RZUSD',
+                                '${AppNumberFormatter.format(value * (1 + (stage.feePercent * month)), maxDecimal: 4)} RZ USD',
                                 style: const TextStyle(
                                   fontFamily: 'CentraNo1-Medium',
                                   fontSize: 20,

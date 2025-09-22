@@ -301,7 +301,7 @@ class _Order extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '$loanAmount RZUSD',
+                      '$loanAmount RZ USD',
                       style: TextStyle(
                         fontFamily: 'CentraNo1-Medium',
                         fontSize: 16,
