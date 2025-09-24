@@ -66,16 +66,21 @@ extension UserStatsX on UserStats {
 
 extension UserStageX on UserStage {
   List<SwapPayOfTime> stages() {
-    return switch (this) {
-      UserStage.x => [
-          SwapPayOfTime.one,
-        ],
-      UserStage.premium => [
-          SwapPayOfTime.one,
-          SwapPayOfTime.two,
-          SwapPayOfTime.three,
-        ],
-      _ => [...SwapPayOfTime.values],
-    };
+    return [
+      SwapPayOfTime.one,
+      SwapPayOfTime.two,
+      SwapPayOfTime.three,
+    ];
+    // return switch (this) {
+    //   UserStage.x => [
+    //       SwapPayOfTime.one,
+    //     ],
+    //   UserStage.premium => [
+    //       SwapPayOfTime.one,
+    //       SwapPayOfTime.two,
+    //       SwapPayOfTime.three,
+    //     ],
+    //   _ => [...SwapPayOfTime.values],
+    // };
   }
 }

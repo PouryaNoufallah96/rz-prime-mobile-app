@@ -25,27 +25,27 @@ class UserLevel extends StatelessWidget {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(80),
-              onTap: () async {
-                final res = await showModalBottomSheet<UserStage>(
-                  context: context,
-                  useRootNavigator: true,
-                  isScrollControlled: true,
-                  useSafeArea: true,
-                  backgroundColor: const Color(0xff202023),
-                  constraints: BoxConstraints(
-                    maxHeight: context.mSize.height * .8,
-                  ),
-                  showDragHandle: true,
-                  builder: (context) => _SelectStage(
-                    stage: state.selectedStage,
-                    enableStages: [...state.stats.map((e) => e.stage)],
-                  ),
-                );
+              // onTap: () async {
+              //   final res = await showModalBottomSheet<UserStage>(
+              //     context: context,
+              //     useRootNavigator: true,
+              //     isScrollControlled: true,
+              //     useSafeArea: true,
+              //     backgroundColor: const Color(0xff202023),
+              //     constraints: BoxConstraints(
+              //       maxHeight: context.mSize.height * .8,
+              //     ),
+              //     showDragHandle: true,
+              //     builder: (context) => _SelectStage(
+              //       stage: state.selectedStage,
+              //       enableStages: [...state.stats.map((e) => e.stage)],
+              //     ),
+              //   );
 
-                if (res != null && context.mounted) {
-                  await context.read<UserStatsCubit>().changeStage(res);
-                }
-              },
+              //   if (res != null && context.mounted) {
+              //     await context.read<UserStatsCubit>().changeStage(res);
+              //   }
+              // },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 10,

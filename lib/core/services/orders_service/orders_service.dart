@@ -18,7 +18,7 @@ class OrdersService {
       Uri.parse('Order/SubmitOrder'),
       method: HttpMethod.post,
       body: {
-        'selectedStage': selectedStage,
+        'selectedStage': 'Regular',
         'tokenName': assetName,
         'usdtAmount': loanAmount,
         'monthDuration': monthDuration,
