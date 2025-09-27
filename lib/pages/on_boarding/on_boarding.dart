@@ -31,7 +31,7 @@ class _Body extends HookWidget {
         () => [
               (
                 'Why RZ Prime?',
-                'Invest in tokens without upfront payment and commit only when you Gain X times!'
+                'Invest in tokens without any upfront payment, and commit once you are certain of being in profit.'
               ),
               (
                 'Reserve Your Token Now',
@@ -39,7 +39,7 @@ class _Body extends HookWidget {
               ),
               (
                 'Protected by Smart Contracts',
-                'Deals on GainX are fully controlled by our smart contracts. No one can pause, change, or access them.'
+                'Deals on RZ Prime are fully controlled by our smart contracts. No one can pause, change, or access them.'
               ),
             ][index.value],
         [index.value]);
