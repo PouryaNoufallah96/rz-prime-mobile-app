@@ -28,12 +28,16 @@ class OrdersService {
     return res is AppSuccessResponse;
   }
 
-  Future<bool> dropOrder({required String orderId}) async {
+  Future<bool> dropOrder({
+    required String orderId,
+    required String signature,
+  }) async {
     final res = await _adapter.requestUri<Map<String, dynamic>>(
       Uri.parse('Order/DropOrder'),
       method: HttpMethod.post,
       body: {
         'orderId': orderId,
+        'signature': signature,
       },
     );
 

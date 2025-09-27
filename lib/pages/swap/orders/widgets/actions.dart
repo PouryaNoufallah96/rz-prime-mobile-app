@@ -23,6 +23,7 @@ class OrderActions extends HookWidget {
       create: (context) => OrderActionBloc(
         ordersService: context.read(),
         transactionService: context.read(),
+        reownService: context.read(),
       ),
       child: _OrderActions(
         order: order,

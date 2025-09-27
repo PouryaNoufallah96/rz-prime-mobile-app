@@ -1,12 +1,18 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:gainx/core/env.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
+import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/services/transaction_service/transaction_service.dart';
 import 'package:gainx/core/utils/future_timeout.dart';
+import 'package:reown_appkit/reown_appkit.dart';
 import 'package:toastification/toastification.dart';
+import 'package:web3dart/crypto.dart' as crypto;
 
 part 'order_action_event.dart';
 part 'order_action_state.dart';
@@ -15,8 +21,10 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
   OrderActionBloc({
     required OrdersService ordersService,
     required TransactionService transactionService,
+    required ReownService reownService,
   })  : _ordersService = ordersService,
         _transactionService = transactionService,
+        _reownService = reownService,
         super(OrderActionState()) {
     on<OrderActionDropped>(_onOrderActionDropped);
     on<OrderActionPayed>(_onOrderActionPayed);
@@ -24,6 +32,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
 
   final OrdersService _ordersService;
   final TransactionService _transactionService;
+  final ReownService _reownService;
 
   Future<void> _onOrderActionDropped(
     OrderActionDropped event,
@@ -31,7 +40,74 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
   ) async {
     emit(state.copyWith(dropOrderStatus: DropOrderStatus.inProgress));
 
-    final isSucceed = await _ordersService.dropOrder(orderId: event.id);
+    final domain = {
+      'name': 'RZPrimeSale',
+      'version': '1',
+      'chainId': 56,
+      'verifyingContract': Env.appContractAddress,
+    };
+
+    final types = {
+      'DropOrder': [
+        {'name': 'user', 'type': 'address'},
+        {'name': 'orderId', 'type': 'bytes32'}
+      ]
+    };
+
+    final bytes = Uint8List.fromList(utf8.encode(event.id));
+    final hash = crypto.keccak256(bytes);
+    final hex = crypto.bytesToHex(hash, include0x: true);
+
+    final chainId = _reownService.appKitModal.selectedChain!.chainId;
+    final namespace = NamespaceUtils.getNamespaceFromChain(chainId);
+    final owner = _reownService.appKitModal.session!.getAddress(namespace);
+    final ownerAddress = EthereumAddress.fromHex(owner!);
+    final topic = _reownService.appKitModal.session!.topic;
+    final address = ownerAddress.hexEip55;
+    final message = {'user': address, 'orderId': hex};
+
+    final typedData = {
+      'types': types,
+      'domain': domain,
+      'primaryType': 'DropOrder',
+      'message': message,
+    };
+
+    final signature = await futureTimeout(
+      _reownService.appKitModal
+          .request(
+            topic: topic,
+            chainId: chainId,
+            request: SessionRequestParams(
+              method: 'eth_signTypedData_v4',
+              params: [address, jsonEncode(typedData)],
+            ),
+          )
+          .then((value) => value as String?),
+      const Duration(seconds: 30),
+      () {
+        emit(state.copyWith(payOrderStatus: PayOrderStatus.idle));
+
+        toastification.show(
+          style: ToastificationStyle.fillColored,
+          type: ToastificationType.error,
+          title: const Text('There was a problem connecting to your wallet.'),
+          borderRadius: BorderRadius.circular(6),
+          autoCloseDuration: const Duration(seconds: 4),
+        );
+      },
+    );
+
+    if (signature == null) {
+      emit(state.copyWith(payOrderStatus: PayOrderStatus.idle));
+
+      return;
+    }
+
+    final isSucceed = await _ordersService.dropOrder(
+      orderId: event.id,
+      signature: signature,
+    );
 
     if (isSucceed) {
       toastification.show(
@@ -155,7 +231,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
       emit(
         state.copyWith(
           isOrderCompeleted: () => isPayed,
-          updateTime:  DateTime.now().millisecondsSinceEpoch,
+          updateTime: DateTime.now().millisecondsSinceEpoch,
           payOrderStatus: PayOrderStatus.idle,
         ),
       );
