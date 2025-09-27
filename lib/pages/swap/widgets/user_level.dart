@@ -69,11 +69,11 @@ class UserLevel extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    const SizedBox(width: 21),
-                    const Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: Colors.white,
-                    )
+                    // const SizedBox(width: 21),
+                    // const Icon(
+                    //   Icons.keyboard_arrow_down_rounded,
+                    //   color: Colors.white,
+                    // )
                   ],
                 ),
               ),
