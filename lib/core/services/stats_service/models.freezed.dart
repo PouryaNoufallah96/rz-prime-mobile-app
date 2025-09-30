@@ -262,6 +262,9 @@ mixin _$UserStats {
   double get mining => throw _privateConstructorUsedError;
   double get availableLoanAmount => throw _privateConstructorUsedError;
   double get sumOfMining => throw _privateConstructorUsedError;
+  int get minimumBuyAmount => throw _privateConstructorUsedError;
+  int get maximumBuyAmount => throw _privateConstructorUsedError;
+  int get maximumPayOfMonth => throw _privateConstructorUsedError;
   UserStage get stage => throw _privateConstructorUsedError;
 
   /// Serializes this UserStats to a JSON map.
@@ -283,6 +286,9 @@ abstract class $UserStatsCopyWith<$Res> {
       {double mining,
       double availableLoanAmount,
       double sumOfMining,
+      int minimumBuyAmount,
+      int maximumBuyAmount,
+      int maximumPayOfMonth,
       UserStage stage});
 }
 
@@ -304,6 +310,9 @@ class _$UserStatsCopyWithImpl<$Res, $Val extends UserStats>
     Object? mining = null,
     Object? availableLoanAmount = null,
     Object? sumOfMining = null,
+    Object? minimumBuyAmount = null,
+    Object? maximumBuyAmount = null,
+    Object? maximumPayOfMonth = null,
     Object? stage = null,
   }) {
     return _then(_value.copyWith(
@@ -319,6 +328,18 @@ class _$UserStatsCopyWithImpl<$Res, $Val extends UserStats>
           ? _value.sumOfMining
           : sumOfMining // ignore: cast_nullable_to_non_nullable
               as double,
+      minimumBuyAmount: null == minimumBuyAmount
+          ? _value.minimumBuyAmount
+          : minimumBuyAmount // ignore: cast_nullable_to_non_nullable
+              as int,
+      maximumBuyAmount: null == maximumBuyAmount
+          ? _value.maximumBuyAmount
+          : maximumBuyAmount // ignore: cast_nullable_to_non_nullable
+              as int,
+      maximumPayOfMonth: null == maximumPayOfMonth
+          ? _value.maximumPayOfMonth
+          : maximumPayOfMonth // ignore: cast_nullable_to_non_nullable
+              as int,
       stage: null == stage
           ? _value.stage
           : stage // ignore: cast_nullable_to_non_nullable
@@ -339,6 +360,9 @@ abstract class _$$UserStatsImplCopyWith<$Res>
       {double mining,
       double availableLoanAmount,
       double sumOfMining,
+      int minimumBuyAmount,
+      int maximumBuyAmount,
+      int maximumPayOfMonth,
       UserStage stage});
 }
 
@@ -358,6 +382,9 @@ class __$$UserStatsImplCopyWithImpl<$Res>
     Object? mining = null,
     Object? availableLoanAmount = null,
     Object? sumOfMining = null,
+    Object? minimumBuyAmount = null,
+    Object? maximumBuyAmount = null,
+    Object? maximumPayOfMonth = null,
     Object? stage = null,
   }) {
     return _then(_$UserStatsImpl(
@@ -373,6 +400,18 @@ class __$$UserStatsImplCopyWithImpl<$Res>
           ? _value.sumOfMining
           : sumOfMining // ignore: cast_nullable_to_non_nullable
               as double,
+      minimumBuyAmount: null == minimumBuyAmount
+          ? _value.minimumBuyAmount
+          : minimumBuyAmount // ignore: cast_nullable_to_non_nullable
+              as int,
+      maximumBuyAmount: null == maximumBuyAmount
+          ? _value.maximumBuyAmount
+          : maximumBuyAmount // ignore: cast_nullable_to_non_nullable
+              as int,
+      maximumPayOfMonth: null == maximumPayOfMonth
+          ? _value.maximumPayOfMonth
+          : maximumPayOfMonth // ignore: cast_nullable_to_non_nullable
+              as int,
       stage: null == stage
           ? _value.stage
           : stage // ignore: cast_nullable_to_non_nullable
@@ -388,6 +427,9 @@ class _$UserStatsImpl implements _UserStats {
       {required this.mining,
       required this.availableLoanAmount,
       required this.sumOfMining,
+      required this.minimumBuyAmount,
+      required this.maximumBuyAmount,
+      required this.maximumPayOfMonth,
       this.stage = UserStage.regular});
 
   factory _$UserStatsImpl.fromJson(Map<String, dynamic> json) =>
@@ -400,12 +442,18 @@ class _$UserStatsImpl implements _UserStats {
   @override
   final double sumOfMining;
   @override
+  final int minimumBuyAmount;
+  @override
+  final int maximumBuyAmount;
+  @override
+  final int maximumPayOfMonth;
+  @override
   @JsonKey()
   final UserStage stage;
 
   @override
   String toString() {
-    return 'UserStats(mining: $mining, availableLoanAmount: $availableLoanAmount, sumOfMining: $sumOfMining, stage: $stage)';
+    return 'UserStats(mining: $mining, availableLoanAmount: $availableLoanAmount, sumOfMining: $sumOfMining, minimumBuyAmount: $minimumBuyAmount, maximumBuyAmount: $maximumBuyAmount, maximumPayOfMonth: $maximumPayOfMonth, stage: $stage)';
   }
 
   @override
@@ -418,13 +466,26 @@ class _$UserStatsImpl implements _UserStats {
                 other.availableLoanAmount == availableLoanAmount) &&
             (identical(other.sumOfMining, sumOfMining) ||
                 other.sumOfMining == sumOfMining) &&
+            (identical(other.minimumBuyAmount, minimumBuyAmount) ||
+                other.minimumBuyAmount == minimumBuyAmount) &&
+            (identical(other.maximumBuyAmount, maximumBuyAmount) ||
+                other.maximumBuyAmount == maximumBuyAmount) &&
+            (identical(other.maximumPayOfMonth, maximumPayOfMonth) ||
+                other.maximumPayOfMonth == maximumPayOfMonth) &&
             (identical(other.stage, stage) || other.stage == stage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, mining, availableLoanAmount, sumOfMining, stage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      mining,
+      availableLoanAmount,
+      sumOfMining,
+      minimumBuyAmount,
+      maximumBuyAmount,
+      maximumPayOfMonth,
+      stage);
 
   /// Create a copy of UserStats
   /// with the given fields replaced by the non-null parameter values.
@@ -447,6 +508,9 @@ abstract class _UserStats implements UserStats {
       {required final double mining,
       required final double availableLoanAmount,
       required final double sumOfMining,
+      required final int minimumBuyAmount,
+      required final int maximumBuyAmount,
+      required final int maximumPayOfMonth,
       final UserStage stage}) = _$UserStatsImpl;
 
   factory _UserStats.fromJson(Map<String, dynamic> json) =
@@ -458,6 +522,12 @@ abstract class _UserStats implements UserStats {
   double get availableLoanAmount;
   @override
   double get sumOfMining;
+  @override
+  int get minimumBuyAmount;
+  @override
+  int get maximumBuyAmount;
+  @override
+  int get maximumPayOfMonth;
   @override
   UserStage get stage;
 

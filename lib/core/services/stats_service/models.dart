@@ -30,6 +30,9 @@ class UserStats with _$UserStats {
     required double mining,
     required double availableLoanAmount,
     required double sumOfMining,
+    required int minimumBuyAmount,
+    required int maximumBuyAmount,
+    required int maximumPayOfMonth,
     @Default(UserStage.regular) UserStage stage,
   }) = _UserStats;
 

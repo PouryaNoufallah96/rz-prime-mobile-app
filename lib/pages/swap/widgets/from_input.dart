@@ -92,26 +92,34 @@ class SwapFromInput extends HookWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              BlocSelector<UserStatsCubit, UserStatsState, UserStage>(
+              BlocSelector<UserStatsCubit, UserStatsState, UserStats?>(
                 selector: (state) {
-                  final stage = (state as UserStatsSuccessState).selectedStage;
-                  return stage;
+                  final states = (state as UserStatsSuccessState).findByStage();
+
+                  return states;
                 },
-                builder: (context, stage) {
+                builder: (context, stats) {
+                  if (stats == null) {
+                    return const SizedBox.shrink();
+                  }
+
                   return BlocSelector<SwapBloc, SwapState, String?>(
                     selector: (state) {
                       if (state.fromValue == 0) {
                         return null;
                       }
 
-                      if (state.fromValue > stage.max) {
+                      final max = stats.maximumBuyAmount;
+                      final min = stats.minimumBuyAmount;
+
+                      if (state.fromValue > max) {
                         return 'Maximum buy amount is '
                             // ignore: lines_longer_than_80_chars
-                            '${AppNumberFormatter.format(stage.max, decimal: 2)}';
-                      } else if (state.fromValue < stage.min) {
+                            '${AppNumberFormatter.format(max.toDouble(), decimal: 2)}';
+                      } else if (state.fromValue < min) {
                         return 'Minimum buy amount is '
                             // ignore: lines_longer_than_80_chars
-                            '${AppNumberFormatter.format(stage.min, decimal: 2)}';
+                            '${AppNumberFormatter.format(min.toDouble(), decimal: 2)}';
                       }
                       return null;
                     },

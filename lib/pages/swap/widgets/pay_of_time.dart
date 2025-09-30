@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
 import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
@@ -106,7 +105,13 @@ class _SelectPayOfTime extends StatelessWidget {
     return BlocSelector<UserStatsCubit, UserStatsState, List<SwapPayOfTime>>(
       selector: (state) {
         if (state is UserStatsSuccessState) {
-          return state.selectedStage.stages();
+          final stats = state.findByStage();
+
+          if (stats == null) {
+            return [];
+          }
+
+          return SwapPayOfTime.values.take(stats.maximumPayOfMonth).toList();
         }
 
         return [];
