@@ -5,9 +5,15 @@ import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/blocs/swap/swap_bloc.dart';
 import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
+import 'package:toastification/toastification.dart';
 
 class SubmitSwap extends StatelessWidget {
-  const SubmitSwap({super.key});
+  const SubmitSwap({
+    required this.isVerified,
+    super.key,
+  });
+
+  final bool isVerified;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +93,21 @@ class SubmitSwap extends StatelessWidget {
                         onPressed: isInProgress || !isValid
                             ? null
                             : () {
+                                if (!isVerified) {
+                                  toastification.show(
+                                    style: ToastificationStyle.fillColored,
+                                    type: ToastificationType.error,
+                                    title: const Text(
+                                        // ignore: lines_longer_than_80_chars
+                                        'To submit new orders and view your order history, please connect your wallet in Settings.'),
+                                    borderRadius: BorderRadius.circular(6),
+                                    autoCloseDuration:
+                                        const Duration(seconds: 4),
+                                  );
+
+                                  return;
+                                }
+
                                 final selectedStage = (context
                                         .read<UserStatsCubit>()
                                         .state as UserStatsSuccessState)

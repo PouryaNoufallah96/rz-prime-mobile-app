@@ -6,6 +6,7 @@ import 'package:gainx/core/blocs/reown/reown_bloc.dart';
 import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/gen/assets.gen.dart';
+import 'package:gainx/pages/auth/widgets/auth_status.dart';
 import 'package:reown_appkit/modal/i_appkit_modal_impl.dart';
 import 'package:reown_appkit/reown_appkit.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,15 +16,7 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ReownBloc(
-        authInterceptor: context.read(),
-        authService: context.read(),
-        reownService: context.read(),
-      )..add(ReownStarted()),
-      lazy: false,
-      child: const _AuthPage(),
-    );
+    return const _AuthPage();
   }
 }
 
@@ -182,26 +175,6 @@ class __AuthState extends State<_Auth> {
 
   @override
   Widget build(BuildContext context) {
-    final animationController = useAnimationController(
-        duration: const Duration(seconds: 1), lowerBound: .5);
-
-    useEffect(() {
-      animationController.repeat(reverse: true);
-      return null;
-    }, []);
-
-    final color = switch (_state) {
-      ConnectButtonState.connected => context.colorExtension.success,
-      ConnectButtonState.connecting => context.colorScheme.error,
-      _ => context.colorScheme.error,
-    };
-
-    final text = switch (_state) {
-      ConnectButtonState.connected => 'Connected',
-      ConnectButtonState.connecting => 'Connecting',
-      _ => 'Disconnected',
-    };
-
     // final buttonText = switch (_state) {
     //   ConnectButtonState.connected => 'Login',
     //   ConnectButtonState.connecting => 'Connecting to wallet...',
@@ -213,35 +186,8 @@ class __AuthState extends State<_Auth> {
 
     return Column(
       children: [
-        Row(
-          spacing: 8,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FadeTransition(
-              opacity: animationController,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
-                child: const SizedBox.square(
-                  dimension: 8,
-                ),
-              ),
-            ),
-            Text(
-              text,
-              style: const TextStyle(
-                fontFamily: 'CentraNo1-Book',
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
-            )
-          ],
-        ),
-        const SizedBox(height: 24),
         Padding(
-          padding: const EdgeInsets.fromLTRB(35, 0, 35, 8),
+          padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
           child: BlocSelector<ReownBloc, ReownState, AppReownLoadingStatus>(
             selector: (state) => state.status,
             builder: (context, status) {
@@ -261,17 +207,31 @@ class __AuthState extends State<_Auth> {
                   style: FilledButton.styleFrom(
                     minimumSize: const Size.fromHeight(48),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(12),
+                      borderRadius: BorderRadiusGeometry.circular(48),
                     ),
                   ),
-                  onPressed: showLoading
-                      ? null
-                      : () {
-                          context
-                              .read<ReownBloc>()
-                              .add(ReownLogginButtonPressed());
-                        },
-                  child: showLoading
+                  onPressed: !_isConnected
+                      ? () async {
+                          await showModalBottomSheet<String>(
+                            context: context,
+                            useRootNavigator: true,
+                            isScrollControlled: true,
+                            useSafeArea: true,
+                            backgroundColor: const Color(0xff202023),
+                            showDragHandle: true,
+                            builder: (_) {
+                              return const _PublicWallet();
+                            },
+                          );
+                        }
+                      : showLoading
+                          ? null
+                          : () {
+                              context
+                                  .read<ReownBloc>()
+                                  .add(ReownLogginButtonPressed());
+                            },
+                  child: _isConnected && showLoading
                       ? const SizedBox.square(
                           dimension: 24,
                           child: Center(
@@ -279,7 +239,7 @@ class __AuthState extends State<_Auth> {
                           ),
                         )
                       : Text(
-                          loadingText ?? 'Login',
+                          loadingText ?? 'Log In',
                           style: const TextStyle(
                             fontFamily: 'CentraNo1-Medium',
                             fontSize: 16,
@@ -292,38 +252,187 @@ class __AuthState extends State<_Auth> {
             },
           ),
         ),
-        if (_isConnected)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(35, 0, 35, 40),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 320),
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(48),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(12),
-                  ),
-                  side: BorderSide(
-                    color: context.colorScheme.primary,
-                  ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(35, 32, 35, 0),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 320),
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(48),
                 ),
-                onPressed: isLoading
-                    ? null
-                    : () {
+                side: BorderSide(
+                  color: context.colorScheme.primary,
+                ),
+              ),
+              onPressed: isLoading
+                  ? null
+                  : () {
+                      if (_isConnected) {
                         widget.appKit.openModalView();
-                      },
-                child: const Text(
-                  'Current wallet',
-                  style: TextStyle(
-                    fontFamily: 'CentraNo1-Medium',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                      } else {
+                        context
+                            .read<ReownBloc>()
+                            .add(ReownLogginButtonPressed());
+                      }
+                    },
+              child: Text(
+                _isConnected
+                    ? 'Connected wallet'
+                    : 'Connected with WalletConnect',
+                style: const TextStyle(
+                  fontFamily: 'CentraNo1-Medium',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
           ),
+        ),
+        const SizedBox(height: 24),
+        AppAuthStatus(appKit: widget.appKit),
+        const SizedBox(height: 40),
       ],
+    );
+  }
+}
+
+class _PublicWallet extends HookWidget {
+  const _PublicWallet();
+
+  @override
+  Widget build(BuildContext context) {
+    final message = useState('');
+
+    return BlocListener<ReownBloc, ReownState>(
+      listenWhen: (previous, current) {
+        return previous.manualLoginStatus == ManualLoginStatus.inLoading &&
+            current.manualLoginStatus == ManualLoginStatus.success;
+      },
+      listener: (context, state) {
+        Navigator.pop(context);
+      },
+      child: Padding(
+        padding: EdgeInsetsGeometry.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Text(
+                'Log In',
+                style: TextStyle(
+                  fontFamily: 'CentraNo1-Bold',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Wallet Address',
+                      style: TextStyle(
+                        fontFamily: 'CentraNo1-medium',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    TextFormField(
+                      style: const TextStyle(
+                        fontFamily: 'CentraNo1-medium',
+                        fontSize: 16,
+                      ),
+                      onChanged: (value) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          message.value = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        counterText: '',
+                        filled: false,
+                        hintText: 'Wallet Address',
+                        hintStyle: TextStyle(
+                          fontFamily: 'CentraNo1-Book',
+                          fontSize: 14,
+                          color: context.colorExtension.neutral,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: context.colorScheme.primary,
+                          ),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: context.colorExtension.neutral,
+                          ),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: context.colorExtension.neutral,
+                          ),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
+              BlocSelector<ReownBloc, ReownState, bool>(
+                selector: (state) =>
+                    state.manualLoginStatus == ManualLoginStatus.inLoading,
+                builder: (context, inLoading) {
+                  return ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 320),
+                    child: FilledButton(
+                      style: FilledButton.styleFrom(
+                        minimumSize: const Size.fromHeight(48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(48),
+                        ),
+                      ),
+                      onPressed: inLoading || message.value.isEmpty
+                          ? null
+                          : () {
+                              context
+                                  .read<ReownBloc>()
+                                  .add(ReownAddressLogginButtonPressed(
+                                    address: message.value,
+                                  ));
+                            },
+                      child: inLoading
+                          ? const SizedBox.square(
+                              dimension: 24,
+                              child: Center(
+                                child: CircularProgressIndicator.adaptive(),
+                              ),
+                            )
+                          : const Text(
+                              'Confirm',
+                              style: TextStyle(
+                                fontFamily: 'CentraNo1-Medium',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -47,6 +47,23 @@ class AuthService {
     };
   }
 
+  Future<String?> getTokenWithWalletAddress({
+    required String walletAddress,
+  }) async {
+    final res = await _adapter.requestUri<Map<String, dynamic>>(
+      Uri.parse('User/GetTokenWithPureWalletAddress'),
+      method: HttpMethod.post,
+      body: {
+        'walletAddress': walletAddress,
+      },
+    );
+
+    return switch (res) {
+      AppSuccessResponse(:final data) => data?['access_token'] as String?,
+      _ => null,
+    };
+  }
+
   Future<bool> activateNonce({
     required String address,
     String? nonce,

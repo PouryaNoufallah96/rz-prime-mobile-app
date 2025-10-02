@@ -27,6 +27,7 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
     on<ReownConnected>(_onReownConnected);
     on<ReownDisconnected>(_onReownDisConnected);
     on<ReownLogginButtonPressed>(_onReownLogginButtonPressed);
+    on<ReownAddressLogginButtonPressed>(_onReownAddressLogginButtonPressed);
   }
   final AuthService _authService;
   final ReownService _mainReownService;
@@ -39,14 +40,6 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
     Emitter<ReownState> emit,
   ) async {
     _sub = _mainReownService.onModalConnectStream.listen((event) async {
-      toastification.show(
-        style: ToastificationStyle.fillColored,
-        type: ToastificationType.success,
-        title: const Text('Wallet connected! Please sign the message..'),
-        borderRadius: BorderRadius.circular(6),
-        autoCloseDuration: const Duration(seconds: 4),
-      );
-
       add(ReownConnected(event: event));
     });
 
@@ -66,7 +59,9 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
       nonce: () => null,
     ));
 
-    _authInterceptor.clear();
+    if (state.manualAddress == null) {
+      _authInterceptor.clear();
+    }
   }
 
   Future<void> _onReownConnected(
@@ -94,6 +89,26 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
       final rawAddress = event.event.session.getAddress(namespace)!;
 
       final EthereumAddress(:hexEip55) = EthereumAddress.fromHex(rawAddress);
+      if (state.manualAddress != null &&
+          hexEip55 != EthereumAddress.fromHex(state.manualAddress!).hexEip55) {
+        emit(state.copyWith(
+          status: AppReownLoadingStatus.none,
+          address: () => null,
+        ));
+        await appKitModal.disconnect();
+
+        toastification.show(
+          style: ToastificationStyle.fillColored,
+          type: ToastificationType.error,
+          title: const Text(
+              // ignore: lines_longer_than_80_chars
+              'Wallet mismatch detected. Please select the same wallet address you used to log in'),
+          borderRadius: BorderRadius.circular(6),
+          autoCloseDuration: const Duration(seconds: 4),
+        );
+
+        return;
+      }
 
       emit(state.copyWith(
         status: AppReownLoadingStatus.getNonce,
@@ -108,6 +123,14 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
       if (nonce == null) {
         return;
       }
+
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.success,
+        title: const Text('Wallet connected! Please sign the message..'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
 
       emit(state.copyWith(
         nonce: () => nonce,
@@ -207,6 +230,35 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
           autoCloseDuration: const Duration(seconds: 4),
         );
       }
+    }
+  }
+
+  Future<void> _onReownAddressLogginButtonPressed(
+    ReownAddressLogginButtonPressed event,
+    Emitter<ReownState> emit,
+  ) async {
+    emit(state.copyWith(manualLoginStatus: ManualLoginStatus.inLoading));
+
+    try {
+      final token = await _authService.getTokenWithWalletAddress(
+          walletAddress: event.address);
+
+      if (token == null) {
+        throw Exception();
+      }
+
+      emit(state.copyWith(
+        manualLoginStatus: ManualLoginStatus.success,
+        manualAddress: () => event.address,
+        address: () => null,
+      ));
+
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      _authInterceptor.setToken(token);
+    } catch (e) {
+      emit(state.copyWith(manualLoginStatus: ManualLoginStatus.failure));
+    } finally {
+      emit(state.copyWith(manualLoginStatus: ManualLoginStatus.idle));
     }
   }
 

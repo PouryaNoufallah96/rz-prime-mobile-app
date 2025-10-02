@@ -259,6 +259,7 @@ UserStats _$UserStatsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserStats {
+  String get userStatus => throw _privateConstructorUsedError;
   double get mining => throw _privateConstructorUsedError;
   double get availableLoanAmount => throw _privateConstructorUsedError;
   double get sumOfMining => throw _privateConstructorUsedError;
@@ -283,7 +284,8 @@ abstract class $UserStatsCopyWith<$Res> {
       _$UserStatsCopyWithImpl<$Res, UserStats>;
   @useResult
   $Res call(
-      {double mining,
+      {String userStatus,
+      double mining,
       double availableLoanAmount,
       double sumOfMining,
       int minimumBuyAmount,
@@ -307,6 +309,7 @@ class _$UserStatsCopyWithImpl<$Res, $Val extends UserStats>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userStatus = null,
     Object? mining = null,
     Object? availableLoanAmount = null,
     Object? sumOfMining = null,
@@ -316,6 +319,10 @@ class _$UserStatsCopyWithImpl<$Res, $Val extends UserStats>
     Object? stage = null,
   }) {
     return _then(_value.copyWith(
+      userStatus: null == userStatus
+          ? _value.userStatus
+          : userStatus // ignore: cast_nullable_to_non_nullable
+              as String,
       mining: null == mining
           ? _value.mining
           : mining // ignore: cast_nullable_to_non_nullable
@@ -357,7 +364,8 @@ abstract class _$$UserStatsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {double mining,
+      {String userStatus,
+      double mining,
       double availableLoanAmount,
       double sumOfMining,
       int minimumBuyAmount,
@@ -379,6 +387,7 @@ class __$$UserStatsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userStatus = null,
     Object? mining = null,
     Object? availableLoanAmount = null,
     Object? sumOfMining = null,
@@ -388,6 +397,10 @@ class __$$UserStatsImplCopyWithImpl<$Res>
     Object? stage = null,
   }) {
     return _then(_$UserStatsImpl(
+      userStatus: null == userStatus
+          ? _value.userStatus
+          : userStatus // ignore: cast_nullable_to_non_nullable
+              as String,
       mining: null == mining
           ? _value.mining
           : mining // ignore: cast_nullable_to_non_nullable
@@ -424,7 +437,8 @@ class __$$UserStatsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserStatsImpl implements _UserStats {
   const _$UserStatsImpl(
-      {required this.mining,
+      {required this.userStatus,
+      required this.mining,
       required this.availableLoanAmount,
       required this.sumOfMining,
       required this.minimumBuyAmount,
@@ -435,6 +449,8 @@ class _$UserStatsImpl implements _UserStats {
   factory _$UserStatsImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserStatsImplFromJson(json);
 
+  @override
+  final String userStatus;
   @override
   final double mining;
   @override
@@ -453,7 +469,7 @@ class _$UserStatsImpl implements _UserStats {
 
   @override
   String toString() {
-    return 'UserStats(mining: $mining, availableLoanAmount: $availableLoanAmount, sumOfMining: $sumOfMining, minimumBuyAmount: $minimumBuyAmount, maximumBuyAmount: $maximumBuyAmount, maximumPayOfMonth: $maximumPayOfMonth, stage: $stage)';
+    return 'UserStats(userStatus: $userStatus, mining: $mining, availableLoanAmount: $availableLoanAmount, sumOfMining: $sumOfMining, minimumBuyAmount: $minimumBuyAmount, maximumBuyAmount: $maximumBuyAmount, maximumPayOfMonth: $maximumPayOfMonth, stage: $stage)';
   }
 
   @override
@@ -461,6 +477,8 @@ class _$UserStatsImpl implements _UserStats {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserStatsImpl &&
+            (identical(other.userStatus, userStatus) ||
+                other.userStatus == userStatus) &&
             (identical(other.mining, mining) || other.mining == mining) &&
             (identical(other.availableLoanAmount, availableLoanAmount) ||
                 other.availableLoanAmount == availableLoanAmount) &&
@@ -479,6 +497,7 @@ class _$UserStatsImpl implements _UserStats {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      userStatus,
       mining,
       availableLoanAmount,
       sumOfMining,
@@ -505,7 +524,8 @@ class _$UserStatsImpl implements _UserStats {
 
 abstract class _UserStats implements UserStats {
   const factory _UserStats(
-      {required final double mining,
+      {required final String userStatus,
+      required final double mining,
       required final double availableLoanAmount,
       required final double sumOfMining,
       required final int minimumBuyAmount,
@@ -516,6 +536,8 @@ abstract class _UserStats implements UserStats {
   factory _UserStats.fromJson(Map<String, dynamic> json) =
       _$UserStatsImpl.fromJson;
 
+  @override
+  String get userStatus;
   @override
   double get mining;
   @override

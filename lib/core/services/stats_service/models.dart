@@ -27,6 +27,7 @@ extension InventoryModelX on InventoryModel {
 @freezed
 class UserStats with _$UserStats {
   const factory UserStats({
+    required String userStatus,
     required double mining,
     required double availableLoanAmount,
     required double sumOfMining,
@@ -65,6 +66,8 @@ enum UserStage {
 
 extension UserStatsX on UserStats {
   double get balance => availableLoanAmount + sumOfMining;
+
+  bool get isVerified => userStatus != 'NotVerified';
 }
 
 extension UserStageX on UserStage {

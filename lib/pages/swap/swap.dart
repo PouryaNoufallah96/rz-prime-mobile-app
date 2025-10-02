@@ -24,16 +24,7 @@ class SwapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => UserStatsCubit(
-            statsService: context.read(),
-          )..fetch(),
-        ),
-      ],
-      child: const AppUnFocuser(child: _Body()),
-    );
+    return const AppUnFocuser(child: _Body());
   }
 }
 
@@ -124,7 +115,7 @@ class _SwapBody extends StatelessWidget {
         onRefresh: () async {
           await Future.wait([
             context.read<UserStatsCubit>().fetch(),
-            context.read<OpenOrdersCubit>().getOrders()
+            if (stats.isVerified) context.read<OpenOrdersCubit>().getOrders()
           ]);
         },
         child: CustomScrollView(
@@ -167,23 +158,39 @@ class _SwapBody extends StatelessWidget {
                   const SizedBox(height: 24),
                   const SelectPayOfTime(),
                   const SizedBox(height: 24),
-                  const SubmitSwap(),
+                  SubmitSwap(isVerified: stats.isVerified),
                   const SizedBox(height: 24),
-                  const OrdersTotal(),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Orders',
-                    style: TextStyle(
-                      fontFamily: 'CentraNo1-Medium',
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xffffffff),
+                  if (stats.isVerified)
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        OrdersTotal(),
+                        SizedBox(height: 12),
+                        Text(
+                          'Orders',
+                          style: TextStyle(
+                            fontFamily: 'CentraNo1-Medium',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xffffffff),
+                          ),
+                        ),
+                      ],
+                    )
+                  else
+                    const Text(
+                      'To view your active orders, please connect your wallet in Settings via WalletConnect.',
+                      style: TextStyle(
+                        fontFamily: 'CentraNo1-Medium',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                  ),
                 ],
               ),
             ),
-            const SwapOrders(),
+            if (stats.isVerified) const SwapOrders(),
             const SliverToBoxAdapter(child: SizedBox(height: 100)),
           ],
         ),

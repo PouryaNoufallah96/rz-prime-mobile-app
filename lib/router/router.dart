@@ -60,20 +60,27 @@ mixin GainXAppRouter on State<GainXApp> {
                 ),
                 RepositoryProvider(
                   create: (context) {
-                    final reownService = context.read<ReownService>();
-                    final chainId =
-                        reownService.appKitModal.selectedChain!.chainId;
-
-                    final namespace = NamespaceUtils.getNamespaceFromChain(
-                      chainId,
+                    final socket = SocketService(
+                      authInterceptor: context.read(),
                     );
 
-                    final rawAddress = reownService.appKitModal.session!
-                        .getAddress(namespace)!;
+                    try {
+                      final reownService = context.read<ReownService>();
+                      final chainId =
+                          reownService.appKitModal.selectedChain!.chainId;
 
-                    return SocketService(
-                      authInterceptor: context.read(),
-                    )..connect(EthereumAddress.fromHex(rawAddress).hexEip55);
+                      final namespace = NamespaceUtils.getNamespaceFromChain(
+                        chainId,
+                      );
+
+                      final rawAddress = reownService.appKitModal.session!
+                          .getAddress(namespace)!;
+
+                      socket.connect(
+                          EthereumAddress.fromHex(rawAddress).hexEip55);
+                    } catch (_) {}
+
+                    return socket;
                   },
                   dispose: (value) => value.dispose(),
                 ),
@@ -91,12 +98,16 @@ mixin GainXAppRouter on State<GainXApp> {
                       ordersService: context.read(),
                     )..getOrders(),
                   ),
-                 
                   BlocProvider(
                     lazy: false,
                     create: (context) => NotifyPaidOrderBloc(
                       socketService: context.read(),
                     )..add(NotifyPaidOrderStarted()),
+                  ),
+                  BlocProvider(
+                    create: (context) => UserStatsCubit(
+                      statsService: context.read(),
+                    )..fetch(),
                   ),
                 ],
                 child: NestedPage(child: navigationShell),

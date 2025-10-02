@@ -4,7 +4,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/auth_service/auth_service.dart';
+import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
+import 'package:gainx/pages/auth/widgets/auth_status.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -22,8 +24,9 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 23),
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 23),
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             'Setting',
             style: TextStyle(
@@ -34,6 +37,51 @@ class _Body extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
+
+        AppAuthStatus(
+          appKit: context.read<ReownService>().appKitModal,
+          mainAxisAlignment: MainAxisAlignment.start,
+          builder: (context, isConnected, child) {
+            return InkWell(
+              onTap: () {
+                if (isConnected) {
+                  context.read<ReownService>().appKitModal.openModalView();
+                } else {
+                  context.read<ReownService>().appKitModal.openModalView();
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            isConnected
+                                ? 'Connected Wallet'
+                                : 'Connected with WalletConnect',
+                            style: const TextStyle(
+                              fontFamily: 'CentraNo1-Medium',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Icon(Icons.keyboard_arrow_right_rounded)
+                        ],
+                      ),
+                    ),
+                    child,
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+        const Divider(height: 0),
+        const SizedBox(height: 24),
         BlocSelector<PreferencesBloc, PreferencesState, bool>(
           selector: (state) => state.isDark,
           builder: (context, isDark) {

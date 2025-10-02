@@ -166,7 +166,6 @@ class SwapOrders extends StatelessWidget {
                                 return Colors.white;
                               }
 
-
                               return Text(
                                 '\$${AppNumberFormatter.format(price, decimal: 2)}',
                                 style: TextStyle(

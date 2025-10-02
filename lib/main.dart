@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
+import 'package:gainx/core/blocs/reown/reown_bloc.dart';
 import 'package:gainx/core/design_system/theme.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/reown/reown.dart';
@@ -20,6 +21,7 @@ import 'package:gainx/pages/on_boarding/on_boarding.dart';
 import 'package:gainx/pages/qr_code_scan/qr_code_scan.dart';
 import 'package:gainx/pages/settings/settings.dart';
 import 'package:gainx/pages/swap/blocs/notify_paid_order_bloc/notify_paid_order_bloc.dart';
+import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 import 'package:gainx/pages/swap/swap.dart';
 import 'package:gainx/pages/terms_of_use/terms_of_use.dart';
 import 'package:go_router/go_router.dart';
@@ -82,7 +84,16 @@ class _GainXAppState extends State<GainXApp> with GainXAppRouter {
                 return RepositoryProvider(
                   create: (context) =>
                       ReownService()..call(routerKey.currentContext!),
-                  child: child,
+                  child: Builder(builder: (context) {
+                    return BlocProvider(
+                      create: (context) => ReownBloc(
+                        authInterceptor: context.read(),
+                        authService: context.read(),
+                        reownService: context.read(),
+                      )..add(ReownStarted()),
+                      child: child,
+                    );
+                  }),
                 );
               },
             ),

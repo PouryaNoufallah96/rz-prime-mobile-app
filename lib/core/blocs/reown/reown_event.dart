@@ -27,3 +27,14 @@ class ReownLogginButtonPressed extends ReownEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ReownAddressLogginButtonPressed extends ReownEvent {
+  ReownAddressLogginButtonPressed({
+    required this.address,
+  });
+
+  final String address;
+
+  @override
+  List<Object?> get props => [address];
+}
