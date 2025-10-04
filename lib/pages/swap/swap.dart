@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gainx/components/app_un_focuser.dart';
 import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
+import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
@@ -18,6 +20,7 @@ import 'package:gainx/pages/swap/widgets/submit_swap.dart';
 import 'package:gainx/pages/swap/widgets/to_input/to_input.dart';
 import 'package:gainx/pages/swap/widgets/user_balance.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SwapPage extends StatelessWidget {
   const SwapPage({super.key});
@@ -70,7 +73,7 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _SwapBody extends StatelessWidget {
+class _SwapBody extends HookWidget {
   const _SwapBody({
     required this.stats,
   });
@@ -79,6 +82,17 @@ class _SwapBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    useEffect(() {
+      final sub = context
+          .read<AuthInterceptor>()
+          .stream
+          .map((event) => event.token?.token)
+          .distinctUnique(equals: (e1, e2) => e1 != e2)
+          .listen((event) {});
+
+      return sub.cancel;
+    }, []);
+
     return MultiBlocListener(
       listeners: [
         BlocListener<NotifyPaidOrderBloc, NotifyPaidOrderState>(

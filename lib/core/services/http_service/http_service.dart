@@ -84,7 +84,7 @@ class HttpService {
         toastification.show(
           style: ToastificationStyle.fillColored,
           type: ToastificationType.error,
-          title: Text(errorMessage),
+          title: Text('$errorMessage\n${e.requestOptions.uri}'),
           borderRadius: BorderRadius.circular(6),
           autoCloseDuration: const Duration(seconds: 4),
         );

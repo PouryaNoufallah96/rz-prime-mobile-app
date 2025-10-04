@@ -46,7 +46,7 @@ class AuthContainer with EquatableMixin {
 }
 
 class AuthInterceptor extends QueuedInterceptor {
-  AuthInterceptor() : _controller = BehaviorSubject() {
+  AuthInterceptor() : _controller = BehaviorSubject.seeded(AuthContainer()) {
     _sink();
     Timer.periodic(const Duration(minutes: 1), (_) {
       check();

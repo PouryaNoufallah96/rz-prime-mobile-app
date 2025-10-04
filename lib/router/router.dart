@@ -85,33 +85,46 @@ mixin GainXAppRouter on State<GainXApp> {
                   dispose: (value) => value.dispose(),
                 ),
               ],
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (context) => InventoryBloc(
-                      socketService: context.read(),
-                      statsService: context.read(),
-                    )..add(InventoryStartedEvent()),
-                  ),
-                  BlocProvider(
-                    create: (context) => FinalizeOrderCubit(
-                      ordersService: context.read(),
-                    )..getOrders(),
-                  ),
-                  BlocProvider(
-                    lazy: false,
-                    create: (context) => NotifyPaidOrderBloc(
-                      socketService: context.read(),
-                    )..add(NotifyPaidOrderStarted()),
-                  ),
-                  BlocProvider(
-                    create: (context) => UserStatsCubit(
-                      statsService: context.read(),
-                    )..fetch(),
-                  ),
-                ],
-                child: NestedPage(child: navigationShell),
-              ),
+              child: StreamBuilder(
+                  stream: context
+                      .read<AuthInterceptor>()
+                      .stream
+                      .map((event) => event.token?.token)
+                      .distinctUnique(equals: (e1, e2) => e1 != e2),
+                  builder: (context, asyncSnapshot) {
+                    if (asyncSnapshot.data == null) {
+                      return const Scaffold();
+                    }
+
+                    return MultiBlocProvider(
+                      key: ValueKey(asyncSnapshot.data),
+                      providers: [
+                        BlocProvider(
+                          create: (context) => InventoryBloc(
+                            socketService: context.read(),
+                            statsService: context.read(),
+                          )..add(InventoryStartedEvent()),
+                        ),
+                        BlocProvider(
+                          create: (context) => FinalizeOrderCubit(
+                            ordersService: context.read(),
+                          )..getOrders(),
+                        ),
+                        BlocProvider(
+                          lazy: false,
+                          create: (context) => NotifyPaidOrderBloc(
+                            socketService: context.read(),
+                          )..add(NotifyPaidOrderStarted()),
+                        ),
+                        BlocProvider(
+                          create: (context) => UserStatsCubit(
+                            statsService: context.read(),
+                          )..fetch(),
+                        ),
+                      ],
+                      child: NestedPage(child: navigationShell),
+                    );
+                  }),
             );
           },
           branches: [

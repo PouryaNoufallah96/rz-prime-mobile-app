@@ -110,6 +110,14 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
         return;
       }
 
+      if (state.manualAddress != null &&
+          hexEip55 == EthereumAddress.fromHex(state.manualAddress!).hexEip55) {
+        emit(state.copyWith(
+          manualAddress: () => null,
+          address: () => EthereumAddress.fromHex(state.manualAddress!).hexEip55,
+        ));
+      }
+
       emit(state.copyWith(
         status: AppReownLoadingStatus.getNonce,
       ));
@@ -121,6 +129,12 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
       ));
 
       if (nonce == null) {
+        emit(state.copyWith(
+          status: AppReownLoadingStatus.none,
+          address: () => null,
+        ));
+        await _mainReownService.appKitModal.disconnect();
+
         return;
       }
 
@@ -229,6 +243,12 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
           borderRadius: BorderRadius.circular(6),
           autoCloseDuration: const Duration(seconds: 4),
         );
+      } else {
+        emit(state.copyWith(
+          status: AppReownLoadingStatus.none,
+          address: () => null,
+        ));
+        await _mainReownService.appKitModal.disconnect();
       }
     }
   }
