@@ -174,7 +174,7 @@ class _OrderActionsState extends State<_OrderActions> {
           return null;
         },
         builder: (context, isVerified) {
-          if (isVerified == null) {
+          if (isVerified == null || (!isVerified && canShowAction)) {
             return const SizedBox.shrink();
           }
 
