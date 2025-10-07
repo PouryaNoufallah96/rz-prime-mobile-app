@@ -22,23 +22,22 @@ HistoryOrder _$HistoryOrderFromJson(Map<String, dynamic> json) {
 mixin _$HistoryOrder {
   String get orderId => throw _privateConstructorUsedError;
   String get createdMoment => throw _privateConstructorUsedError;
-  String get userPublicKey => throw _privateConstructorUsedError;
   String get walletAddress => throw _privateConstructorUsedError;
   String get userStageId => throw _privateConstructorUsedError;
   String get stage => throw _privateConstructorUsedError;
   String get tokenName => throw _privateConstructorUsedError;
-  double get quantity => throw _privateConstructorUsedError;
   String get tokenNetwork => throw _privateConstructorUsedError;
   String get tokenAddress => throw _privateConstructorUsedError;
+  String get payOffDate => throw _privateConstructorUsedError;
+  String get tokenAmountInWei => throw _privateConstructorUsedError;
+  String get payAmountInWei => throw _privateConstructorUsedError;
+  double get quantity => throw _privateConstructorUsedError;
   double get tokenEffectivePrice => throw _privateConstructorUsedError;
   double get loanAmount => throw _privateConstructorUsedError;
   double get loanInterestAmount => throw _privateConstructorUsedError;
   double get finalAmount => throw _privateConstructorUsedError;
   double get profitRatePerMonth => throw _privateConstructorUsedError;
   double get monthDuration => throw _privateConstructorUsedError;
-  String get payOffDate => throw _privateConstructorUsedError;
-  String get tokenAmountInWei => throw _privateConstructorUsedError;
-  String get payAmountInWei => throw _privateConstructorUsedError;
   HistoryOrderState get state => throw _privateConstructorUsedError;
   List<TransactionMetaData> get transactionsMetaData =>
       throw _privateConstructorUsedError;
@@ -62,23 +61,22 @@ abstract class $HistoryOrderCopyWith<$Res> {
   $Res call(
       {String orderId,
       String createdMoment,
-      String userPublicKey,
       String walletAddress,
       String userStageId,
       String stage,
       String tokenName,
-      double quantity,
       String tokenNetwork,
       String tokenAddress,
+      String payOffDate,
+      String tokenAmountInWei,
+      String payAmountInWei,
+      double quantity,
       double tokenEffectivePrice,
       double loanAmount,
       double loanInterestAmount,
       double finalAmount,
       double profitRatePerMonth,
       double monthDuration,
-      String payOffDate,
-      String tokenAmountInWei,
-      String payAmountInWei,
       HistoryOrderState state,
       List<TransactionMetaData> transactionsMetaData});
 }
@@ -100,23 +98,22 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
   $Res call({
     Object? orderId = null,
     Object? createdMoment = null,
-    Object? userPublicKey = null,
     Object? walletAddress = null,
     Object? userStageId = null,
     Object? stage = null,
     Object? tokenName = null,
-    Object? quantity = null,
     Object? tokenNetwork = null,
     Object? tokenAddress = null,
+    Object? payOffDate = null,
+    Object? tokenAmountInWei = null,
+    Object? payAmountInWei = null,
+    Object? quantity = null,
     Object? tokenEffectivePrice = null,
     Object? loanAmount = null,
     Object? loanInterestAmount = null,
     Object? finalAmount = null,
     Object? profitRatePerMonth = null,
     Object? monthDuration = null,
-    Object? payOffDate = null,
-    Object? tokenAmountInWei = null,
-    Object? payAmountInWei = null,
     Object? state = null,
     Object? transactionsMetaData = null,
   }) {
@@ -128,10 +125,6 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
       createdMoment: null == createdMoment
           ? _value.createdMoment
           : createdMoment // ignore: cast_nullable_to_non_nullable
-              as String,
-      userPublicKey: null == userPublicKey
-          ? _value.userPublicKey
-          : userPublicKey // ignore: cast_nullable_to_non_nullable
               as String,
       walletAddress: null == walletAddress
           ? _value.walletAddress
@@ -149,10 +142,6 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
           ? _value.tokenName
           : tokenName // ignore: cast_nullable_to_non_nullable
               as String,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
       tokenNetwork: null == tokenNetwork
           ? _value.tokenNetwork
           : tokenNetwork // ignore: cast_nullable_to_non_nullable
@@ -161,6 +150,22 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
           ? _value.tokenAddress
           : tokenAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      payOffDate: null == payOffDate
+          ? _value.payOffDate
+          : payOffDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      tokenAmountInWei: null == tokenAmountInWei
+          ? _value.tokenAmountInWei
+          : tokenAmountInWei // ignore: cast_nullable_to_non_nullable
+              as String,
+      payAmountInWei: null == payAmountInWei
+          ? _value.payAmountInWei
+          : payAmountInWei // ignore: cast_nullable_to_non_nullable
+              as String,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as double,
       tokenEffectivePrice: null == tokenEffectivePrice
           ? _value.tokenEffectivePrice
           : tokenEffectivePrice // ignore: cast_nullable_to_non_nullable
@@ -185,18 +190,6 @@ class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
           ? _value.monthDuration
           : monthDuration // ignore: cast_nullable_to_non_nullable
               as double,
-      payOffDate: null == payOffDate
-          ? _value.payOffDate
-          : payOffDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenAmountInWei: null == tokenAmountInWei
-          ? _value.tokenAmountInWei
-          : tokenAmountInWei // ignore: cast_nullable_to_non_nullable
-              as String,
-      payAmountInWei: null == payAmountInWei
-          ? _value.payAmountInWei
-          : payAmountInWei // ignore: cast_nullable_to_non_nullable
-              as String,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -220,23 +213,22 @@ abstract class _$$HistoryOrderImplCopyWith<$Res>
   $Res call(
       {String orderId,
       String createdMoment,
-      String userPublicKey,
       String walletAddress,
       String userStageId,
       String stage,
       String tokenName,
-      double quantity,
       String tokenNetwork,
       String tokenAddress,
+      String payOffDate,
+      String tokenAmountInWei,
+      String payAmountInWei,
+      double quantity,
       double tokenEffectivePrice,
       double loanAmount,
       double loanInterestAmount,
       double finalAmount,
       double profitRatePerMonth,
       double monthDuration,
-      String payOffDate,
-      String tokenAmountInWei,
-      String payAmountInWei,
       HistoryOrderState state,
       List<TransactionMetaData> transactionsMetaData});
 }
@@ -256,23 +248,22 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
   $Res call({
     Object? orderId = null,
     Object? createdMoment = null,
-    Object? userPublicKey = null,
     Object? walletAddress = null,
     Object? userStageId = null,
     Object? stage = null,
     Object? tokenName = null,
-    Object? quantity = null,
     Object? tokenNetwork = null,
     Object? tokenAddress = null,
+    Object? payOffDate = null,
+    Object? tokenAmountInWei = null,
+    Object? payAmountInWei = null,
+    Object? quantity = null,
     Object? tokenEffectivePrice = null,
     Object? loanAmount = null,
     Object? loanInterestAmount = null,
     Object? finalAmount = null,
     Object? profitRatePerMonth = null,
     Object? monthDuration = null,
-    Object? payOffDate = null,
-    Object? tokenAmountInWei = null,
-    Object? payAmountInWei = null,
     Object? state = null,
     Object? transactionsMetaData = null,
   }) {
@@ -284,10 +275,6 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
       createdMoment: null == createdMoment
           ? _value.createdMoment
           : createdMoment // ignore: cast_nullable_to_non_nullable
-              as String,
-      userPublicKey: null == userPublicKey
-          ? _value.userPublicKey
-          : userPublicKey // ignore: cast_nullable_to_non_nullable
               as String,
       walletAddress: null == walletAddress
           ? _value.walletAddress
@@ -305,10 +292,6 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
           ? _value.tokenName
           : tokenName // ignore: cast_nullable_to_non_nullable
               as String,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
       tokenNetwork: null == tokenNetwork
           ? _value.tokenNetwork
           : tokenNetwork // ignore: cast_nullable_to_non_nullable
@@ -317,6 +300,22 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
           ? _value.tokenAddress
           : tokenAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      payOffDate: null == payOffDate
+          ? _value.payOffDate
+          : payOffDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      tokenAmountInWei: null == tokenAmountInWei
+          ? _value.tokenAmountInWei
+          : tokenAmountInWei // ignore: cast_nullable_to_non_nullable
+              as String,
+      payAmountInWei: null == payAmountInWei
+          ? _value.payAmountInWei
+          : payAmountInWei // ignore: cast_nullable_to_non_nullable
+              as String,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as double,
       tokenEffectivePrice: null == tokenEffectivePrice
           ? _value.tokenEffectivePrice
           : tokenEffectivePrice // ignore: cast_nullable_to_non_nullable
@@ -341,18 +340,6 @@ class __$$HistoryOrderImplCopyWithImpl<$Res>
           ? _value.monthDuration
           : monthDuration // ignore: cast_nullable_to_non_nullable
               as double,
-      payOffDate: null == payOffDate
-          ? _value.payOffDate
-          : payOffDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenAmountInWei: null == tokenAmountInWei
-          ? _value.tokenAmountInWei
-          : tokenAmountInWei // ignore: cast_nullable_to_non_nullable
-              as String,
-      payAmountInWei: null == payAmountInWei
-          ? _value.payAmountInWei
-          : payAmountInWei // ignore: cast_nullable_to_non_nullable
-              as String,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -371,23 +358,22 @@ class _$HistoryOrderImpl implements _HistoryOrder {
   const _$HistoryOrderImpl(
       {required this.orderId,
       required this.createdMoment,
-      required this.userPublicKey,
       required this.walletAddress,
       required this.userStageId,
       required this.stage,
       required this.tokenName,
-      required this.quantity,
       required this.tokenNetwork,
       required this.tokenAddress,
+      required this.payOffDate,
+      required this.tokenAmountInWei,
+      required this.payAmountInWei,
+      required this.quantity,
       required this.tokenEffectivePrice,
       required this.loanAmount,
       required this.loanInterestAmount,
       required this.finalAmount,
       required this.profitRatePerMonth,
       required this.monthDuration,
-      required this.payOffDate,
-      required this.tokenAmountInWei,
-      required this.payAmountInWei,
       required this.state,
       final List<TransactionMetaData> transactionsMetaData = const []})
       : _transactionsMetaData = transactionsMetaData;
@@ -400,8 +386,6 @@ class _$HistoryOrderImpl implements _HistoryOrder {
   @override
   final String createdMoment;
   @override
-  final String userPublicKey;
-  @override
   final String walletAddress;
   @override
   final String userStageId;
@@ -410,11 +394,17 @@ class _$HistoryOrderImpl implements _HistoryOrder {
   @override
   final String tokenName;
   @override
-  final double quantity;
-  @override
   final String tokenNetwork;
   @override
   final String tokenAddress;
+  @override
+  final String payOffDate;
+  @override
+  final String tokenAmountInWei;
+  @override
+  final String payAmountInWei;
+  @override
+  final double quantity;
   @override
   final double tokenEffectivePrice;
   @override
@@ -427,12 +417,6 @@ class _$HistoryOrderImpl implements _HistoryOrder {
   final double profitRatePerMonth;
   @override
   final double monthDuration;
-  @override
-  final String payOffDate;
-  @override
-  final String tokenAmountInWei;
-  @override
-  final String payAmountInWei;
   @override
   final HistoryOrderState state;
   final List<TransactionMetaData> _transactionsMetaData;
@@ -447,7 +431,7 @@ class _$HistoryOrderImpl implements _HistoryOrder {
 
   @override
   String toString() {
-    return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, userPublicKey: $userPublicKey, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, quantity: $quantity, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, state: $state, transactionsMetaData: $transactionsMetaData)';
+    return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, quantity: $quantity, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, state: $state, transactionsMetaData: $transactionsMetaData)';
   }
 
   @override
@@ -458,8 +442,6 @@ class _$HistoryOrderImpl implements _HistoryOrder {
             (identical(other.orderId, orderId) || other.orderId == orderId) &&
             (identical(other.createdMoment, createdMoment) ||
                 other.createdMoment == createdMoment) &&
-            (identical(other.userPublicKey, userPublicKey) ||
-                other.userPublicKey == userPublicKey) &&
             (identical(other.walletAddress, walletAddress) ||
                 other.walletAddress == walletAddress) &&
             (identical(other.userStageId, userStageId) ||
@@ -467,12 +449,18 @@ class _$HistoryOrderImpl implements _HistoryOrder {
             (identical(other.stage, stage) || other.stage == stage) &&
             (identical(other.tokenName, tokenName) ||
                 other.tokenName == tokenName) &&
-            (identical(other.quantity, quantity) ||
-                other.quantity == quantity) &&
             (identical(other.tokenNetwork, tokenNetwork) ||
                 other.tokenNetwork == tokenNetwork) &&
             (identical(other.tokenAddress, tokenAddress) ||
                 other.tokenAddress == tokenAddress) &&
+            (identical(other.payOffDate, payOffDate) ||
+                other.payOffDate == payOffDate) &&
+            (identical(other.tokenAmountInWei, tokenAmountInWei) ||
+                other.tokenAmountInWei == tokenAmountInWei) &&
+            (identical(other.payAmountInWei, payAmountInWei) ||
+                other.payAmountInWei == payAmountInWei) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
             (identical(other.tokenEffectivePrice, tokenEffectivePrice) ||
                 other.tokenEffectivePrice == tokenEffectivePrice) &&
             (identical(other.loanAmount, loanAmount) ||
@@ -485,12 +473,6 @@ class _$HistoryOrderImpl implements _HistoryOrder {
                 other.profitRatePerMonth == profitRatePerMonth) &&
             (identical(other.monthDuration, monthDuration) ||
                 other.monthDuration == monthDuration) &&
-            (identical(other.payOffDate, payOffDate) ||
-                other.payOffDate == payOffDate) &&
-            (identical(other.tokenAmountInWei, tokenAmountInWei) ||
-                other.tokenAmountInWei == tokenAmountInWei) &&
-            (identical(other.payAmountInWei, payAmountInWei) ||
-                other.payAmountInWei == payAmountInWei) &&
             (identical(other.state, state) || other.state == state) &&
             const DeepCollectionEquality()
                 .equals(other._transactionsMetaData, _transactionsMetaData));
@@ -502,23 +484,22 @@ class _$HistoryOrderImpl implements _HistoryOrder {
         runtimeType,
         orderId,
         createdMoment,
-        userPublicKey,
         walletAddress,
         userStageId,
         stage,
         tokenName,
-        quantity,
         tokenNetwork,
         tokenAddress,
+        payOffDate,
+        tokenAmountInWei,
+        payAmountInWei,
+        quantity,
         tokenEffectivePrice,
         loanAmount,
         loanInterestAmount,
         finalAmount,
         profitRatePerMonth,
         monthDuration,
-        payOffDate,
-        tokenAmountInWei,
-        payAmountInWei,
         state,
         const DeepCollectionEquality().hash(_transactionsMetaData)
       ]);
@@ -543,23 +524,22 @@ abstract class _HistoryOrder implements HistoryOrder {
   const factory _HistoryOrder(
           {required final String orderId,
           required final String createdMoment,
-          required final String userPublicKey,
           required final String walletAddress,
           required final String userStageId,
           required final String stage,
           required final String tokenName,
-          required final double quantity,
           required final String tokenNetwork,
           required final String tokenAddress,
+          required final String payOffDate,
+          required final String tokenAmountInWei,
+          required final String payAmountInWei,
+          required final double quantity,
           required final double tokenEffectivePrice,
           required final double loanAmount,
           required final double loanInterestAmount,
           required final double finalAmount,
           required final double profitRatePerMonth,
           required final double monthDuration,
-          required final String payOffDate,
-          required final String tokenAmountInWei,
-          required final String payAmountInWei,
           required final HistoryOrderState state,
           final List<TransactionMetaData> transactionsMetaData}) =
       _$HistoryOrderImpl;
@@ -572,8 +552,6 @@ abstract class _HistoryOrder implements HistoryOrder {
   @override
   String get createdMoment;
   @override
-  String get userPublicKey;
-  @override
   String get walletAddress;
   @override
   String get userStageId;
@@ -582,11 +560,17 @@ abstract class _HistoryOrder implements HistoryOrder {
   @override
   String get tokenName;
   @override
-  double get quantity;
-  @override
   String get tokenNetwork;
   @override
   String get tokenAddress;
+  @override
+  String get payOffDate;
+  @override
+  String get tokenAmountInWei;
+  @override
+  String get payAmountInWei;
+  @override
+  double get quantity;
   @override
   double get tokenEffectivePrice;
   @override
@@ -599,12 +583,6 @@ abstract class _HistoryOrder implements HistoryOrder {
   double get profitRatePerMonth;
   @override
   double get monthDuration;
-  @override
-  String get payOffDate;
-  @override
-  String get tokenAmountInWei;
-  @override
-  String get payAmountInWei;
   @override
   HistoryOrderState get state;
   @override
