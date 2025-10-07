@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -37,50 +39,51 @@ class _Body extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-
-        AppAuthStatus(
-          appKit: context.read<ReownService>().appKitModal,
-          mainAxisAlignment: MainAxisAlignment.start,
-          builder: (context, isConnected, child) {
-            return InkWell(
-              onTap: () {
-                if (isConnected) {
-                  context.read<ReownService>().appKitModal.openModalView();
-                } else {
-                  context.read<ReownService>().appKitModal.openModalView();
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            isConnected
-                                ? 'Connected Wallet'
-                                : 'Connected with WalletConnect',
-                            style: const TextStyle(
-                              fontFamily: 'CentraNo1-Medium',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
+        if (Platform.isAndroid) ...[
+          AppAuthStatus(
+            appKit: context.read<ReownService>().appKitModal,
+            mainAxisAlignment: MainAxisAlignment.start,
+            builder: (context, isConnected, child) {
+              return InkWell(
+                onTap: () {
+                  if (isConnected) {
+                    context.read<ReownService>().appKitModal.openModalView();
+                  } else {
+                    context.read<ReownService>().appKitModal.openModalView();
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              isConnected
+                                  ? 'Connected Wallet'
+                                  : 'Connected with WalletConnect',
+                              style: const TextStyle(
+                                fontFamily: 'CentraNo1-Medium',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                          const Icon(Icons.keyboard_arrow_right_rounded)
-                        ],
+                            const Icon(Icons.keyboard_arrow_right_rounded)
+                          ],
+                        ),
                       ),
-                    ),
-                    child,
-                  ],
+                      child,
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
-        const Divider(height: 0),
+              );
+            },
+          ),
+          const Divider(height: 0),
+        ],
         const SizedBox(height: 24),
         BlocSelector<PreferencesBloc, PreferencesState, bool>(
           selector: (state) => state.isDark,
