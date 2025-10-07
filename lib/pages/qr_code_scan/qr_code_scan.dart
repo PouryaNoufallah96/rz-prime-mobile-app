@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gainx/core/blocs/reown/reown_bloc.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/qr_code_scan/bloc/qr_code_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -21,27 +22,35 @@ class QrCodeScanPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => QrCodeBloc(
-        authService: context.read(),
-        reownService: context.read(),
-        nonce: nonce,
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Scan QR Code',
-            style: TextStyle(
-              fontFamily: 'CentraNo1-Medium',
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
+    return BlocSelector<ReownBloc, ReownState, String?>(
+      selector: (state) {
+        return state.manualAddress;
+      },
+      builder: (context, manualAddress) {
+        return BlocProvider(
+          create: (context) => QrCodeBloc(
+            authService: context.read(),
+            reownService: context.read(),
+            nonce: nonce,
+            manualAddress: manualAddress,
           ),
-        ),
-        body: _Body(nonce: nonce),
-      ),
+          child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text(
+                'Scan QR Code',
+                style: TextStyle(
+                  fontFamily: 'CentraNo1-Medium',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            body: _Body(nonce: nonce),
+          ),
+        );
+      },
     );
   }
 }

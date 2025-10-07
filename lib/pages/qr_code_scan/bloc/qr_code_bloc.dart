@@ -13,6 +13,7 @@ class QrCodeBloc extends Bloc<QrCodeEvent, QrCodeState> {
   QrCodeBloc({
     required ReownService reownService,
     required AuthService authService,
+    this.manualAddress,
     String? nonce,
   })  : _authService = authService,
         _reownService = reownService,
@@ -24,20 +25,27 @@ class QrCodeBloc extends Bloc<QrCodeEvent, QrCodeState> {
 
   final AuthService _authService;
   final ReownService _reownService;
+  final String? manualAddress;
 
   Future<void> _onQrCodeSubmitedEvent(
     QrCodeSubmitedEvent event,
     Emitter<QrCodeState> emit,
   ) async {
-    final chainId = _reownService.appKitModal.selectedChain!.chainId;
-    final namespace = NamespaceUtils.getNamespaceFromChain(chainId);
-    final owner = _reownService.appKitModal.session!.getAddress(namespace);
-    final address = EthereumAddress.fromHex(owner!);
+    final address = () {
+      if (manualAddress != null) {
+        return EthereumAddress.fromHex(manualAddress!).hexEip55;
+      }
+
+      final chainId = _reownService.appKitModal.selectedChain!.chainId;
+      final namespace = NamespaceUtils.getNamespaceFromChain(chainId);
+      final owner = _reownService.appKitModal.session!.getAddress(namespace);
+      return EthereumAddress.fromHex(owner!).hexEip55;
+    }();
 
     emit(state.copyWith(status: SubmitQrCodeStatus.inProgress));
 
     final isSucceed = await _authService.activateNonce(
-      address: address.hexEip55,
+      address: address,
       code: state.message,
       nonce: state.code,
     );
