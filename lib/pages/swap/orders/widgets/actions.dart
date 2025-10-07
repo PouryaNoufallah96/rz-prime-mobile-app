@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gainx/core/blocs/cubit/health_status_cubit.dart';
 import 'package:gainx/core/services/orders_service/models.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
@@ -137,6 +138,11 @@ class _OrderActionsState extends State<_OrderActions> {
 
   @override
   Widget build(BuildContext context) {
+    final canShowAction =
+        context.watch<HealthStatusCubit>().state.status?.checked ?? false;
+
+    final message = context.watch<HealthStatusCubit>().state.status?.message;
+
     return MultiBlocListener(
       listeners: [
         BlocListener<OrderActionBloc, OrderActionState>(
@@ -159,113 +165,129 @@ class _OrderActionsState extends State<_OrderActions> {
           },
         ),
       ],
-      child: Row(
-        spacing: 16,
+      child: Column(
+        spacing: 8,
         children: [
-          Expanded(
-            child: BlocSelector<OrderActionBloc, OrderActionState,
-                (bool isInProgress, bool isLocked)>(
-              selector: (state) {
-                return (
-                  state.dropOrderStatus == DropOrderStatus.inProgress,
-                  state.payOrderStatus == PayOrderStatus.inProgress
-                );
-              },
-              builder: (context, state) {
-                final isInProgress = state.$1;
-                final isLocked = state.$2;
+          Row(
+            spacing: 16,
+            children: [
+              Expanded(
+                child: BlocSelector<OrderActionBloc, OrderActionState,
+                    (bool isInProgress, bool isLocked)>(
+                  selector: (state) {
+                    return (
+                      state.dropOrderStatus == DropOrderStatus.inProgress,
+                      state.payOrderStatus == PayOrderStatus.inProgress
+                    );
+                  },
+                  builder: (context, state) {
+                    final isInProgress = state.$1;
+                    final isLocked = state.$2;
 
-                return OutlinedButton(
-                  onPressed: isInProgress || isLocked
-                      ? null
-                      : () {
-                          context.read<OrderActionBloc>().add(
-                              OrderActionDropped(id: widget.order.orderId));
-                        },
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                      color: context.colorScheme.primary,
-                    ),
-                    minimumSize: const Size.fromHeight(32),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(8),
-                    ),
-                  ),
-                  child: isInProgress
-                      ? SizedBox.square(
-                          dimension: 20,
-                          child: CircularProgressIndicator.adaptive(
-                            valueColor: AlwaysStoppedAnimation(
-                              context.colorScheme.primary,
-                            ),
-                          ),
-                        )
-                      : Text(
-                          'Drop',
-                          style: TextStyle(
-                            fontFamily: 'CentraNo1-Book',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: context.colorScheme.primary,
-                          ),
+                    return OutlinedButton(
+                      onPressed: !canShowAction || isInProgress || isLocked
+                          ? null
+                          : () {
+                              context.read<OrderActionBloc>().add(
+                                  OrderActionDropped(id: widget.order.orderId));
+                            },
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(
+                          color: context.colorScheme.primary,
                         ),
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: BlocSelector<OrderActionBloc, OrderActionState,
-                (bool isInProgress, bool isLocked)>(
-              selector: (state) {
-                return (
-                  state.payOrderStatus == PayOrderStatus.inProgress,
-                  state.dropOrderStatus == DropOrderStatus.inProgress,
-                );
-              },
-              builder: (context, state) {
-                final isInProgress = state.$1;
-                final isLocked = state.$2;
-
-                return FilledButton(
-                  onPressed: isInProgress || isLocked
-                      ? null
-                      : () {
-                          context.read<OrderActionBloc>().add(
-                                OrderActionPayed(
-                                  id: widget.order.orderId,
-                                  amount: widget.order.finalAmount,
+                        minimumSize: const Size.fromHeight(32),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(8),
+                        ),
+                      ),
+                      child: isInProgress
+                          ? SizedBox.square(
+                              dimension: 20,
+                              child: CircularProgressIndicator.adaptive(
+                                valueColor: AlwaysStoppedAnimation(
+                                  context.colorScheme.primary,
                                 ),
-                              );
-                        },
-                  style: FilledButton.styleFrom(
-                    side: BorderSide(
-                      color: context.colorScheme.primary,
-                    ),
-                    minimumSize: const Size.fromHeight(32),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(8),
-                    ),
-                  ),
-                  child: isInProgress
-                      ? const SizedBox.square(
-                          dimension: 20,
-                          child: CircularProgressIndicator.adaptive(
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          ),
-                        )
-                      : const Text(
-                          'Pay',
-                          style: TextStyle(
-                            fontFamily: 'CentraNo1-Book',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                          ),
+                              ),
+                            )
+                          : Text(
+                              'Drop',
+                              style: TextStyle(
+                                fontFamily: 'CentraNo1-Book',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: context.colorScheme.primary,
+                              ),
+                            ),
+                    );
+                  },
+                ),
+              ),
+              Expanded(
+                child: BlocSelector<OrderActionBloc, OrderActionState,
+                    (bool isInProgress, bool isLocked)>(
+                  selector: (state) {
+                    return (
+                      state.payOrderStatus == PayOrderStatus.inProgress,
+                      state.dropOrderStatus == DropOrderStatus.inProgress,
+                    );
+                  },
+                  builder: (context, state) {
+                    final isInProgress = state.$1;
+                    final isLocked = state.$2;
+
+                    return FilledButton(
+                      onPressed: !canShowAction || isInProgress || isLocked
+                          ? null
+                          : () {
+                              context.read<OrderActionBloc>().add(
+                                    OrderActionPayed(
+                                      id: widget.order.orderId,
+                                      amount: widget.order.finalAmount,
+                                    ),
+                                  );
+                            },
+                      style: FilledButton.styleFrom(
+                        side: BorderSide(
+                          color: context.colorScheme.primary,
                         ),
-                );
-              },
-            ),
+                        minimumSize: const Size.fromHeight(32),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(8),
+                        ),
+                      ),
+                      child: isInProgress
+                          ? const SizedBox.square(
+                              dimension: 20,
+                              child: CircularProgressIndicator.adaptive(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            )
+                          : const Text(
+                              'Pay',
+                              style: TextStyle(
+                                fontFamily: 'CentraNo1-Book',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
+                            ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
+          if (message != null && !canShowAction)
+            Text(
+              message,
+              style: TextStyle(
+                fontFamily: 'CentraNo1-Book',
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: context.colorScheme.primary,
+              ),
+            ),
         ],
       ),
     );

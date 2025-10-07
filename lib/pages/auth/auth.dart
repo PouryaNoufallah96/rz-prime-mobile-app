@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/components/app_logo.dart';
+import 'package:gainx/core/blocs/cubit/health_status_cubit.dart';
 import 'package:gainx/core/blocs/reown/reown_bloc.dart';
 import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
@@ -184,6 +185,9 @@ class __AuthState extends State<_Auth> {
     final isLoading =
         _state == ConnectButtonState.connecting || !_status.isInitialized;
 
+    final canShowAction =
+        context.watch<HealthStatusCubit>().state.status?.checked ?? false;
+
     return Column(
       children: [
         Padding(
@@ -210,7 +214,7 @@ class __AuthState extends State<_Auth> {
                       borderRadius: BorderRadiusGeometry.circular(48),
                     ),
                   ),
-                  onPressed: !_isConnected
+                  onPressed: !_isConnected || !canShowAction
                       ? () async {
                           await showModalBottomSheet<String>(
                             context: context,
@@ -252,46 +256,48 @@ class __AuthState extends State<_Auth> {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(35, 32, 35, 0),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 320),
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(48),
+        if (canShowAction) ...[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(35, 32, 35, 0),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 320),
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(48),
+                  ),
+                  side: BorderSide(
+                    color: context.colorScheme.primary,
+                  ),
                 ),
-                side: BorderSide(
-                  color: context.colorScheme.primary,
-                ),
-              ),
-              onPressed: isLoading
-                  ? null
-                  : () {
-                      if (_isConnected) {
-                        widget.appKit.openModalView();
-                      } else {
-                        context
-                            .read<ReownBloc>()
-                            .add(ReownLogginButtonPressed());
-                      }
-                    },
-              child: Text(
-                _isConnected
-                    ? 'Connected wallet'
-                    : 'Connected with WalletConnect',
-                style: const TextStyle(
-                  fontFamily: 'CentraNo1-Medium',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                onPressed: isLoading
+                    ? null
+                    : () {
+                        if (_isConnected) {
+                          widget.appKit.openModalView();
+                        } else {
+                          context
+                              .read<ReownBloc>()
+                              .add(ReownLogginButtonPressed());
+                        }
+                      },
+                child: Text(
+                  _isConnected
+                      ? 'Connected wallet'
+                      : 'Connected with WalletConnect',
+                  style: const TextStyle(
+                    fontFamily: 'CentraNo1-Medium',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 24),
-        AppAuthStatus(appKit: widget.appKit),
+          const SizedBox(height: 24),
+          AppAuthStatus(appKit: widget.appKit),
+        ],
         const SizedBox(height: 40),
       ],
     );

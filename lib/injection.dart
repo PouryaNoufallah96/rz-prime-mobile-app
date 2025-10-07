@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gainx/core/blocs/cubit/health_status_cubit.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/env.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
@@ -8,6 +9,7 @@ import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/services/http_service/http_service.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/stats_service/stats_service.dart';
+import 'package:gainx/core/services/status_service/status_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:reown_appkit/reown_appkit.dart';
@@ -31,6 +33,7 @@ Widget appInjection(Widget child) {
         create: (context) => AuthInterceptor(),
         lazy: false,
       ),
+
       RepositoryProvider(
         create: (context) => Dio(
           BaseOptions(
@@ -66,11 +69,23 @@ Widget appInjection(Widget child) {
           adapter: context.read(),
         ),
       ),
+
+      RepositoryProvider(
+        create: (context) => StatusService(
+          adapter: context.read(),
+        ),
+        lazy: false,
+      ),
     ],
     child: MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => PreferencesBloc(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              HealthStatusCubit(statusService: context.read())..fetch(),
+          lazy: false,
         ),
       ],
       child: child,

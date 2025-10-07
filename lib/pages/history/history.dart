@@ -4,11 +4,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gainx/core/services/orders_service/models.dart';
 import 'package:gainx/core/services/reown/reown.dart';
-import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
-import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,62 +24,36 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserStatsCubit, UserStatsState>(
-      builder: (context, state) {
-        final isVerified = state is UserStatsSuccessState &&
-            (state.findByStage()?.isVerified ?? false);
-
-        return Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 23),
-              child: Text(
-                'Transaction',
-                style: TextStyle(
-                  fontFamily: 'CentraNo1-Bold',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.center,
-              ),
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 23),
+          child: Text(
+            'Transaction',
+            style: TextStyle(
+              fontFamily: 'CentraNo1-Bold',
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
             ),
-            if (!isVerified)
-              const Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Center(
-                    child: Text(
-                      'To view your transaction history, please connect your wallet in Settings via WalletConnect.',
-                      style: TextStyle(
-                        fontFamily: 'CentraNo1-Medium',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Expanded(
+          child: BlocBuilder<FinalizeOrderCubit, FinalizeOrderState>(
+            builder: (context, state) {
+              return switch (state.loadingStaus) {
+                FinalizeOrderLoadingStatus.idle => const SizedBox.shrink(),
+                FinalizeOrderLoadingStatus.inProgress => const Center(
+                    child: CircularProgressIndicator.adaptive(),
                   ),
-                ),
-              )
-            else
-              Expanded(
-                child: BlocBuilder<FinalizeOrderCubit, FinalizeOrderState>(
-                  builder: (context, state) {
-                    return switch (state.loadingStaus) {
-                      FinalizeOrderLoadingStatus.idle =>
-                        const SizedBox.shrink(),
-                      FinalizeOrderLoadingStatus.inProgress => const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        ),
-                      FinalizeOrderLoadingStatus.success =>
-                        _Orders(orders: state.orders),
-                      _ => const _Orders(orders: []),
-                    };
-                  },
-                ),
-              ),
-          ],
-        );
-      },
+                FinalizeOrderLoadingStatus.success =>
+                  _Orders(orders: state.orders),
+                _ => const _Orders(orders: []),
+              };
+            },
+          ),
+        ),
+      ],
     );
   }
 }

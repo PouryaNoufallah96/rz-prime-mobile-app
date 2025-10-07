@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gainx/core/blocs/cubit/health_status_cubit.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
@@ -17,6 +18,11 @@ class SubmitSwap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<HealthStatusCubit>().state.status;
+
+    final canShowAction = state?.checked ?? false;
+    final message = state?.message;
+
     return BlocSelector<UserStatsCubit, UserStatsState, UserStage>(
       selector: (state) {
         final stage = (state as UserStatsSuccessState).selectedStage;
@@ -97,7 +103,9 @@ class SubmitSwap extends StatelessWidget {
                                   toastification.show(
                                     style: ToastificationStyle.fillColored,
                                     type: ToastificationType.error,
-                                    title: const Text(
+                                    title: Text(!canShowAction
+                                        ? message ?? ''
+                                        :
                                         // ignore: lines_longer_than_80_chars
                                         'To submit new orders and view your order history, please connect your wallet in Settings.'),
                                     borderRadius: BorderRadius.circular(6),

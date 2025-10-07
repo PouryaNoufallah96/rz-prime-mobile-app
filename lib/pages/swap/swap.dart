@@ -174,37 +174,26 @@ class _SwapBody extends HookWidget {
                   const SizedBox(height: 24),
                   SubmitSwap(isVerified: stats.isVerified),
                   const SizedBox(height: 24),
-                  if (stats.isVerified)
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        OrdersTotal(),
-                        SizedBox(height: 12),
-                        Text(
-                          'Orders',
-                          style: TextStyle(
-                            fontFamily: 'CentraNo1-Medium',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xffffffff),
-                          ),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      OrdersTotal(),
+                      SizedBox(height: 12),
+                      Text(
+                        'Orders',
+                        style: TextStyle(
+                          fontFamily: 'CentraNo1-Medium',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
                         ),
-                      ],
-                    )
-                  else
-                    const Text(
-                      'To view your active orders, please connect your wallet in Settings via WalletConnect.',
-                      style: TextStyle(
-                        fontFamily: 'CentraNo1-Medium',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
+                    ],
+                  )
                 ],
               ),
             ),
-            if (stats.isVerified) const SwapOrders(),
+            const SwapOrders(),
             const SliverToBoxAdapter(child: SizedBox(height: 100)),
           ],
         ),

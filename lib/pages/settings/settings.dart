@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gainx/core/blocs/cubit/health_status_cubit.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/auth_service/auth_service.dart';
@@ -24,6 +23,9 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final canShowAction =
+        context.watch<HealthStatusCubit>().state.status?.checked ?? false;
+
     return Column(
       children: [
         const SizedBox(height: 23),
@@ -39,7 +41,7 @@ class _Body extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        if (Platform.isAndroid) ...[
+        if (canShowAction) ...[
           AppAuthStatus(
             appKit: context.read<ReownService>().appKitModal,
             mainAxisAlignment: MainAxisAlignment.start,
