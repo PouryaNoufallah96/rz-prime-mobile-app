@@ -294,7 +294,7 @@ class _OrderActionsState extends State<_OrderActions> {
                     ),
                   ],
                 ),
-              if (message != null && !canShowAction)
+              if (message != null && !canShowAction && !(isVerified ?? false))
                 Text(
                   message,
                   style: TextStyle(
