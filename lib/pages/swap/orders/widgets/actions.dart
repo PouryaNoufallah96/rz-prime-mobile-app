@@ -174,124 +174,126 @@ class _OrderActionsState extends State<_OrderActions> {
           return null;
         },
         builder: (context, isVerified) {
-          if (isVerified == null || (!isVerified && canShowAction)) {
-            return const SizedBox.shrink();
-          }
+          // if (isVerified == null || (!isVerified && canShowAction)) {
 
           return Column(
             spacing: 8,
             children: [
-              Row(
-                spacing: 16,
-                children: [
-                  Expanded(
-                    child: BlocSelector<OrderActionBloc, OrderActionState,
-                        (bool isInProgress, bool isLocked)>(
-                      selector: (state) {
-                        return (
-                          state.dropOrderStatus == DropOrderStatus.inProgress,
-                          state.payOrderStatus == PayOrderStatus.inProgress
-                        );
-                      },
-                      builder: (context, state) {
-                        final isInProgress = state.$1;
-                        final isLocked = state.$2;
+              if (isVerified != null && (isVerified && canShowAction))
+                Row(
+                  spacing: 16,
+                  children: [
+                    Expanded(
+                      child: BlocSelector<OrderActionBloc, OrderActionState,
+                          (bool isInProgress, bool isLocked)>(
+                        selector: (state) {
+                          return (
+                            state.dropOrderStatus == DropOrderStatus.inProgress,
+                            state.payOrderStatus == PayOrderStatus.inProgress
+                          );
+                        },
+                        builder: (context, state) {
+                          final isInProgress = state.$1;
+                          final isLocked = state.$2;
 
-                        return OutlinedButton(
-                          onPressed: !canShowAction || isInProgress || isLocked
-                              ? null
-                              : () {
-                                  context.read<OrderActionBloc>().add(
-                                      OrderActionDropped(
-                                          id: widget.order.orderId));
-                                },
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(
-                              color: context.colorScheme.primary,
+                          return OutlinedButton(
+                            onPressed:
+                                !canShowAction || isInProgress || isLocked
+                                    ? null
+                                    : () {
+                                        context.read<OrderActionBloc>().add(
+                                            OrderActionDropped(
+                                                id: widget.order.orderId));
+                                      },
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(
+                                color: context.colorScheme.primary,
+                              ),
+                              minimumSize: const Size.fromHeight(32),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadiusGeometry.circular(8),
+                              ),
                             ),
-                            minimumSize: const Size.fromHeight(32),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusGeometry.circular(8),
-                            ),
-                          ),
-                          child: isInProgress
-                              ? SizedBox.square(
-                                  dimension: 20,
-                                  child: CircularProgressIndicator.adaptive(
-                                    valueColor: AlwaysStoppedAnimation(
-                                      context.colorScheme.primary,
+                            child: isInProgress
+                                ? SizedBox.square(
+                                    dimension: 20,
+                                    child: CircularProgressIndicator.adaptive(
+                                      valueColor: AlwaysStoppedAnimation(
+                                        context.colorScheme.primary,
+                                      ),
+                                    ),
+                                  )
+                                : Text(
+                                    'Drop',
+                                    style: TextStyle(
+                                      fontFamily: 'CentraNo1-Book',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: context.colorScheme.primary,
                                     ),
                                   ),
-                                )
-                              : Text(
-                                  'Drop',
-                                  style: TextStyle(
-                                    fontFamily: 'CentraNo1-Book',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: context.colorScheme.primary,
-                                  ),
-                                ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: BlocSelector<OrderActionBloc, OrderActionState,
-                        (bool isInProgress, bool isLocked)>(
-                      selector: (state) {
-                        return (
-                          state.payOrderStatus == PayOrderStatus.inProgress,
-                          state.dropOrderStatus == DropOrderStatus.inProgress,
-                        );
-                      },
-                      builder: (context, state) {
-                        final isInProgress = state.$1;
-                        final isLocked = state.$2;
+                    Expanded(
+                      child: BlocSelector<OrderActionBloc, OrderActionState,
+                          (bool isInProgress, bool isLocked)>(
+                        selector: (state) {
+                          return (
+                            state.payOrderStatus == PayOrderStatus.inProgress,
+                            state.dropOrderStatus == DropOrderStatus.inProgress,
+                          );
+                        },
+                        builder: (context, state) {
+                          final isInProgress = state.$1;
+                          final isLocked = state.$2;
 
-                        return FilledButton(
-                          onPressed: !canShowAction || isInProgress || isLocked
-                              ? null
-                              : () {
-                                  context.read<OrderActionBloc>().add(
-                                        OrderActionPayed(
-                                          id: widget.order.orderId,
-                                          amount: widget.order.finalAmount,
-                                        ),
-                                      );
-                                },
-                          style: FilledButton.styleFrom(
-                            side: BorderSide(
-                              color: context.colorScheme.primary,
+                          return FilledButton(
+                            onPressed: !canShowAction ||
+                                    isInProgress ||
+                                    isLocked
+                                ? null
+                                : () {
+                                    context.read<OrderActionBloc>().add(
+                                          OrderActionPayed(
+                                            id: widget.order.orderId,
+                                            amount: widget.order.finalAmount,
+                                          ),
+                                        );
+                                  },
+                            style: FilledButton.styleFrom(
+                              side: BorderSide(
+                                color: context.colorScheme.primary,
+                              ),
+                              minimumSize: const Size.fromHeight(32),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadiusGeometry.circular(8),
+                              ),
                             ),
-                            minimumSize: const Size.fromHeight(32),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusGeometry.circular(8),
-                            ),
-                          ),
-                          child: isInProgress
-                              ? const SizedBox.square(
-                                  dimension: 20,
-                                  child: CircularProgressIndicator.adaptive(
-                                    valueColor:
-                                        AlwaysStoppedAnimation(Colors.white),
+                            child: isInProgress
+                                ? const SizedBox.square(
+                                    dimension: 20,
+                                    child: CircularProgressIndicator.adaptive(
+                                      valueColor:
+                                          AlwaysStoppedAnimation(Colors.white),
+                                    ),
+                                  )
+                                : const Text(
+                                    'Pay',
+                                    style: TextStyle(
+                                      fontFamily: 'CentraNo1-Book',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                )
-                              : const Text(
-                                  'Pay',
-                                  style: TextStyle(
-                                    fontFamily: 'CentraNo1-Book',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
               if (message != null && !canShowAction)
                 Text(
                   message,

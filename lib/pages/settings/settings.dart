@@ -94,7 +94,7 @@ class _Body extends StatelessWidget {
               value: isDark,
               onChanged: null,
               subtitle: const Text(
-                'Choose your preferred GinX theme.',
+                'Choose your preferred RZ Prime theme.',
                 style: TextStyle(
                   fontFamily: 'CentraNo1-Book',
                   fontSize: 14,
