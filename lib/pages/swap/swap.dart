@@ -129,7 +129,7 @@ class _SwapBody extends HookWidget {
         onRefresh: () async {
           await Future.wait([
             context.read<UserStatsCubit>().fetch(),
-            if (stats.isVerified) context.read<OpenOrdersCubit>().getOrders()
+            context.read<OpenOrdersCubit>().getOrders()
           ]);
         },
         child: CustomScrollView(
