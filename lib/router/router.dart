@@ -65,19 +65,27 @@ mixin GainXAppRouter on State<GainXApp> {
                     );
 
                     try {
-                      final reownService = context.read<ReownService>();
-                      final chainId =
-                          reownService.appKitModal.selectedChain!.chainId;
+                      final manual =
+                          context.read<ReownBloc>().state.manualAddress;
 
-                      final namespace = NamespaceUtils.getNamespaceFromChain(
-                        chainId,
-                      );
+                      if (manual != null) {
+                        socket
+                            .connect(EthereumAddress.fromHex(manual).hexEip55);
+                      } else {
+                        final reownService = context.read<ReownService>();
+                        final chainId =
+                            reownService.appKitModal.selectedChain!.chainId;
 
-                      final rawAddress = reownService.appKitModal.session!
-                          .getAddress(namespace)!;
+                        final namespace = NamespaceUtils.getNamespaceFromChain(
+                          chainId,
+                        );
 
-                      socket.connect(
-                          EthereumAddress.fromHex(rawAddress).hexEip55);
+                        final rawAddress = reownService.appKitModal.session!
+                            .getAddress(namespace)!;
+
+                        socket.connect(
+                            EthereumAddress.fromHex(rawAddress).hexEip55);
+                      }
                     } catch (_) {}
 
                     return socket;
