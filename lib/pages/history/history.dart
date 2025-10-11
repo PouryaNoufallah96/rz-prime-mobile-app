@@ -227,7 +227,7 @@ class _Order extends StatelessWidget {
                 ],
                 Flexible(
                   child: Text(
-                    date(DateTime.parse(order.payOffDate).toLocal()),
+                    date(DateTime.parse(order.createdMoment).toLocal()),
                     style: TextStyle(
                       fontFamily: 'CentraNo1-Book',
                       fontSize: 12,
