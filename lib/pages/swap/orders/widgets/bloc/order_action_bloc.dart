@@ -110,13 +110,13 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
     );
 
     if (isSucceed) {
-      toastification.show(
-        style: ToastificationStyle.fillColored,
-        type: ToastificationType.success,
-        title: const Text('Order dropped Successfully.'),
-        borderRadius: BorderRadius.circular(6),
-        autoCloseDuration: const Duration(seconds: 4),
-      );
+      // toastification.show(
+      //   style: ToastificationStyle.fillColored,
+      //   type: ToastificationType.success,
+      //   title: const Text('Order dropped Successfully.'),
+      //   borderRadius: BorderRadius.circular(6),
+      //   autoCloseDuration: const Duration(seconds: 4),
+      // );
     }
 
     emit(

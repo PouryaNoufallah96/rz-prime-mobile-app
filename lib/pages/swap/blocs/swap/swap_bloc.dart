@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
-import 'package:toastification/toastification.dart';
 
 part 'swap_event.dart';
 part 'swap_state.dart';
@@ -74,13 +72,13 @@ class SwapBloc extends Bloc<SwapEvent, SwapState> {
     );
 
     if (isSucceed) {
-      toastification.show(
-        style: ToastificationStyle.fillColored,
-        type: ToastificationType.success,
-        title: const Text('Order Created successfully.'),
-        borderRadius: BorderRadius.circular(6),
-        autoCloseDuration: const Duration(seconds: 4),
-      );
+      // toastification.show(
+      //   style: ToastificationStyle.fillColored,
+      //   type: ToastificationType.success,
+      //   title: const Text('Order Created successfully.'),
+      //   borderRadius: BorderRadius.circular(6),
+      //   autoCloseDuration: const Duration(seconds: 4),
+      // );
       emit(
         state.copyWith(
           submitSwapStatus: SubmitSwapStatus.idle,
