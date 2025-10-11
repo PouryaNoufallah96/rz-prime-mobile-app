@@ -32,7 +32,7 @@ class NotifyPaidOrderBloc
 
       toastification.show(
         style: ToastificationStyle.fillColored,
-        type: data?.contains('success') ?? false
+        type: data?.toLowerCase().contains('success') ?? false
             ? ToastificationType.success
             : ToastificationType.error,
         title: mt.Text(data ?? ''),
