@@ -93,6 +93,17 @@ class _SwapBody extends HookWidget {
       return sub.cancel;
     }, []);
 
+    useOnAppLifecycleStateChange((previous, current) async {
+      if (previous == AppLifecycleState.inactive &&
+          current == AppLifecycleState.resumed) {
+        await Future.wait([
+          context.read<OpenOrdersCubit>().getOrders(),
+          context.read<UserStatsCubit>().fetch(skipLoading: true),
+          context.read<FinalizeOrderCubit>().getOrders(),
+        ]);
+      }
+    });
+
     return MultiBlocListener(
       listeners: [
         BlocListener<NotifyPaidOrderBloc, NotifyPaidOrderState>(
