@@ -23,12 +23,19 @@ class SubmitSwap extends StatelessWidget {
     final canShowAction = state?.checked ?? false;
     final message = state?.message;
 
-    return BlocSelector<UserStatsCubit, UserStatsState, UserStage>(
+    return BlocSelector<UserStatsCubit, UserStatsState, UserStage?>(
       selector: (state) {
-        final stage = (state as UserStatsSuccessState).selectedStage;
-        return stage;
+        if (state is! UserStatsSuccessState) {
+          return null;
+        }
+
+        return state.selectedStage;
       },
       builder: (context, stage) {
+        if (stage == null) {
+          return const SizedBox();
+        }
+
         return BlocSelector<SwapBloc, SwapState, bool>(
           selector: (state) {
             return state.selectedToken != null &&

@@ -8,5 +8,5 @@ class NotifyPaidOrderState with EquatableMixin {
   final int? lastUpdated;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [lastUpdated];
 }

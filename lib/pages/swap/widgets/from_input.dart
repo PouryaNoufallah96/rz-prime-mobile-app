@@ -94,9 +94,11 @@ class SwapFromInput extends HookWidget {
               const SizedBox(height: 16),
               BlocSelector<UserStatsCubit, UserStatsState, UserStats?>(
                 selector: (state) {
-                  final states = (state as UserStatsSuccessState).findByStage();
+                  if (state is! UserStatsSuccessState) {
+                    return null;
+                  }
 
-                  return states;
+                  return state.findByStage();
                 },
                 builder: (context, stats) {
                   if (stats == null) {

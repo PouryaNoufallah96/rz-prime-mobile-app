@@ -9,9 +9,15 @@ import 'package:signalr_netcore/hub_connection_builder.dart';
 import 'package:signalr_netcore/json_hub_protocol.dart';
 
 class HubEvent {
-  const HubEvent({required this.name, this.data});
+  const HubEvent({
+    required this.name,
+    this.data,
+  });
   final String name;
   final dynamic data;
+
+  @override
+  String toString() => 'HubEvent(name: $name, data: $data)';
 }
 
 class SocketService {
