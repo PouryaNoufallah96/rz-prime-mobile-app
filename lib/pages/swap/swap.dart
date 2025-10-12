@@ -96,12 +96,10 @@ class _SwapBody extends HookWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<NotifyPaidOrderBloc, NotifyPaidOrderState>(
-          listenWhen: (p, c) {
-            return p.lastUpdated != c.lastUpdated;
-          },
+
           listener: (context, state) {
-            context.read<UserStatsCubit>().fetch(skipLoading: true);
             context.read<OpenOrdersCubit>().getOrders();
+            context.read<UserStatsCubit>().fetch(skipLoading: true);
             context.read<FinalizeOrderCubit>().getOrders();
           },
         ),

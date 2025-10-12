@@ -27,7 +27,8 @@ class NotifyPaidOrderBloc
     final stream =
         _socketService.stream.where((event) => event.name == 'NotifyPaidOrder');
 
-    await emit.onEach(stream, onData: (event) {
+    await emit.onEach(stream, onData: (event) async {
+      await Future<void>.delayed(const Duration(milliseconds: 800));
       final data = event.data as String?;
 
       toastification.show(
@@ -41,7 +42,7 @@ class NotifyPaidOrderBloc
       );
 
       emit(NotifyPaidOrderState(
-        lastUpdated: DateTime.now().millisecondsSinceEpoch,
+        lastUpdated: DateTime.now().microsecondsSinceEpoch,
       ));
     });
   }
