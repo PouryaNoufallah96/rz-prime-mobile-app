@@ -6,7 +6,7 @@ import 'package:web3dart/web3dart.dart';
 class AppContractAbi {
   static DeployedContract get appContract {
     final contract = DeployedContract(
-      ContractAbi.fromJson(jsonEncode(_appAbi), Env.appContractName),
+      ContractAbi.fromJson(_appAbiJson, Env.appContractName),
       EthereumAddress.fromHex(Env.appContractAddress),
     );
 
@@ -30,453 +30,544 @@ class AppContractAbi {
     return erc20Contract.function('approve');
   }
 
-  static final List<Map<String, Object>> _appAbi = [
+  // RZPrime contract ABI.
+  static const String _appAbiJson = '''
+[
     {
-      'inputs': [
-        {'internalType': 'address', 'name': '_operator', 'type': 'address'},
-        {'internalType': 'address', 'name': '_owner', 'type': 'address'},
-        {'internalType': 'address', 'name': '_vault', 'type': 'address'},
-        {'internalType': 'address', 'name': '_usdToken', 'type': 'address'}
-      ],
-      'stateMutability': 'nonpayable',
-      'type': 'constructor'
-    },
-    {'inputs': [], 'name': 'ECDSAInvalidSignature', 'type': 'error'},
-    {
-      'inputs': [
-        {'internalType': 'uint256', 'name': 'length', 'type': 'uint256'}
-      ],
-      'name': 'ECDSAInvalidSignatureLength',
-      'type': 'error'
-    },
-    {
-      'inputs': [
-        {'internalType': 'bytes32', 'name': 's', 'type': 'bytes32'}
-      ],
-      'name': 'ECDSAInvalidSignatureS',
-      'type': 'error'
-    },
-    {'inputs': [], 'name': 'EnforcedPause', 'type': 'error'},
-    {'inputs': [], 'name': 'ExpectedPause', 'type': 'error'},
-    {'inputs': [], 'name': 'InvalidShortString', 'type': 'error'},
-    {
-      'inputs': [
-        {'internalType': 'address', 'name': 'owner', 'type': 'address'}
-      ],
-      'name': 'OwnableInvalidOwner',
-      'type': 'error'
-    },
-    {
-      'inputs': [
-        {'internalType': 'address', 'name': 'account', 'type': 'address'}
-      ],
-      'name': 'OwnableUnauthorizedAccount',
-      'type': 'error'
-    },
-    {'inputs': [], 'name': 'ReentrancyGuardReentrantCall', 'type': 'error'},
-    {
-      'inputs': [
-        {'internalType': 'address', 'name': 'token', 'type': 'address'}
-      ],
-      'name': 'SafeERC20FailedOperation',
-      'type': 'error'
-    },
-    {
-      'inputs': [
-        {'internalType': 'string', 'name': 'str', 'type': 'string'}
-      ],
-      'name': 'StringTooLong',
-      'type': 'error'
-    },
-    {
-      'anonymous': false,
-      'inputs': [],
-      'name': 'EIP712DomainChanged',
-      'type': 'event'
-    },
-    {
-      'anonymous': false,
-      'inputs': [
-        {
-          'indexed': false,
-          'internalType': 'address',
-          'name': 'user',
-          'type': 'address'
-        },
-        {
-          'indexed': false,
-          'internalType': 'string',
-          'name': 'orderId',
-          'type': 'string'
-        }
-      ],
-      'name': 'OrderDropped',
-      'type': 'event'
-    },
-    {
-      'anonymous': false,
-      'inputs': [
-        {
-          'indexed': false,
-          'internalType': 'address',
-          'name': 'user',
-          'type': 'address'
-        },
-        {
-          'indexed': false,
-          'internalType': 'string',
-          'name': 'orderId',
-          'type': 'string'
-        },
-        {
-          'indexed': false,
-          'internalType': 'uint256',
-          'name': 'payAmount',
-          'type': 'uint256'
-        }
-      ],
-      'name': 'OrderExecuted',
-      'type': 'event'
-    },
-    {
-      'anonymous': false,
-      'inputs': [
-        {
-          'indexed': false,
-          'internalType': 'address',
-          'name': 'user',
-          'type': 'address'
-        },
-        {
-          'indexed': false,
-          'internalType': 'string',
-          'name': 'orderId',
-          'type': 'string'
-        }
-      ],
-      'name': 'OrderExpired',
-      'type': 'event'
-    },
-    {
-      'anonymous': false,
-      'inputs': [
-        {
-          'indexed': false,
-          'internalType': 'address',
-          'name': 'user',
-          'type': 'address'
-        },
-        {
-          'indexed': false,
-          'internalType': 'string',
-          'name': 'orderId',
-          'type': 'string'
-        },
-        {
-          'indexed': false,
-          'internalType': 'uint256',
-          'name': 'tokenAmount',
-          'type': 'uint256'
-        }
-      ],
-      'name': 'OrderRegistered',
-      'type': 'event'
-    },
-    {
-      'anonymous': false,
-      'inputs': [
-        {
-          'indexed': true,
-          'internalType': 'address',
-          'name': 'previousOwner',
-          'type': 'address'
-        },
-        {
-          'indexed': true,
-          'internalType': 'address',
-          'name': 'newOwner',
-          'type': 'address'
-        }
-      ],
-      'name': 'OwnershipTransferred',
-      'type': 'event'
-    },
-    {
-      'anonymous': false,
-      'inputs': [
-        {
-          'indexed': false,
-          'internalType': 'address',
-          'name': 'account',
-          'type': 'address'
-        }
-      ],
-      'name': 'Paused',
-      'type': 'event'
-    },
-    {
-      'anonymous': false,
-      'inputs': [
-        {
-          'indexed': false,
-          'internalType': 'address',
-          'name': 'account',
-          'type': 'address'
-        }
-      ],
-      'name': 'Unpaused',
-      'type': 'event'
-    },
-    {
-      'inputs': [],
-      'name': 'DROP_ORDER_TYPEHASH',
-      'outputs': [
-        {'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
-    },
-    {
-      'inputs': [
-        {'internalType': 'address[]', 'name': 'users', 'type': 'address[]'},
-        {'internalType': 'string[]', 'name': 'orderIds', 'type': 'string[]'},
-        {'internalType': 'bytes[]', 'name': 'signatures', 'type': 'bytes[]'}
-      ],
-      'name': 'batchDropOrderBySig',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
-    },
-    {
-      'inputs': [
-        {'internalType': 'address[]', 'name': 'users', 'type': 'address[]'},
-        {'internalType': 'string[]', 'name': 'orderIds', 'type': 'string[]'}
-      ],
-      'name': 'batchExpireOrder',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
-    },
-    {
-      'inputs': [
-        {'internalType': 'address', 'name': 'user', 'type': 'address'},
-        {'internalType': 'string', 'name': 'orderId', 'type': 'string'},
-        {'internalType': 'bytes', 'name': 'signature', 'type': 'bytes'}
-      ],
-      'name': 'dropOrderBySig',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
-    },
-    {
-      'inputs': [],
-      'name': 'eip712Domain',
-      'outputs': [
-        {'internalType': 'bytes1', 'name': 'fields', 'type': 'bytes1'},
-        {'internalType': 'string', 'name': 'name', 'type': 'string'},
-        {'internalType': 'string', 'name': 'version', 'type': 'string'},
-        {'internalType': 'uint256', 'name': 'chainId', 'type': 'uint256'},
-        {
-          'internalType': 'address',
-          'name': 'verifyingContract',
-          'type': 'address'
-        },
-        {'internalType': 'bytes32', 'name': 'salt', 'type': 'bytes32'},
-        {'internalType': 'uint256[]', 'name': 'extensions', 'type': 'uint256[]'}
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
-    },
-    {
-      'inputs': [
-        {'internalType': 'string', 'name': 'orderId', 'type': 'string'}
-      ],
-      'name': 'executeOrder',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
-    },
-    {
-      'inputs': [
-        {'internalType': 'address', 'name': 'user', 'type': 'address'},
-        {'internalType': 'string', 'name': 'orderId', 'type': 'string'}
-      ],
-      'name': 'expireOrder',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
-    },
-    {
-      'inputs': [
-        {'internalType': 'address', 'name': 'user', 'type': 'address'},
-        {'internalType': 'string', 'name': 'orderId', 'type': 'string'}
-      ],
-      'name': 'getOrder',
-      'outputs': [
-        {
-          'components': [
-            {'internalType': 'address', 'name': 'buyToken', 'type': 'address'},
+        "type": "function",
+        "name": "ORACLE",
+        "inputs": [],
+        "outputs": [
             {
-              'internalType': 'uint256',
-              'name': 'tokenAmount',
-              'type': 'uint256'
-            },
-            {'internalType': 'uint256', 'name': 'payAmount', 'type': 'uint256'},
-            {'internalType': 'uint256', 'name': 'endAt', 'type': 'uint256'},
-            {
-              'internalType': 'enum RZPrimeSale.OrderStatus',
-              'name': 'status',
-              'type': 'uint8'
+                "name": "",
+                "type": "address",
+                "internalType": "contract IRZUSDTwapOracle"
             }
-          ],
-          'internalType': 'struct RZPrimeSale.Order',
-          'name': '',
-          'type': 'tuple'
-        }
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
+        ],
+        "stateMutability": "view"
     },
     {
-      'inputs': [],
-      'name': 'operator',
-      'outputs': [
-        {'internalType': 'address', 'name': '', 'type': 'address'}
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
+        "type": "function",
+        "name": "batchDropOrderBySig",
+        "inputs": [
+            {
+                "name": "users",
+                "type": "address[]",
+                "internalType": "address[]"
+            },
+            {
+                "name": "orderIds",
+                "type": "string[]",
+                "internalType": "string[]"
+            },
+            {
+                "name": "signatures",
+                "type": "bytes[]",
+                "internalType": "bytes[]"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-      'inputs': [
-        {'internalType': 'address', 'name': '', 'type': 'address'},
-        {'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}
-      ],
-      'name': 'orders',
-      'outputs': [
-        {'internalType': 'address', 'name': 'buyToken', 'type': 'address'},
-        {'internalType': 'uint256', 'name': 'tokenAmount', 'type': 'uint256'},
-        {'internalType': 'uint256', 'name': 'payAmount', 'type': 'uint256'},
-        {'internalType': 'uint256', 'name': 'endAt', 'type': 'uint256'},
-        {
-          'internalType': 'enum RZPrimeSale.OrderStatus',
-          'name': 'status',
-          'type': 'uint8'
-        }
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
+        "type": "function",
+        "name": "batchExpireOrder",
+        "inputs": [
+            {
+                "name": "users",
+                "type": "address[]",
+                "internalType": "address[]"
+            },
+            {
+                "name": "orderIds",
+                "type": "string[]",
+                "internalType": "string[]"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-      'inputs': [],
-      'name': 'owner',
-      'outputs': [
-        {'internalType': 'address', 'name': '', 'type': 'address'}
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
+        "type": "function",
+        "name": "dropOrderBySig",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "signature",
+                "type": "bytes",
+                "internalType": "bytes"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-      'inputs': [],
-      'name': 'pause',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
+        "type": "function",
+        "name": "executeOrder",
+        "inputs": [
+            {
+                "name": "orderId",
+                "type": "string",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-      'inputs': [],
-      'name': 'paused',
-      'outputs': [
-        {'internalType': 'bool', 'name': '', 'type': 'bool'}
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
+        "type": "function",
+        "name": "expireOrder",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-      'inputs': [
-        {'internalType': 'address', 'name': 'user', 'type': 'address'},
-        {'internalType': 'string', 'name': 'orderId', 'type': 'string'},
-        {'internalType': 'address', 'name': 'buyToken', 'type': 'address'},
-        {'internalType': 'uint256', 'name': 'tokenAmount', 'type': 'uint256'},
-        {'internalType': 'uint256', 'name': 'payAmount', 'type': 'uint256'},
-        {'internalType': 'uint256', 'name': 'endAt', 'type': 'uint256'}
-      ],
-      'name': 'registerUserOrder',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
+        "type": "function",
+        "name": "getOrder",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct RZPrime.Order",
+                "components": [
+                    {
+                        "name": "buyToken",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenAmount",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "payUsdValue",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "endAt",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "status",
+                        "type": "uint8",
+                        "internalType": "enum RZPrime.OrderStatus"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-      'inputs': [],
-      'name': 'renounceOwnership',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
+        "type": "function",
+        "name": "operator",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-      'inputs': [
-        {'internalType': 'address', 'name': 'token', 'type': 'address'}
-      ],
-      'name': 'reservedTokenAmounts',
-      'outputs': [
-        {'internalType': 'uint256', 'name': 'amounts', 'type': 'uint256'}
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
+        "type": "function",
+        "name": "orders",
+        "inputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "buyToken",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "tokenAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "payUsdValue",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "endAt",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "status",
+                "type": "uint8",
+                "internalType": "enum RZPrime.OrderStatus"
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-      'inputs': [
-        {'internalType': 'address', 'name': '_operator', 'type': 'address'}
-      ],
-      'name': 'setOperator',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
+        "type": "function",
+        "name": "paused",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-      'inputs': [
-        {'internalType': 'address', 'name': '_vault', 'type': 'address'}
-      ],
-      'name': 'setVault',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
+        "type": "function",
+        "name": "previewPaymentAmount",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "rzusdAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-      'inputs': [
-        {'internalType': 'address', 'name': 'newOwner', 'type': 'address'}
-      ],
-      'name': 'transferOwnership',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
+        "type": "function",
+        "name": "registerUserOrder",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "buyToken",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "tokenAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "payUsdValue",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "endAt",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-      'inputs': [],
-      'name': 'unpause',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
+        "type": "function",
+        "name": "reservedTokenAmounts",
+        "inputs": [
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "amounts",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-      'inputs': [],
-      'name': 'vault',
-      'outputs': [
-        {'internalType': 'address', 'name': '', 'type': 'address'}
-      ],
-      'stateMutability': 'view',
-      'type': 'function'
+        "type": "function",
+        "name": "vault",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-      'inputs': [
-        {'internalType': 'address', 'name': 'token', 'type': 'address'},
-        {'internalType': 'address', 'name': 'to', 'type': 'address'}
-      ],
-      'name': 'withdrawTokens',
-      'outputs': [],
-      'stateMutability': 'nonpayable',
-      'type': 'function'
+        "type": "event",
+        "name": "OrderDropped",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "indexed": false,
+                "internalType": "string"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "OrderExecuted",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "indexed": false,
+                "internalType": "string"
+            },
+            {
+                "name": "rzusdPaid",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "name": "usdValue",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "OrderExpired",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "indexed": false,
+                "internalType": "string"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "OrderRegistered",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "orderId",
+                "type": "string",
+                "indexed": false,
+                "internalType": "string"
+            },
+            {
+                "name": "tokenAmount",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Paused",
+        "inputs": [
+            {
+                "name": "account",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Unpaused",
+        "inputs": [
+            {
+                "name": "account",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "error",
+        "name": "ECDSAInvalidSignature",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ECDSAInvalidSignatureLength",
+        "inputs": [
+            {
+                "name": "length",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "ECDSAInvalidSignatureS",
+        "inputs": [
+            {
+                "name": "s",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "EnforcedPause",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ExpectedPause",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidShortString",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "OwnableInvalidOwner",
+        "inputs": [
+            {
+                "name": "owner",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "OwnableUnauthorizedAccount",
+        "inputs": [
+            {
+                "name": "account",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "ReentrancyGuardReentrantCall",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SafeERC20FailedOperation",
+        "inputs": [
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "StringTooLong",
+        "inputs": [
+            {
+                "name": "str",
+                "type": "string",
+                "internalType": "string"
+            }
+        ]
     }
-  ];
+]''';
 
   static final List<Map<String, Object>> _erc20Abi = [
     {

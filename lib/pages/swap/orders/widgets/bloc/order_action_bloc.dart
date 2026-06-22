@@ -41,7 +41,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
     emit(state.copyWith(dropOrderStatus: DropOrderStatus.inProgress));
 
     final domain = {
-      'name': 'RZPrimeSale',
+      'name': 'RZPrime',
       'version': '1',
       'chainId': 56,
       'verifyingContract': Env.appContractAddress,

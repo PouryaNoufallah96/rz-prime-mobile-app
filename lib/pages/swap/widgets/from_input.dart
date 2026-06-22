@@ -59,8 +59,8 @@ class SwapFromInput extends HookWidget {
                       child: Padding(
                         padding: EdgeInsetsGeometry.fromLTRB(8, 8, 0, 8),
                         child: AppToken(
-                          src: 'assets/icons/tether.png',
-                          name: 'RZ USD',
+                          src: 'assets/icons/usdt.svg',
+                          name: 'USDT',
                         ),
                       ),
                     ),
@@ -71,8 +71,8 @@ class SwapFromInput extends HookWidget {
                       children: [
                         TextSpan(
                           text:
-                              '${AppNumberFormatter.format(stats.balance, decimal: 2)}'
-                              ' USD',
+                              // ignore: lines_longer_than_80_chars
+                              '\$${AppNumberFormatter.format(stats.balance, decimal: 2)}',
                           style: const TextStyle(
                             fontFamily: 'CentraNo1-Medium',
                             fontSize: 14,
