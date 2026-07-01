@@ -174,6 +174,10 @@ class _Order extends StatelessWidget {
     final finalAmount =
         AppNumberFormatter.format(order.finalAmount, decimal: 2);
     final loanAmount = AppNumberFormatter.format(order.loanAmount, decimal: 2);
+    final paymentInRzusd = AppNumberFormatter.format(
+      (BigInt.tryParse(order.payAmountInWei) ?? BigInt.zero).toDouble() / 1e18,
+      decimal: 2,
+    );
 
     String date(DateTime dateTime) {
       final datePart = DateFormat('MMM d').format(dateTime);
@@ -311,6 +315,29 @@ class _Order extends StatelessWidget {
                     ),
                   ],
                 )
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Payment Amount in RZUSD',
+                  style: TextStyle(
+                    fontFamily: 'CentraNo1-Book',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: context.colorExtension.neutral[300],
+                  ),
+                ),
+                Text(
+                  paymentInRzusd,
+                  style: const TextStyle(
+                    fontFamily: 'CentraNo1-Medium',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ],
             )
           ],

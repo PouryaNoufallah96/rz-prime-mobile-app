@@ -69,7 +69,7 @@ class ReownService {
           'https://rpc.ankr.com/bsc/cea6f21cc6dc0df6ac58a42690aa0581b0e1981309f47385e0257994874b121e',
         ],
         rpcUrl:
-            'https://special-sly-sanctuary.bsc.quiknode.pro/ce247854099f34d852fdeff393e6262ba7b3e7ca/',
+            'https://bsc-mainnet.nodereal.io/v1/e67c75f850574f2fb42fd8820434497b',
         explorerUrl: 'https://bscscan.com',
       ),
       // const ReownAppKitModalNetworkInfo(
