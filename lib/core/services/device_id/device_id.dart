@@ -10,7 +10,7 @@ class DeviceIdService {
   static const String _pepper =
       String.fromEnvironment('APP_DEVICE_PEPPER', defaultValue: 'test1');
 
-  static const String _packageName = 'com.your.app';
+  static const String _packageName = 'rz.prime.com';
   static const _storage = FlutterSecureStorage();
 
   static Future<String> encryptToBase64() async {
