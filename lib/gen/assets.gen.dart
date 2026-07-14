@@ -123,6 +123,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/tether.svg
   SvgGenImage get tetherSvg => const SvgGenImage('assets/icons/tether.svg');
 
+  /// File path: assets/icons/usdt.svg
+  SvgGenImage get usdt => const SvgGenImage('assets/icons/usdt.svg');
+
   /// List of all assets
   List<dynamic> get values => [
         arrowDownLeft,
@@ -134,7 +137,8 @@ class $AssetsIconsGen {
         qrCode,
         settings,
         tetherPng,
-        tetherSvg
+        tetherSvg,
+        usdt
       ];
 }
 
@@ -152,8 +156,15 @@ class $AssetsImagesGen {
   AssetGenImage get appIconIos =>
       const AssetGenImage('assets/images/app_icon_ios.png');
 
+  /// File path: assets/images/btcr.png
+  AssetGenImage get btcr => const AssetGenImage('assets/images/btcr.png');
+
   /// File path: assets/images/car.png
   AssetGenImage get car => const AssetGenImage('assets/images/car.png');
+
+  /// File path: assets/images/coinbank.png
+  AssetGenImage get coinbank =>
+      const AssetGenImage('assets/images/coinbank.png');
 
   /// File path: assets/images/czw.png
   AssetGenImage get czw => const AssetGenImage('assets/images/czw.png');
@@ -176,11 +187,17 @@ class $AssetsImagesGen {
   /// File path: assets/images/jewelry.png
   AssetGenImage get jewelry => const AssetGenImage('assets/images/jewelry.png');
 
+  /// File path: assets/images/life.png
+  AssetGenImage get life => const AssetGenImage('assets/images/life.png');
+
   /// File path: assets/images/logo_text.svg
   SvgGenImage get logoText => const SvgGenImage('assets/images/logo_text.svg');
 
   /// File path: assets/images/mgc.png
   AssetGenImage get mgc => const AssetGenImage('assets/images/mgc.png');
+
+  /// File path: assets/images/oasis.png
+  AssetGenImage get oasis => const AssetGenImage('assets/images/oasis.png');
 
   /// File path: assets/images/on_boarding_1.webp
   AssetGenImage get onBoarding1 =>
@@ -212,6 +229,9 @@ class $AssetsImagesGen {
   AssetGenImage get regularDisable =>
       const AssetGenImage('assets/images/regular_disable.png');
 
+  /// File path: assets/images/rp1.png
+  AssetGenImage get rp1 => const AssetGenImage('assets/images/rp1.png');
+
   /// File path: assets/images/rz.png
   AssetGenImage get rz => const AssetGenImage('assets/images/rz.png');
 
@@ -225,20 +245,27 @@ class $AssetsImagesGen {
   AssetGenImage get xDisable =>
       const AssetGenImage('assets/images/x_disable.png');
 
+  /// File path: assets/images/zgc.png
+  AssetGenImage get zgc => const AssetGenImage('assets/images/zgc.png');
+
   /// List of all assets
   List<dynamic> get values => [
         animation,
         appIcon,
         appIconIos,
+        btcr,
         car,
+        coinbank,
         czw,
         gold,
         goldDisable,
         industrial,
         insurance,
         jewelry,
+        life,
         logoText,
         mgc,
+        oasis,
         onBoarding1,
         onBoarding2,
         onBoarding3,
@@ -247,10 +274,12 @@ class $AssetsImagesGen {
         realestate,
         regular,
         regularDisable,
+        rp1,
         rz,
         trip,
         x,
-        xDisable
+        xDisable,
+        zgc
       ];
 }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gainx/core/constants/available_tokens.dart';
 import 'package:gainx/core/services/socket_service/socket_service.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/services/stats_service/stats_service.dart';
@@ -56,9 +57,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
               {...value, ...value['price'] as Map<String, dynamic>});
         });
 
-        return InventorySuccessState(inventories: [
-          ...newData,
-        ]);
+        return InventorySuccessState(inventories: newData.whereAvailable());
       },
     );
   }

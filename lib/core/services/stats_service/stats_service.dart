@@ -1,3 +1,4 @@
+import 'package:gainx/core/constants/available_tokens.dart';
 import 'package:gainx/core/services/http_service/http_service.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 
@@ -47,6 +48,6 @@ class StatsService {
         final json = {...e, ...(e['price'] as Map<String, dynamic>)};
         return InventoryModel.fromJson(json);
       },
-    ).toList();
+    ).whereAvailable();
   }
 }
