@@ -1,5 +1,4 @@
-package com.example.gainx
-
+package rz.prime.com
 
 import io.flutter.embedding.android.FlutterActivity
 import android.content.BroadcastReceiver
@@ -9,7 +8,7 @@ import android.os.Bundle
 import io.flutter.plugin.common.EventChannel
 
 class MainActivity: FlutterActivity() {
-  private val eventsChannel = "com.exampledapp/events"
+  private val eventsChannel = "rz.prime.com/events"
   private var linksReceiver: BroadcastReceiver? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
