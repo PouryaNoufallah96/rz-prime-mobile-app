@@ -12,7 +12,7 @@ import 'package:gainx/core/services/transaction_service/transaction_service.dart
 import 'package:gainx/core/utils/future_timeout.dart';
 import 'package:reown_appkit/reown_appkit.dart';
 import 'package:toastification/toastification.dart';
-import 'package:web3dart/crypto.dart' as crypto;
+import 'package:web3dart/web3dart.dart' as crypto;
 
 part 'order_action_event.dart';
 part 'order_action_state.dart';
@@ -63,7 +63,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
     final owner = _reownService.appKitModal.session!.getAddress(namespace);
     final ownerAddress = EthereumAddress.fromHex(owner!);
     final topic = _reownService.appKitModal.session!.topic;
-    final address = ownerAddress.hexEip55;
+    final address = ownerAddress.eip55With0x;
     final message = {'user': address, 'orderId': hex};
 
     final typedData = {
