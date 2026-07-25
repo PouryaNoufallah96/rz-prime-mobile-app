@@ -25,7 +25,7 @@ import 'package:gainx/pages/swap/blocs/user_stats_cubit/user_stats_cubit.dart';
 import 'package:gainx/pages/swap/swap.dart';
 import 'package:gainx/pages/terms_of_use/terms_of_use.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reown_appkit/reown_appkit.dart';
