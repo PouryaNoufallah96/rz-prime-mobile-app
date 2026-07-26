@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:gainx/core/env.dart';
-import 'package:web3dart/web3dart.dart';
+import 'package:reown_walletkit/reown_walletkit.dart';
 
 class AppContractAbi {
   static DeployedContract get appContract {

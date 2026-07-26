@@ -70,7 +70,7 @@ mixin GainXAppRouter on State<GainXApp> {
 
                       if (manual != null) {
                         socket
-                            .connect(EthereumAddress.fromHex(manual).hexEip55);
+                            .connect(EthereumAddress.fromHex(manual).eip55With0x);
                       } else {
                         final reownService = context.read<ReownService>();
                         final chainId =
@@ -84,7 +84,7 @@ mixin GainXAppRouter on State<GainXApp> {
                             .getAddress(namespace)!;
 
                         socket.connect(
-                            EthereumAddress.fromHex(rawAddress).hexEip55);
+                            EthereumAddress.fromHex(rawAddress).eip55With0x);
                       }
                     } catch (_) {}
 

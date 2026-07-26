@@ -33,13 +33,13 @@ class QrCodeBloc extends Bloc<QrCodeEvent, QrCodeState> {
   ) async {
     final address = () {
       if (manualAddress != null) {
-        return EthereumAddress.fromHex(manualAddress!).hexEip55;
+        return EthereumAddress.fromHex(manualAddress!).eip55With0x;
       }
 
       final chainId = _reownService.appKitModal.selectedChain!.chainId;
       final namespace = NamespaceUtils.getNamespaceFromChain(chainId);
       final owner = _reownService.appKitModal.session!.getAddress(namespace);
-      return EthereumAddress.fromHex(owner!).hexEip55;
+      return EthereumAddress.fromHex(owner!).eip55With0x;
     }();
 
     emit(state.copyWith(status: SubmitQrCodeStatus.inProgress));
