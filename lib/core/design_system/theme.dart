@@ -64,12 +64,14 @@ class ColorExtension extends ThemeExtension<ColorExtension> {
     this.success = GainXColors.green,
     this.error = GainXColors.red,
     this.neutral = GainXColors.grey,
+    this.promo = GainXColors.purple,
   });
 
   final ColorSwatch<int> success;
   final ColorSwatch<int> error;
   final ColorSwatch<int> primary;
   final ColorSwatch<int> neutral;
+  final ColorSwatch<int> promo;
 
   @override
   ColorExtension lerp(ColorExtension? other, double t) {
@@ -78,6 +80,7 @@ class ColorExtension extends ThemeExtension<ColorExtension> {
       error: ColorSwatch.lerp(error, other?.error, t)!,
       primary: ColorSwatch.lerp(primary, other?.primary, t)!,
       neutral: ColorSwatch.lerp(neutral, other?.neutral, t)!,
+      promo: ColorSwatch.lerp(promo, other?.promo, t)!,
     );
   }
 
@@ -87,12 +90,14 @@ class ColorExtension extends ThemeExtension<ColorExtension> {
     ColorSwatch<int>? error,
     ColorSwatch<int>? primary,
     ColorSwatch<int>? neutral,
+    ColorSwatch<int>? promo,
   }) {
     return ColorExtension(
       success: success ?? this.success,
       error: error ?? this.error,
       primary: primary ?? this.primary,
       neutral: neutral ?? this.neutral,
+      promo: promo ?? this.promo,
     );
   }
 }
@@ -175,6 +180,24 @@ class GainXColors {
       800: Color(0xff991B1B),
       900: Color(0xff7F1D1D),
       950: Color(0xff450A0A),
+    },
+  );
+
+  static const int _purpleValue = 0xFFA855F7;
+  static const purple = ColorShades(
+    _purpleValue,
+    <int, Color>{
+      50: Color(0xffFAF5FF),
+      100: Color(0xffF3E8FF),
+      200: Color(0xffE9D5FF),
+      300: Color(0xffD8B4FE),
+      400: Color(0xffC084FC),
+      500: Color(_purpleValue),
+      600: Color(0xff9333EA),
+      700: Color(0xff7E22CE),
+      800: Color(0xff6B21A8),
+      900: Color(0xff581C87),
+      950: Color(0xff3B0764),
     },
   );
 

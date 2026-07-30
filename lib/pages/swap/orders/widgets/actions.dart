@@ -250,18 +250,16 @@ class _OrderActionsState extends State<_OrderActions> {
                           final isLocked = state.$2;
 
                           return FilledButton(
-                            onPressed: !canShowAction ||
-                                    isInProgress ||
-                                    isLocked
-                                ? null
-                                : () {
-                                    context.read<OrderActionBloc>().add(
-                                          OrderActionPayed(
-                                            id: widget.order.orderId,
-                                            amount: widget.order.finalAmount,
-                                          ),
-                                        );
-                                  },
+                            onPressed:
+                                !canShowAction || isInProgress || isLocked
+                                    ? null
+                                    : () {
+                                        context.read<OrderActionBloc>().add(
+                                              OrderActionPayed(
+                                                id: widget.order.orderId,
+                                              ),
+                                            );
+                                      },
                             style: FilledButton.styleFrom(
                               side: BorderSide(
                                 color: context.colorScheme.primary,

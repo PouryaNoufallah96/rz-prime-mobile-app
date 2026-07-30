@@ -6,6 +6,7 @@ import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
 import 'package:gainx/core/env.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/auth_service/auth_service.dart';
+import 'package:gainx/core/services/campaign/campaign_service.dart';
 import 'package:gainx/core/services/http_service/http_service.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
 import 'package:gainx/core/services/stats_service/stats_service.dart';
@@ -66,6 +67,11 @@ Widget appInjection(Widget child) {
       ),
       RepositoryProvider(
         create: (context) => StatsService(
+          adapter: context.read(),
+        ),
+      ),
+      RepositoryProvider(
+        create: (context) => CampaignService(
           adapter: context.read(),
         ),
       ),

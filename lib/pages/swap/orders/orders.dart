@@ -6,10 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/components/app_token.dart';
 import 'package:gainx/core/blocs/inventory/inventory_bloc.dart';
+import 'package:gainx/core/services/orders_service/models.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/swap/orders/cubit/open_orders_cubit.dart';
 import 'package:gainx/pages/swap/orders/widgets/actions.dart';
+import 'package:gainx/pages/swap/widgets/campaign_discount_text.dart';
 import 'package:intl/intl.dart';
 
 class SwapOrders extends StatelessWidget {
@@ -39,158 +41,203 @@ class SwapOrders extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: context.colorScheme.outlineVariant,
                   borderRadius: BorderRadiusGeometry.circular(12),
+                  gradient: order.hasCampaignDiscount
+                      ? LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            context.colorExtension.promo,
+                            const Color(0xFF14B8A6),
+                          ],
+                        )
+                      : null,
                 ),
                 child: Padding(
-                  padding: const EdgeInsetsGeometry.all(16),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  padding: EdgeInsets.only(
+                    left: order.hasCampaignDiscount ? 4 : 0,
+                  ),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.outlineVariant,
+                      borderRadius: BorderRadiusGeometry.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsetsGeometry.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AppToken(
-                            size: 34,
-                            src:
-                                'assets/images/${order.tokenName.toLowerCase()}.png',
-                            name: order.tokenName,
-                            textStyle: const TextStyle(
-                              fontFamily: 'CentraNo1-Medium',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text.rich(
-                            TextSpan(
-                                text: 'Pay of time: ',
-                                style: TextStyle(
-                                  fontFamily: 'CentraNo1-Book',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: context.colorExtension.neutral,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppToken(
+                                size: 34,
+                                src:
+                                    'assets/images/${order.tokenName.toLowerCase()}.png',
+                                name: order.tokenName,
+                                textStyle: const TextStyle(
+                                  fontFamily: 'CentraNo1-Medium',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  text: 'Pay of time: ',
+                                  style: TextStyle(
+                                    fontFamily: 'CentraNo1-Book',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: context.colorExtension.neutral,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: DateFormat('yyyy-MM-dd').format(
+                                        DateTime.parse(order.payOffDate),
+                                      ),
+                                      style: const TextStyle(
+                                        fontFamily: 'CentraNo1-Book',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (order.hasCampaignDiscount) ...[
+                            const SizedBox(height: 12),
+                            CampaignDiscountText(
+                              order.campaignDiscountApplied,
+                            ),
+                          ],
+                          const SizedBox(height: 16),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextSpan(
-                                    text: DateFormat('yyyy-MM-dd').format(
-                                        DateTime.parse(order.payOffDate)),
+                                  Text(
+                                    '${AppNumberFormatter.format(order.quantity, decimal: 9)}'
+                                    ' ${order.tokenName}',
                                     style: const TextStyle(
-                                      fontFamily: 'CentraNo1-Book',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'CentraNo1-Medium',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
                                       color: Colors.white,
                                     ),
                                   ),
-                                ]),
-                          )
+                                  const SizedBox(height: 8),
+                                  BlocSelector<
+                                    InventoryBloc,
+                                    InventoryState,
+                                    double?
+                                  >(
+                                    selector: (state) {
+                                      if (state is! InventorySuccessState) {
+                                        return null;
+                                      }
+
+                                      return state.inventories
+                                              .firstWhereOrNull(
+                                                (e) =>
+                                                    e.tokenName ==
+                                                    order.tokenName,
+                                              )
+                                              ?.price ??
+                                          0;
+                                    },
+                                    builder: (context, livePrice) {
+                                      if (livePrice == null) {
+                                        return const _Loading();
+                                      }
+
+                                      final price = order.quantity * livePrice;
+
+                                      Color getColor() {
+                                        if (price > order.finalAmount) {
+                                          return context.colorExtension.success;
+                                        } else if (price < order.finalAmount) {
+                                          return context.colorScheme.error;
+                                        }
+                                        return Colors.white;
+                                      }
+
+                                      return Text(
+                                        '\$${AppNumberFormatter.format(price, decimal: 2)}',
+                                        style: TextStyle(
+                                          fontFamily: 'CentraNo1-Book',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: getColor(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.baseline,
+                                    textBaseline: TextBaseline.alphabetic,
+                                    children: [
+                                      if (order.hasCampaignDiscount) ...[
+                                        Text(
+                                          AppNumberFormatter.format(
+                                            order.originalAmount,
+                                            decimal: 2,
+                                          ),
+                                          style: TextStyle(
+                                            fontFamily: 'CentraNo1-Book',
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            height: 1,
+                                            color:
+                                                context.colorExtension.neutral,
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                      ],
+                                      Text(
+                                        '${AppNumberFormatter.format(order.finalAmount, decimal: 2)}'
+                                        ' USDT',
+                                        style: const TextStyle(
+                                          fontFamily: 'CentraNo1-Book',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Frozen Final Price',
+                                    style: TextStyle(
+                                      fontFamily: 'CentraNo1-Book',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: context.colorExtension.neutral,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          OrderActions(order: order),
                         ],
                       ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '${AppNumberFormatter.format(order.quantity, decimal: 9)}'
-                            ' ${order.tokenName}',
-                            style: const TextStyle(
-                              fontFamily: 'CentraNo1-Medium',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            '${AppNumberFormatter.format(order.loanAmount, decimal: 2)}'
-                            ' USD',
-                            style: const TextStyle(
-                              fontFamily: 'CentraNo1-Medium',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '\$${AppNumberFormatter.format(order.finalAmount, decimal: 2)}',
-                            style: const TextStyle(
-                              fontFamily: 'CentraNo1-Book',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            'Frozen Final Price',
-                            style: TextStyle(
-                              fontFamily: 'CentraNo1-Book',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: context.colorExtension.neutral,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BlocSelector<InventoryBloc, InventoryState, double?>(
-                            selector: (state) {
-                              if (state is! InventorySuccessState) {
-                                return null;
-                              }
-
-                              return state.inventories
-                                      .firstWhereOrNull(
-                                          (e) => e.tokenName == order.tokenName)
-                                      ?.price ??
-                                  0;
-                            },
-                            builder: (context, livePrice) {
-                              if (livePrice == null) {
-                                return const _Loading();
-                              }
-
-                              final price = order.quantity * livePrice;
-
-                              Color getColor() {
-                                if (price > order.finalAmount) {
-                                  return context.colorExtension.success;
-                                } else if (price < order.finalAmount) {
-                                  return context.colorScheme.error;
-                                }
-                                return Colors.white;
-                              }
-
-                              return Text(
-                                '\$${AppNumberFormatter.format(price, decimal: 2)}',
-                                style: TextStyle(
-                                  fontFamily: 'CentraNo1-Book',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: getColor(),
-                                ),
-                              );
-                            },
-                          ),
-                          Text(
-                            'Total value',
-                            style: TextStyle(
-                              fontFamily: 'CentraNo1-Book',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: context.colorExtension.neutral,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      OrderActions(order: order)
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -207,8 +254,9 @@ class _Loading extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller =
-        useAnimationController(duration: const Duration(seconds: 2));
+    final controller = useAnimationController(
+      duration: const Duration(seconds: 2),
+    );
 
     useEffect(() {
       controller.repeat(reverse: true);
@@ -216,9 +264,9 @@ class _Loading extends HookWidget {
     }, []);
 
     final animation = ColorTween(
-            begin: context.colorExtension.neutral[700],
-            end: context.colorExtension.neutral[900])
-        .animate(controller);
+      begin: context.colorExtension.neutral[700],
+      end: context.colorExtension.neutral[900],
+    ).animate(controller);
 
     final value = useAnimation(animation);
 

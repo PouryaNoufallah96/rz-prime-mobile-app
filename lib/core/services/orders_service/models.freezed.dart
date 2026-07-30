@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,1259 +9,1157 @@ part of 'models.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-HistoryOrder _$HistoryOrderFromJson(Map<String, dynamic> json) {
-  return _HistoryOrder.fromJson(json);
-}
 
 /// @nodoc
 mixin _$HistoryOrder {
-  String get orderId => throw _privateConstructorUsedError;
-  String get createdMoment => throw _privateConstructorUsedError;
-  String get walletAddress => throw _privateConstructorUsedError;
-  String get userStageId => throw _privateConstructorUsedError;
-  String get stage => throw _privateConstructorUsedError;
-  String get tokenName => throw _privateConstructorUsedError;
-  String get tokenNetwork => throw _privateConstructorUsedError;
-  String get tokenAddress => throw _privateConstructorUsedError;
-  String get payOffDate => throw _privateConstructorUsedError;
-  String get tokenAmountInWei => throw _privateConstructorUsedError;
-  String get payAmountInWei => throw _privateConstructorUsedError;
-  double get quantity => throw _privateConstructorUsedError;
-  double get tokenEffectivePrice => throw _privateConstructorUsedError;
-  double get loanAmount => throw _privateConstructorUsedError;
-  double get loanInterestAmount => throw _privateConstructorUsedError;
-  double get finalAmount => throw _privateConstructorUsedError;
-  double get profitRatePerMonth => throw _privateConstructorUsedError;
-  double get monthDuration => throw _privateConstructorUsedError;
-  HistoryOrderState get state => throw _privateConstructorUsedError;
-  List<TransactionMetaData> get transactionsMetaData =>
-      throw _privateConstructorUsedError;
+
+ String get orderId; String get createdMoment; String get walletAddress; String get userStageId; String get stage; String get tokenName; String get tokenNetwork; String get tokenAddress; String get payOffDate; String get tokenAmountInWei; String get payAmountInWei; double get quantity; double get tokenEffectivePrice; double get loanAmount; double get loanInterestAmount; double get finalAmount; double get profitRatePerMonth; double get monthDuration; HistoryOrderState get state; List<TransactionMetaData> get transactionsMetaData; String? get campaignReference; double? get campaignDiscount;
+/// Create a copy of HistoryOrder
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HistoryOrderCopyWith<HistoryOrder> get copyWith => _$HistoryOrderCopyWithImpl<HistoryOrder>(this as HistoryOrder, _$identity);
 
   /// Serializes this HistoryOrder to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of HistoryOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $HistoryOrderCopyWith<HistoryOrder> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistoryOrder&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.createdMoment, createdMoment) || other.createdMoment == createdMoment)&&(identical(other.walletAddress, walletAddress) || other.walletAddress == walletAddress)&&(identical(other.userStageId, userStageId) || other.userStageId == userStageId)&&(identical(other.stage, stage) || other.stage == stage)&&(identical(other.tokenName, tokenName) || other.tokenName == tokenName)&&(identical(other.tokenNetwork, tokenNetwork) || other.tokenNetwork == tokenNetwork)&&(identical(other.tokenAddress, tokenAddress) || other.tokenAddress == tokenAddress)&&(identical(other.payOffDate, payOffDate) || other.payOffDate == payOffDate)&&(identical(other.tokenAmountInWei, tokenAmountInWei) || other.tokenAmountInWei == tokenAmountInWei)&&(identical(other.payAmountInWei, payAmountInWei) || other.payAmountInWei == payAmountInWei)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.tokenEffectivePrice, tokenEffectivePrice) || other.tokenEffectivePrice == tokenEffectivePrice)&&(identical(other.loanAmount, loanAmount) || other.loanAmount == loanAmount)&&(identical(other.loanInterestAmount, loanInterestAmount) || other.loanInterestAmount == loanInterestAmount)&&(identical(other.finalAmount, finalAmount) || other.finalAmount == finalAmount)&&(identical(other.profitRatePerMonth, profitRatePerMonth) || other.profitRatePerMonth == profitRatePerMonth)&&(identical(other.monthDuration, monthDuration) || other.monthDuration == monthDuration)&&(identical(other.state, state) || other.state == state)&&const DeepCollectionEquality().equals(other.transactionsMetaData, transactionsMetaData)&&(identical(other.campaignReference, campaignReference) || other.campaignReference == campaignReference)&&(identical(other.campaignDiscount, campaignDiscount) || other.campaignDiscount == campaignDiscount));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hashAll([runtimeType,orderId,createdMoment,walletAddress,userStageId,stage,tokenName,tokenNetwork,tokenAddress,payOffDate,tokenAmountInWei,payAmountInWei,quantity,tokenEffectivePrice,loanAmount,loanInterestAmount,finalAmount,profitRatePerMonth,monthDuration,state,const DeepCollectionEquality().hash(transactionsMetaData),campaignReference,campaignDiscount]);
+
+@override
+String toString() {
+  return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, quantity: $quantity, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, state: $state, transactionsMetaData: $transactionsMetaData, campaignReference: $campaignReference, campaignDiscount: $campaignDiscount)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $HistoryOrderCopyWith<$Res> {
-  factory $HistoryOrderCopyWith(
-          HistoryOrder value, $Res Function(HistoryOrder) then) =
-      _$HistoryOrderCopyWithImpl<$Res, HistoryOrder>;
-  @useResult
-  $Res call(
-      {String orderId,
-      String createdMoment,
-      String walletAddress,
-      String userStageId,
-      String stage,
-      String tokenName,
-      String tokenNetwork,
-      String tokenAddress,
-      String payOffDate,
-      String tokenAmountInWei,
-      String payAmountInWei,
-      double quantity,
-      double tokenEffectivePrice,
-      double loanAmount,
-      double loanInterestAmount,
-      double finalAmount,
-      double profitRatePerMonth,
-      double monthDuration,
-      HistoryOrderState state,
-      List<TransactionMetaData> transactionsMetaData});
-}
+abstract mixin class $HistoryOrderCopyWith<$Res>  {
+  factory $HistoryOrderCopyWith(HistoryOrder value, $Res Function(HistoryOrder) _then) = _$HistoryOrderCopyWithImpl;
+@useResult
+$Res call({
+ String orderId, String createdMoment, String walletAddress, String userStageId, String stage, String tokenName, String tokenNetwork, String tokenAddress, String payOffDate, String tokenAmountInWei, String payAmountInWei, double quantity, double tokenEffectivePrice, double loanAmount, double loanInterestAmount, double finalAmount, double profitRatePerMonth, double monthDuration, HistoryOrderState state, List<TransactionMetaData> transactionsMetaData, String? campaignReference, double? campaignDiscount
+});
 
+
+
+
+}
 /// @nodoc
-class _$HistoryOrderCopyWithImpl<$Res, $Val extends HistoryOrder>
+class _$HistoryOrderCopyWithImpl<$Res>
     implements $HistoryOrderCopyWith<$Res> {
-  _$HistoryOrderCopyWithImpl(this._value, this._then);
+  _$HistoryOrderCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final HistoryOrder _self;
+  final $Res Function(HistoryOrder) _then;
 
-  /// Create a copy of HistoryOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? orderId = null,
-    Object? createdMoment = null,
-    Object? walletAddress = null,
-    Object? userStageId = null,
-    Object? stage = null,
-    Object? tokenName = null,
-    Object? tokenNetwork = null,
-    Object? tokenAddress = null,
-    Object? payOffDate = null,
-    Object? tokenAmountInWei = null,
-    Object? payAmountInWei = null,
-    Object? quantity = null,
-    Object? tokenEffectivePrice = null,
-    Object? loanAmount = null,
-    Object? loanInterestAmount = null,
-    Object? finalAmount = null,
-    Object? profitRatePerMonth = null,
-    Object? monthDuration = null,
-    Object? state = null,
-    Object? transactionsMetaData = null,
-  }) {
-    return _then(_value.copyWith(
-      orderId: null == orderId
-          ? _value.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdMoment: null == createdMoment
-          ? _value.createdMoment
-          : createdMoment // ignore: cast_nullable_to_non_nullable
-              as String,
-      walletAddress: null == walletAddress
-          ? _value.walletAddress
-          : walletAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      userStageId: null == userStageId
-          ? _value.userStageId
-          : userStageId // ignore: cast_nullable_to_non_nullable
-              as String,
-      stage: null == stage
-          ? _value.stage
-          : stage // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenName: null == tokenName
-          ? _value.tokenName
-          : tokenName // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenNetwork: null == tokenNetwork
-          ? _value.tokenNetwork
-          : tokenNetwork // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenAddress: null == tokenAddress
-          ? _value.tokenAddress
-          : tokenAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      payOffDate: null == payOffDate
-          ? _value.payOffDate
-          : payOffDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenAmountInWei: null == tokenAmountInWei
-          ? _value.tokenAmountInWei
-          : tokenAmountInWei // ignore: cast_nullable_to_non_nullable
-              as String,
-      payAmountInWei: null == payAmountInWei
-          ? _value.payAmountInWei
-          : payAmountInWei // ignore: cast_nullable_to_non_nullable
-              as String,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
-      tokenEffectivePrice: null == tokenEffectivePrice
-          ? _value.tokenEffectivePrice
-          : tokenEffectivePrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      loanAmount: null == loanAmount
-          ? _value.loanAmount
-          : loanAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      loanInterestAmount: null == loanInterestAmount
-          ? _value.loanInterestAmount
-          : loanInterestAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      finalAmount: null == finalAmount
-          ? _value.finalAmount
-          : finalAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      profitRatePerMonth: null == profitRatePerMonth
-          ? _value.profitRatePerMonth
-          : profitRatePerMonth // ignore: cast_nullable_to_non_nullable
-              as double,
-      monthDuration: null == monthDuration
-          ? _value.monthDuration
-          : monthDuration // ignore: cast_nullable_to_non_nullable
-              as double,
-      state: null == state
-          ? _value.state
-          : state // ignore: cast_nullable_to_non_nullable
-              as HistoryOrderState,
-      transactionsMetaData: null == transactionsMetaData
-          ? _value.transactionsMetaData
-          : transactionsMetaData // ignore: cast_nullable_to_non_nullable
-              as List<TransactionMetaData>,
-    ) as $Val);
-  }
+/// Create a copy of HistoryOrder
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? orderId = null,Object? createdMoment = null,Object? walletAddress = null,Object? userStageId = null,Object? stage = null,Object? tokenName = null,Object? tokenNetwork = null,Object? tokenAddress = null,Object? payOffDate = null,Object? tokenAmountInWei = null,Object? payAmountInWei = null,Object? quantity = null,Object? tokenEffectivePrice = null,Object? loanAmount = null,Object? loanInterestAmount = null,Object? finalAmount = null,Object? profitRatePerMonth = null,Object? monthDuration = null,Object? state = null,Object? transactionsMetaData = null,Object? campaignReference = freezed,Object? campaignDiscount = freezed,}) {
+  return _then(_self.copyWith(
+orderId: null == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
+as String,createdMoment: null == createdMoment ? _self.createdMoment : createdMoment // ignore: cast_nullable_to_non_nullable
+as String,walletAddress: null == walletAddress ? _self.walletAddress : walletAddress // ignore: cast_nullable_to_non_nullable
+as String,userStageId: null == userStageId ? _self.userStageId : userStageId // ignore: cast_nullable_to_non_nullable
+as String,stage: null == stage ? _self.stage : stage // ignore: cast_nullable_to_non_nullable
+as String,tokenName: null == tokenName ? _self.tokenName : tokenName // ignore: cast_nullable_to_non_nullable
+as String,tokenNetwork: null == tokenNetwork ? _self.tokenNetwork : tokenNetwork // ignore: cast_nullable_to_non_nullable
+as String,tokenAddress: null == tokenAddress ? _self.tokenAddress : tokenAddress // ignore: cast_nullable_to_non_nullable
+as String,payOffDate: null == payOffDate ? _self.payOffDate : payOffDate // ignore: cast_nullable_to_non_nullable
+as String,tokenAmountInWei: null == tokenAmountInWei ? _self.tokenAmountInWei : tokenAmountInWei // ignore: cast_nullable_to_non_nullable
+as String,payAmountInWei: null == payAmountInWei ? _self.payAmountInWei : payAmountInWei // ignore: cast_nullable_to_non_nullable
+as String,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as double,tokenEffectivePrice: null == tokenEffectivePrice ? _self.tokenEffectivePrice : tokenEffectivePrice // ignore: cast_nullable_to_non_nullable
+as double,loanAmount: null == loanAmount ? _self.loanAmount : loanAmount // ignore: cast_nullable_to_non_nullable
+as double,loanInterestAmount: null == loanInterestAmount ? _self.loanInterestAmount : loanInterestAmount // ignore: cast_nullable_to_non_nullable
+as double,finalAmount: null == finalAmount ? _self.finalAmount : finalAmount // ignore: cast_nullable_to_non_nullable
+as double,profitRatePerMonth: null == profitRatePerMonth ? _self.profitRatePerMonth : profitRatePerMonth // ignore: cast_nullable_to_non_nullable
+as double,monthDuration: null == monthDuration ? _self.monthDuration : monthDuration // ignore: cast_nullable_to_non_nullable
+as double,state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
+as HistoryOrderState,transactionsMetaData: null == transactionsMetaData ? _self.transactionsMetaData : transactionsMetaData // ignore: cast_nullable_to_non_nullable
+as List<TransactionMetaData>,campaignReference: freezed == campaignReference ? _self.campaignReference : campaignReference // ignore: cast_nullable_to_non_nullable
+as String?,campaignDiscount: freezed == campaignDiscount ? _self.campaignDiscount : campaignDiscount // ignore: cast_nullable_to_non_nullable
+as double?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$HistoryOrderImplCopyWith<$Res>
-    implements $HistoryOrderCopyWith<$Res> {
-  factory _$$HistoryOrderImplCopyWith(
-          _$HistoryOrderImpl value, $Res Function(_$HistoryOrderImpl) then) =
-      __$$HistoryOrderImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String orderId,
-      String createdMoment,
-      String walletAddress,
-      String userStageId,
-      String stage,
-      String tokenName,
-      String tokenNetwork,
-      String tokenAddress,
-      String payOffDate,
-      String tokenAmountInWei,
-      String payAmountInWei,
-      double quantity,
-      double tokenEffectivePrice,
-      double loanAmount,
-      double loanInterestAmount,
-      double finalAmount,
-      double profitRatePerMonth,
-      double monthDuration,
-      HistoryOrderState state,
-      List<TransactionMetaData> transactionsMetaData});
 }
 
-/// @nodoc
-class __$$HistoryOrderImplCopyWithImpl<$Res>
-    extends _$HistoryOrderCopyWithImpl<$Res, _$HistoryOrderImpl>
-    implements _$$HistoryOrderImplCopyWith<$Res> {
-  __$$HistoryOrderImplCopyWithImpl(
-      _$HistoryOrderImpl _value, $Res Function(_$HistoryOrderImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of HistoryOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? orderId = null,
-    Object? createdMoment = null,
-    Object? walletAddress = null,
-    Object? userStageId = null,
-    Object? stage = null,
-    Object? tokenName = null,
-    Object? tokenNetwork = null,
-    Object? tokenAddress = null,
-    Object? payOffDate = null,
-    Object? tokenAmountInWei = null,
-    Object? payAmountInWei = null,
-    Object? quantity = null,
-    Object? tokenEffectivePrice = null,
-    Object? loanAmount = null,
-    Object? loanInterestAmount = null,
-    Object? finalAmount = null,
-    Object? profitRatePerMonth = null,
-    Object? monthDuration = null,
-    Object? state = null,
-    Object? transactionsMetaData = null,
-  }) {
-    return _then(_$HistoryOrderImpl(
-      orderId: null == orderId
-          ? _value.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdMoment: null == createdMoment
-          ? _value.createdMoment
-          : createdMoment // ignore: cast_nullable_to_non_nullable
-              as String,
-      walletAddress: null == walletAddress
-          ? _value.walletAddress
-          : walletAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      userStageId: null == userStageId
-          ? _value.userStageId
-          : userStageId // ignore: cast_nullable_to_non_nullable
-              as String,
-      stage: null == stage
-          ? _value.stage
-          : stage // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenName: null == tokenName
-          ? _value.tokenName
-          : tokenName // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenNetwork: null == tokenNetwork
-          ? _value.tokenNetwork
-          : tokenNetwork // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenAddress: null == tokenAddress
-          ? _value.tokenAddress
-          : tokenAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      payOffDate: null == payOffDate
-          ? _value.payOffDate
-          : payOffDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenAmountInWei: null == tokenAmountInWei
-          ? _value.tokenAmountInWei
-          : tokenAmountInWei // ignore: cast_nullable_to_non_nullable
-              as String,
-      payAmountInWei: null == payAmountInWei
-          ? _value.payAmountInWei
-          : payAmountInWei // ignore: cast_nullable_to_non_nullable
-              as String,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
-      tokenEffectivePrice: null == tokenEffectivePrice
-          ? _value.tokenEffectivePrice
-          : tokenEffectivePrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      loanAmount: null == loanAmount
-          ? _value.loanAmount
-          : loanAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      loanInterestAmount: null == loanInterestAmount
-          ? _value.loanInterestAmount
-          : loanInterestAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      finalAmount: null == finalAmount
-          ? _value.finalAmount
-          : finalAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      profitRatePerMonth: null == profitRatePerMonth
-          ? _value.profitRatePerMonth
-          : profitRatePerMonth // ignore: cast_nullable_to_non_nullable
-              as double,
-      monthDuration: null == monthDuration
-          ? _value.monthDuration
-          : monthDuration // ignore: cast_nullable_to_non_nullable
-              as double,
-      state: null == state
-          ? _value.state
-          : state // ignore: cast_nullable_to_non_nullable
-              as HistoryOrderState,
-      transactionsMetaData: null == transactionsMetaData
-          ? _value._transactionsMetaData
-          : transactionsMetaData // ignore: cast_nullable_to_non_nullable
-              as List<TransactionMetaData>,
-    ));
-  }
+/// Adds pattern-matching-related methods to [HistoryOrder].
+extension HistoryOrderPatterns on HistoryOrder {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _HistoryOrder value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _HistoryOrder() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _HistoryOrder value)  $default,){
+final _that = this;
+switch (_that) {
+case _HistoryOrder():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _HistoryOrder value)?  $default,){
+final _that = this;
+switch (_that) {
+case _HistoryOrder() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String orderId,  String createdMoment,  String walletAddress,  String userStageId,  String stage,  String tokenName,  String tokenNetwork,  String tokenAddress,  String payOffDate,  String tokenAmountInWei,  String payAmountInWei,  double quantity,  double tokenEffectivePrice,  double loanAmount,  double loanInterestAmount,  double finalAmount,  double profitRatePerMonth,  double monthDuration,  HistoryOrderState state,  List<TransactionMetaData> transactionsMetaData,  String? campaignReference,  double? campaignDiscount)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _HistoryOrder() when $default != null:
+return $default(_that.orderId,_that.createdMoment,_that.walletAddress,_that.userStageId,_that.stage,_that.tokenName,_that.tokenNetwork,_that.tokenAddress,_that.payOffDate,_that.tokenAmountInWei,_that.payAmountInWei,_that.quantity,_that.tokenEffectivePrice,_that.loanAmount,_that.loanInterestAmount,_that.finalAmount,_that.profitRatePerMonth,_that.monthDuration,_that.state,_that.transactionsMetaData,_that.campaignReference,_that.campaignDiscount);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String orderId,  String createdMoment,  String walletAddress,  String userStageId,  String stage,  String tokenName,  String tokenNetwork,  String tokenAddress,  String payOffDate,  String tokenAmountInWei,  String payAmountInWei,  double quantity,  double tokenEffectivePrice,  double loanAmount,  double loanInterestAmount,  double finalAmount,  double profitRatePerMonth,  double monthDuration,  HistoryOrderState state,  List<TransactionMetaData> transactionsMetaData,  String? campaignReference,  double? campaignDiscount)  $default,) {final _that = this;
+switch (_that) {
+case _HistoryOrder():
+return $default(_that.orderId,_that.createdMoment,_that.walletAddress,_that.userStageId,_that.stage,_that.tokenName,_that.tokenNetwork,_that.tokenAddress,_that.payOffDate,_that.tokenAmountInWei,_that.payAmountInWei,_that.quantity,_that.tokenEffectivePrice,_that.loanAmount,_that.loanInterestAmount,_that.finalAmount,_that.profitRatePerMonth,_that.monthDuration,_that.state,_that.transactionsMetaData,_that.campaignReference,_that.campaignDiscount);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String orderId,  String createdMoment,  String walletAddress,  String userStageId,  String stage,  String tokenName,  String tokenNetwork,  String tokenAddress,  String payOffDate,  String tokenAmountInWei,  String payAmountInWei,  double quantity,  double tokenEffectivePrice,  double loanAmount,  double loanInterestAmount,  double finalAmount,  double profitRatePerMonth,  double monthDuration,  HistoryOrderState state,  List<TransactionMetaData> transactionsMetaData,  String? campaignReference,  double? campaignDiscount)?  $default,) {final _that = this;
+switch (_that) {
+case _HistoryOrder() when $default != null:
+return $default(_that.orderId,_that.createdMoment,_that.walletAddress,_that.userStageId,_that.stage,_that.tokenName,_that.tokenNetwork,_that.tokenAddress,_that.payOffDate,_that.tokenAmountInWei,_that.payAmountInWei,_that.quantity,_that.tokenEffectivePrice,_that.loanAmount,_that.loanInterestAmount,_that.finalAmount,_that.profitRatePerMonth,_that.monthDuration,_that.state,_that.transactionsMetaData,_that.campaignReference,_that.campaignDiscount);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$HistoryOrderImpl implements _HistoryOrder {
-  const _$HistoryOrderImpl(
-      {required this.orderId,
-      required this.createdMoment,
-      required this.walletAddress,
-      required this.userStageId,
-      required this.stage,
-      required this.tokenName,
-      required this.tokenNetwork,
-      required this.tokenAddress,
-      required this.payOffDate,
-      required this.tokenAmountInWei,
-      required this.payAmountInWei,
-      required this.quantity,
-      required this.tokenEffectivePrice,
-      required this.loanAmount,
-      required this.loanInterestAmount,
-      required this.finalAmount,
-      required this.profitRatePerMonth,
-      required this.monthDuration,
-      required this.state,
-      final List<TransactionMetaData> transactionsMetaData = const []})
-      : _transactionsMetaData = transactionsMetaData;
 
-  factory _$HistoryOrderImpl.fromJson(Map<String, dynamic> json) =>
-      _$$HistoryOrderImplFromJson(json);
+class _HistoryOrder implements HistoryOrder {
+  const _HistoryOrder({required this.orderId, required this.createdMoment, required this.walletAddress, required this.userStageId, required this.stage, required this.tokenName, required this.tokenNetwork, required this.tokenAddress, required this.payOffDate, required this.tokenAmountInWei, required this.payAmountInWei, required this.quantity, required this.tokenEffectivePrice, required this.loanAmount, required this.loanInterestAmount, required this.finalAmount, required this.profitRatePerMonth, required this.monthDuration, required this.state, final  List<TransactionMetaData> transactionsMetaData = const [], this.campaignReference, this.campaignDiscount}): _transactionsMetaData = transactionsMetaData;
+  factory _HistoryOrder.fromJson(Map<String, dynamic> json) => _$HistoryOrderFromJson(json);
 
-  @override
-  final String orderId;
-  @override
-  final String createdMoment;
-  @override
-  final String walletAddress;
-  @override
-  final String userStageId;
-  @override
-  final String stage;
-  @override
-  final String tokenName;
-  @override
-  final String tokenNetwork;
-  @override
-  final String tokenAddress;
-  @override
-  final String payOffDate;
-  @override
-  final String tokenAmountInWei;
-  @override
-  final String payAmountInWei;
-  @override
-  final double quantity;
-  @override
-  final double tokenEffectivePrice;
-  @override
-  final double loanAmount;
-  @override
-  final double loanInterestAmount;
-  @override
-  final double finalAmount;
-  @override
-  final double profitRatePerMonth;
-  @override
-  final double monthDuration;
-  @override
-  final HistoryOrderState state;
-  final List<TransactionMetaData> _transactionsMetaData;
-  @override
-  @JsonKey()
-  List<TransactionMetaData> get transactionsMetaData {
-    if (_transactionsMetaData is EqualUnmodifiableListView)
-      return _transactionsMetaData;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_transactionsMetaData);
-  }
-
-  @override
-  String toString() {
-    return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, quantity: $quantity, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, state: $state, transactionsMetaData: $transactionsMetaData)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$HistoryOrderImpl &&
-            (identical(other.orderId, orderId) || other.orderId == orderId) &&
-            (identical(other.createdMoment, createdMoment) ||
-                other.createdMoment == createdMoment) &&
-            (identical(other.walletAddress, walletAddress) ||
-                other.walletAddress == walletAddress) &&
-            (identical(other.userStageId, userStageId) ||
-                other.userStageId == userStageId) &&
-            (identical(other.stage, stage) || other.stage == stage) &&
-            (identical(other.tokenName, tokenName) ||
-                other.tokenName == tokenName) &&
-            (identical(other.tokenNetwork, tokenNetwork) ||
-                other.tokenNetwork == tokenNetwork) &&
-            (identical(other.tokenAddress, tokenAddress) ||
-                other.tokenAddress == tokenAddress) &&
-            (identical(other.payOffDate, payOffDate) ||
-                other.payOffDate == payOffDate) &&
-            (identical(other.tokenAmountInWei, tokenAmountInWei) ||
-                other.tokenAmountInWei == tokenAmountInWei) &&
-            (identical(other.payAmountInWei, payAmountInWei) ||
-                other.payAmountInWei == payAmountInWei) &&
-            (identical(other.quantity, quantity) ||
-                other.quantity == quantity) &&
-            (identical(other.tokenEffectivePrice, tokenEffectivePrice) ||
-                other.tokenEffectivePrice == tokenEffectivePrice) &&
-            (identical(other.loanAmount, loanAmount) ||
-                other.loanAmount == loanAmount) &&
-            (identical(other.loanInterestAmount, loanInterestAmount) ||
-                other.loanInterestAmount == loanInterestAmount) &&
-            (identical(other.finalAmount, finalAmount) ||
-                other.finalAmount == finalAmount) &&
-            (identical(other.profitRatePerMonth, profitRatePerMonth) ||
-                other.profitRatePerMonth == profitRatePerMonth) &&
-            (identical(other.monthDuration, monthDuration) ||
-                other.monthDuration == monthDuration) &&
-            (identical(other.state, state) || other.state == state) &&
-            const DeepCollectionEquality()
-                .equals(other._transactionsMetaData, _transactionsMetaData));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        orderId,
-        createdMoment,
-        walletAddress,
-        userStageId,
-        stage,
-        tokenName,
-        tokenNetwork,
-        tokenAddress,
-        payOffDate,
-        tokenAmountInWei,
-        payAmountInWei,
-        quantity,
-        tokenEffectivePrice,
-        loanAmount,
-        loanInterestAmount,
-        finalAmount,
-        profitRatePerMonth,
-        monthDuration,
-        state,
-        const DeepCollectionEquality().hash(_transactionsMetaData)
-      ]);
-
-  /// Create a copy of HistoryOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$HistoryOrderImplCopyWith<_$HistoryOrderImpl> get copyWith =>
-      __$$HistoryOrderImplCopyWithImpl<_$HistoryOrderImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$HistoryOrderImplToJson(
-      this,
-    );
-  }
+@override final  String orderId;
+@override final  String createdMoment;
+@override final  String walletAddress;
+@override final  String userStageId;
+@override final  String stage;
+@override final  String tokenName;
+@override final  String tokenNetwork;
+@override final  String tokenAddress;
+@override final  String payOffDate;
+@override final  String tokenAmountInWei;
+@override final  String payAmountInWei;
+@override final  double quantity;
+@override final  double tokenEffectivePrice;
+@override final  double loanAmount;
+@override final  double loanInterestAmount;
+@override final  double finalAmount;
+@override final  double profitRatePerMonth;
+@override final  double monthDuration;
+@override final  HistoryOrderState state;
+ final  List<TransactionMetaData> _transactionsMetaData;
+@override@JsonKey() List<TransactionMetaData> get transactionsMetaData {
+  if (_transactionsMetaData is EqualUnmodifiableListView) return _transactionsMetaData;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_transactionsMetaData);
 }
 
-abstract class _HistoryOrder implements HistoryOrder {
-  const factory _HistoryOrder(
-          {required final String orderId,
-          required final String createdMoment,
-          required final String walletAddress,
-          required final String userStageId,
-          required final String stage,
-          required final String tokenName,
-          required final String tokenNetwork,
-          required final String tokenAddress,
-          required final String payOffDate,
-          required final String tokenAmountInWei,
-          required final String payAmountInWei,
-          required final double quantity,
-          required final double tokenEffectivePrice,
-          required final double loanAmount,
-          required final double loanInterestAmount,
-          required final double finalAmount,
-          required final double profitRatePerMonth,
-          required final double monthDuration,
-          required final HistoryOrderState state,
-          final List<TransactionMetaData> transactionsMetaData}) =
-      _$HistoryOrderImpl;
+@override final  String? campaignReference;
+@override final  double? campaignDiscount;
 
-  factory _HistoryOrder.fromJson(Map<String, dynamic> json) =
-      _$HistoryOrderImpl.fromJson;
+/// Create a copy of HistoryOrder
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$HistoryOrderCopyWith<_HistoryOrder> get copyWith => __$HistoryOrderCopyWithImpl<_HistoryOrder>(this, _$identity);
 
-  @override
-  String get orderId;
-  @override
-  String get createdMoment;
-  @override
-  String get walletAddress;
-  @override
-  String get userStageId;
-  @override
-  String get stage;
-  @override
-  String get tokenName;
-  @override
-  String get tokenNetwork;
-  @override
-  String get tokenAddress;
-  @override
-  String get payOffDate;
-  @override
-  String get tokenAmountInWei;
-  @override
-  String get payAmountInWei;
-  @override
-  double get quantity;
-  @override
-  double get tokenEffectivePrice;
-  @override
-  double get loanAmount;
-  @override
-  double get loanInterestAmount;
-  @override
-  double get finalAmount;
-  @override
-  double get profitRatePerMonth;
-  @override
-  double get monthDuration;
-  @override
-  HistoryOrderState get state;
-  @override
-  List<TransactionMetaData> get transactionsMetaData;
-
-  /// Create a copy of HistoryOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$HistoryOrderImplCopyWith<_$HistoryOrderImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$HistoryOrderToJson(this, );
 }
 
-TransactionMetaData _$TransactionMetaDataFromJson(Map<String, dynamic> json) {
-  return _TransactionMetaData.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HistoryOrder&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.createdMoment, createdMoment) || other.createdMoment == createdMoment)&&(identical(other.walletAddress, walletAddress) || other.walletAddress == walletAddress)&&(identical(other.userStageId, userStageId) || other.userStageId == userStageId)&&(identical(other.stage, stage) || other.stage == stage)&&(identical(other.tokenName, tokenName) || other.tokenName == tokenName)&&(identical(other.tokenNetwork, tokenNetwork) || other.tokenNetwork == tokenNetwork)&&(identical(other.tokenAddress, tokenAddress) || other.tokenAddress == tokenAddress)&&(identical(other.payOffDate, payOffDate) || other.payOffDate == payOffDate)&&(identical(other.tokenAmountInWei, tokenAmountInWei) || other.tokenAmountInWei == tokenAmountInWei)&&(identical(other.payAmountInWei, payAmountInWei) || other.payAmountInWei == payAmountInWei)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.tokenEffectivePrice, tokenEffectivePrice) || other.tokenEffectivePrice == tokenEffectivePrice)&&(identical(other.loanAmount, loanAmount) || other.loanAmount == loanAmount)&&(identical(other.loanInterestAmount, loanInterestAmount) || other.loanInterestAmount == loanInterestAmount)&&(identical(other.finalAmount, finalAmount) || other.finalAmount == finalAmount)&&(identical(other.profitRatePerMonth, profitRatePerMonth) || other.profitRatePerMonth == profitRatePerMonth)&&(identical(other.monthDuration, monthDuration) || other.monthDuration == monthDuration)&&(identical(other.state, state) || other.state == state)&&const DeepCollectionEquality().equals(other._transactionsMetaData, _transactionsMetaData)&&(identical(other.campaignReference, campaignReference) || other.campaignReference == campaignReference)&&(identical(other.campaignDiscount, campaignDiscount) || other.campaignDiscount == campaignDiscount));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hashAll([runtimeType,orderId,createdMoment,walletAddress,userStageId,stage,tokenName,tokenNetwork,tokenAddress,payOffDate,tokenAmountInWei,payAmountInWei,quantity,tokenEffectivePrice,loanAmount,loanInterestAmount,finalAmount,profitRatePerMonth,monthDuration,state,const DeepCollectionEquality().hash(_transactionsMetaData),campaignReference,campaignDiscount]);
+
+@override
+String toString() {
+  return 'HistoryOrder(orderId: $orderId, createdMoment: $createdMoment, walletAddress: $walletAddress, userStageId: $userStageId, stage: $stage, tokenName: $tokenName, tokenNetwork: $tokenNetwork, tokenAddress: $tokenAddress, payOffDate: $payOffDate, tokenAmountInWei: $tokenAmountInWei, payAmountInWei: $payAmountInWei, quantity: $quantity, tokenEffectivePrice: $tokenEffectivePrice, loanAmount: $loanAmount, loanInterestAmount: $loanInterestAmount, finalAmount: $finalAmount, profitRatePerMonth: $profitRatePerMonth, monthDuration: $monthDuration, state: $state, transactionsMetaData: $transactionsMetaData, campaignReference: $campaignReference, campaignDiscount: $campaignDiscount)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$HistoryOrderCopyWith<$Res> implements $HistoryOrderCopyWith<$Res> {
+  factory _$HistoryOrderCopyWith(_HistoryOrder value, $Res Function(_HistoryOrder) _then) = __$HistoryOrderCopyWithImpl;
+@override @useResult
+$Res call({
+ String orderId, String createdMoment, String walletAddress, String userStageId, String stage, String tokenName, String tokenNetwork, String tokenAddress, String payOffDate, String tokenAmountInWei, String payAmountInWei, double quantity, double tokenEffectivePrice, double loanAmount, double loanInterestAmount, double finalAmount, double profitRatePerMonth, double monthDuration, HistoryOrderState state, List<TransactionMetaData> transactionsMetaData, String? campaignReference, double? campaignDiscount
+});
+
+
+
+
+}
+/// @nodoc
+class __$HistoryOrderCopyWithImpl<$Res>
+    implements _$HistoryOrderCopyWith<$Res> {
+  __$HistoryOrderCopyWithImpl(this._self, this._then);
+
+  final _HistoryOrder _self;
+  final $Res Function(_HistoryOrder) _then;
+
+/// Create a copy of HistoryOrder
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? orderId = null,Object? createdMoment = null,Object? walletAddress = null,Object? userStageId = null,Object? stage = null,Object? tokenName = null,Object? tokenNetwork = null,Object? tokenAddress = null,Object? payOffDate = null,Object? tokenAmountInWei = null,Object? payAmountInWei = null,Object? quantity = null,Object? tokenEffectivePrice = null,Object? loanAmount = null,Object? loanInterestAmount = null,Object? finalAmount = null,Object? profitRatePerMonth = null,Object? monthDuration = null,Object? state = null,Object? transactionsMetaData = null,Object? campaignReference = freezed,Object? campaignDiscount = freezed,}) {
+  return _then(_HistoryOrder(
+orderId: null == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
+as String,createdMoment: null == createdMoment ? _self.createdMoment : createdMoment // ignore: cast_nullable_to_non_nullable
+as String,walletAddress: null == walletAddress ? _self.walletAddress : walletAddress // ignore: cast_nullable_to_non_nullable
+as String,userStageId: null == userStageId ? _self.userStageId : userStageId // ignore: cast_nullable_to_non_nullable
+as String,stage: null == stage ? _self.stage : stage // ignore: cast_nullable_to_non_nullable
+as String,tokenName: null == tokenName ? _self.tokenName : tokenName // ignore: cast_nullable_to_non_nullable
+as String,tokenNetwork: null == tokenNetwork ? _self.tokenNetwork : tokenNetwork // ignore: cast_nullable_to_non_nullable
+as String,tokenAddress: null == tokenAddress ? _self.tokenAddress : tokenAddress // ignore: cast_nullable_to_non_nullable
+as String,payOffDate: null == payOffDate ? _self.payOffDate : payOffDate // ignore: cast_nullable_to_non_nullable
+as String,tokenAmountInWei: null == tokenAmountInWei ? _self.tokenAmountInWei : tokenAmountInWei // ignore: cast_nullable_to_non_nullable
+as String,payAmountInWei: null == payAmountInWei ? _self.payAmountInWei : payAmountInWei // ignore: cast_nullable_to_non_nullable
+as String,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as double,tokenEffectivePrice: null == tokenEffectivePrice ? _self.tokenEffectivePrice : tokenEffectivePrice // ignore: cast_nullable_to_non_nullable
+as double,loanAmount: null == loanAmount ? _self.loanAmount : loanAmount // ignore: cast_nullable_to_non_nullable
+as double,loanInterestAmount: null == loanInterestAmount ? _self.loanInterestAmount : loanInterestAmount // ignore: cast_nullable_to_non_nullable
+as double,finalAmount: null == finalAmount ? _self.finalAmount : finalAmount // ignore: cast_nullable_to_non_nullable
+as double,profitRatePerMonth: null == profitRatePerMonth ? _self.profitRatePerMonth : profitRatePerMonth // ignore: cast_nullable_to_non_nullable
+as double,monthDuration: null == monthDuration ? _self.monthDuration : monthDuration // ignore: cast_nullable_to_non_nullable
+as double,state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
+as HistoryOrderState,transactionsMetaData: null == transactionsMetaData ? _self._transactionsMetaData : transactionsMetaData // ignore: cast_nullable_to_non_nullable
+as List<TransactionMetaData>,campaignReference: freezed == campaignReference ? _self.campaignReference : campaignReference // ignore: cast_nullable_to_non_nullable
+as String?,campaignDiscount: freezed == campaignDiscount ? _self.campaignDiscount : campaignDiscount // ignore: cast_nullable_to_non_nullable
+as double?,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$TransactionMetaData {
-  String get createMoment => throw _privateConstructorUsedError;
-  String get hash => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
+
+ String get createMoment; String get hash; String get status;
+/// Create a copy of TransactionMetaData
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TransactionMetaDataCopyWith<TransactionMetaData> get copyWith => _$TransactionMetaDataCopyWithImpl<TransactionMetaData>(this as TransactionMetaData, _$identity);
 
   /// Serializes this TransactionMetaData to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of TransactionMetaData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $TransactionMetaDataCopyWith<TransactionMetaData> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TransactionMetaData&&(identical(other.createMoment, createMoment) || other.createMoment == createMoment)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.status, status) || other.status == status));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,createMoment,hash,status);
+
+@override
+String toString() {
+  return 'TransactionMetaData(createMoment: $createMoment, hash: $hash, status: $status)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $TransactionMetaDataCopyWith<$Res> {
-  factory $TransactionMetaDataCopyWith(
-          TransactionMetaData value, $Res Function(TransactionMetaData) then) =
-      _$TransactionMetaDataCopyWithImpl<$Res, TransactionMetaData>;
-  @useResult
-  $Res call({String createMoment, String hash, String status});
-}
+abstract mixin class $TransactionMetaDataCopyWith<$Res>  {
+  factory $TransactionMetaDataCopyWith(TransactionMetaData value, $Res Function(TransactionMetaData) _then) = _$TransactionMetaDataCopyWithImpl;
+@useResult
+$Res call({
+ String createMoment, String hash, String status
+});
 
+
+
+
+}
 /// @nodoc
-class _$TransactionMetaDataCopyWithImpl<$Res, $Val extends TransactionMetaData>
+class _$TransactionMetaDataCopyWithImpl<$Res>
     implements $TransactionMetaDataCopyWith<$Res> {
-  _$TransactionMetaDataCopyWithImpl(this._value, this._then);
+  _$TransactionMetaDataCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final TransactionMetaData _self;
+  final $Res Function(TransactionMetaData) _then;
 
-  /// Create a copy of TransactionMetaData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? createMoment = null,
-    Object? hash = null,
-    Object? status = null,
-  }) {
-    return _then(_value.copyWith(
-      createMoment: null == createMoment
-          ? _value.createMoment
-          : createMoment // ignore: cast_nullable_to_non_nullable
-              as String,
-      hash: null == hash
-          ? _value.hash
-          : hash // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of TransactionMetaData
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? createMoment = null,Object? hash = null,Object? status = null,}) {
+  return _then(_self.copyWith(
+createMoment: null == createMoment ? _self.createMoment : createMoment // ignore: cast_nullable_to_non_nullable
+as String,hash: null == hash ? _self.hash : hash // ignore: cast_nullable_to_non_nullable
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$TransactionMetaDataImplCopyWith<$Res>
-    implements $TransactionMetaDataCopyWith<$Res> {
-  factory _$$TransactionMetaDataImplCopyWith(_$TransactionMetaDataImpl value,
-          $Res Function(_$TransactionMetaDataImpl) then) =
-      __$$TransactionMetaDataImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String createMoment, String hash, String status});
 }
 
-/// @nodoc
-class __$$TransactionMetaDataImplCopyWithImpl<$Res>
-    extends _$TransactionMetaDataCopyWithImpl<$Res, _$TransactionMetaDataImpl>
-    implements _$$TransactionMetaDataImplCopyWith<$Res> {
-  __$$TransactionMetaDataImplCopyWithImpl(_$TransactionMetaDataImpl _value,
-      $Res Function(_$TransactionMetaDataImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of TransactionMetaData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? createMoment = null,
-    Object? hash = null,
-    Object? status = null,
-  }) {
-    return _then(_$TransactionMetaDataImpl(
-      createMoment: null == createMoment
-          ? _value.createMoment
-          : createMoment // ignore: cast_nullable_to_non_nullable
-              as String,
-      hash: null == hash
-          ? _value.hash
-          : hash // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+/// Adds pattern-matching-related methods to [TransactionMetaData].
+extension TransactionMetaDataPatterns on TransactionMetaData {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TransactionMetaData value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _TransactionMetaData() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TransactionMetaData value)  $default,){
+final _that = this;
+switch (_that) {
+case _TransactionMetaData():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TransactionMetaData value)?  $default,){
+final _that = this;
+switch (_that) {
+case _TransactionMetaData() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String createMoment,  String hash,  String status)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _TransactionMetaData() when $default != null:
+return $default(_that.createMoment,_that.hash,_that.status);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String createMoment,  String hash,  String status)  $default,) {final _that = this;
+switch (_that) {
+case _TransactionMetaData():
+return $default(_that.createMoment,_that.hash,_that.status);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String createMoment,  String hash,  String status)?  $default,) {final _that = this;
+switch (_that) {
+case _TransactionMetaData() when $default != null:
+return $default(_that.createMoment,_that.hash,_that.status);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$TransactionMetaDataImpl implements _TransactionMetaData {
-  const _$TransactionMetaDataImpl(
-      {required this.createMoment, required this.hash, required this.status});
 
-  factory _$TransactionMetaDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TransactionMetaDataImplFromJson(json);
+class _TransactionMetaData implements TransactionMetaData {
+  const _TransactionMetaData({required this.createMoment, required this.hash, required this.status});
+  factory _TransactionMetaData.fromJson(Map<String, dynamic> json) => _$TransactionMetaDataFromJson(json);
 
-  @override
-  final String createMoment;
-  @override
-  final String hash;
-  @override
-  final String status;
+@override final  String createMoment;
+@override final  String hash;
+@override final  String status;
 
-  @override
-  String toString() {
-    return 'TransactionMetaData(createMoment: $createMoment, hash: $hash, status: $status)';
-  }
+/// Create a copy of TransactionMetaData
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TransactionMetaDataCopyWith<_TransactionMetaData> get copyWith => __$TransactionMetaDataCopyWithImpl<_TransactionMetaData>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TransactionMetaDataImpl &&
-            (identical(other.createMoment, createMoment) ||
-                other.createMoment == createMoment) &&
-            (identical(other.hash, hash) || other.hash == hash) &&
-            (identical(other.status, status) || other.status == status));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, createMoment, hash, status);
-
-  /// Create a copy of TransactionMetaData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$TransactionMetaDataImplCopyWith<_$TransactionMetaDataImpl> get copyWith =>
-      __$$TransactionMetaDataImplCopyWithImpl<_$TransactionMetaDataImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$TransactionMetaDataImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$TransactionMetaDataToJson(this, );
 }
 
-abstract class _TransactionMetaData implements TransactionMetaData {
-  const factory _TransactionMetaData(
-      {required final String createMoment,
-      required final String hash,
-      required final String status}) = _$TransactionMetaDataImpl;
-
-  factory _TransactionMetaData.fromJson(Map<String, dynamic> json) =
-      _$TransactionMetaDataImpl.fromJson;
-
-  @override
-  String get createMoment;
-  @override
-  String get hash;
-  @override
-  String get status;
-
-  /// Create a copy of TransactionMetaData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TransactionMetaDataImplCopyWith<_$TransactionMetaDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TransactionMetaData&&(identical(other.createMoment, createMoment) || other.createMoment == createMoment)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.status, status) || other.status == status));
 }
 
-FinalizedOrder _$FinalizedOrderFromJson(Map<String, dynamic> json) {
-  return _FinalizedOrder.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,createMoment,hash,status);
+
+@override
+String toString() {
+  return 'TransactionMetaData(createMoment: $createMoment, hash: $hash, status: $status)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TransactionMetaDataCopyWith<$Res> implements $TransactionMetaDataCopyWith<$Res> {
+  factory _$TransactionMetaDataCopyWith(_TransactionMetaData value, $Res Function(_TransactionMetaData) _then) = __$TransactionMetaDataCopyWithImpl;
+@override @useResult
+$Res call({
+ String createMoment, String hash, String status
+});
+
+
+
+
+}
+/// @nodoc
+class __$TransactionMetaDataCopyWithImpl<$Res>
+    implements _$TransactionMetaDataCopyWith<$Res> {
+  __$TransactionMetaDataCopyWithImpl(this._self, this._then);
+
+  final _TransactionMetaData _self;
+  final $Res Function(_TransactionMetaData) _then;
+
+/// Create a copy of TransactionMetaData
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? createMoment = null,Object? hash = null,Object? status = null,}) {
+  return _then(_TransactionMetaData(
+createMoment: null == createMoment ? _self.createMoment : createMoment // ignore: cast_nullable_to_non_nullable
+as String,hash: null == hash ? _self.hash : hash // ignore: cast_nullable_to_non_nullable
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$FinalizedOrder {
-  String get paymentStatus => throw _privateConstructorUsedError;
-  double get finalizedAmount => throw _privateConstructorUsedError;
-  String get finalizedDate => throw _privateConstructorUsedError;
+
+ String get paymentStatus; double get finalizedAmount; String get finalizedDate;
+/// Create a copy of FinalizedOrder
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FinalizedOrderCopyWith<FinalizedOrder> get copyWith => _$FinalizedOrderCopyWithImpl<FinalizedOrder>(this as FinalizedOrder, _$identity);
 
   /// Serializes this FinalizedOrder to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of FinalizedOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $FinalizedOrderCopyWith<FinalizedOrder> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinalizedOrder&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&(identical(other.finalizedAmount, finalizedAmount) || other.finalizedAmount == finalizedAmount)&&(identical(other.finalizedDate, finalizedDate) || other.finalizedDate == finalizedDate));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,paymentStatus,finalizedAmount,finalizedDate);
+
+@override
+String toString() {
+  return 'FinalizedOrder(paymentStatus: $paymentStatus, finalizedAmount: $finalizedAmount, finalizedDate: $finalizedDate)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $FinalizedOrderCopyWith<$Res> {
-  factory $FinalizedOrderCopyWith(
-          FinalizedOrder value, $Res Function(FinalizedOrder) then) =
-      _$FinalizedOrderCopyWithImpl<$Res, FinalizedOrder>;
-  @useResult
-  $Res call(
-      {String paymentStatus, double finalizedAmount, String finalizedDate});
-}
+abstract mixin class $FinalizedOrderCopyWith<$Res>  {
+  factory $FinalizedOrderCopyWith(FinalizedOrder value, $Res Function(FinalizedOrder) _then) = _$FinalizedOrderCopyWithImpl;
+@useResult
+$Res call({
+ String paymentStatus, double finalizedAmount, String finalizedDate
+});
 
+
+
+
+}
 /// @nodoc
-class _$FinalizedOrderCopyWithImpl<$Res, $Val extends FinalizedOrder>
+class _$FinalizedOrderCopyWithImpl<$Res>
     implements $FinalizedOrderCopyWith<$Res> {
-  _$FinalizedOrderCopyWithImpl(this._value, this._then);
+  _$FinalizedOrderCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final FinalizedOrder _self;
+  final $Res Function(FinalizedOrder) _then;
 
-  /// Create a copy of FinalizedOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? paymentStatus = null,
-    Object? finalizedAmount = null,
-    Object? finalizedDate = null,
-  }) {
-    return _then(_value.copyWith(
-      paymentStatus: null == paymentStatus
-          ? _value.paymentStatus
-          : paymentStatus // ignore: cast_nullable_to_non_nullable
-              as String,
-      finalizedAmount: null == finalizedAmount
-          ? _value.finalizedAmount
-          : finalizedAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      finalizedDate: null == finalizedDate
-          ? _value.finalizedDate
-          : finalizedDate // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of FinalizedOrder
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? paymentStatus = null,Object? finalizedAmount = null,Object? finalizedDate = null,}) {
+  return _then(_self.copyWith(
+paymentStatus: null == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as String,finalizedAmount: null == finalizedAmount ? _self.finalizedAmount : finalizedAmount // ignore: cast_nullable_to_non_nullable
+as double,finalizedDate: null == finalizedDate ? _self.finalizedDate : finalizedDate // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$FinalizedOrderImplCopyWith<$Res>
-    implements $FinalizedOrderCopyWith<$Res> {
-  factory _$$FinalizedOrderImplCopyWith(_$FinalizedOrderImpl value,
-          $Res Function(_$FinalizedOrderImpl) then) =
-      __$$FinalizedOrderImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String paymentStatus, double finalizedAmount, String finalizedDate});
 }
 
-/// @nodoc
-class __$$FinalizedOrderImplCopyWithImpl<$Res>
-    extends _$FinalizedOrderCopyWithImpl<$Res, _$FinalizedOrderImpl>
-    implements _$$FinalizedOrderImplCopyWith<$Res> {
-  __$$FinalizedOrderImplCopyWithImpl(
-      _$FinalizedOrderImpl _value, $Res Function(_$FinalizedOrderImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of FinalizedOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? paymentStatus = null,
-    Object? finalizedAmount = null,
-    Object? finalizedDate = null,
-  }) {
-    return _then(_$FinalizedOrderImpl(
-      paymentStatus: null == paymentStatus
-          ? _value.paymentStatus
-          : paymentStatus // ignore: cast_nullable_to_non_nullable
-              as String,
-      finalizedAmount: null == finalizedAmount
-          ? _value.finalizedAmount
-          : finalizedAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      finalizedDate: null == finalizedDate
-          ? _value.finalizedDate
-          : finalizedDate // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+/// Adds pattern-matching-related methods to [FinalizedOrder].
+extension FinalizedOrderPatterns on FinalizedOrder {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FinalizedOrder value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _FinalizedOrder() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FinalizedOrder value)  $default,){
+final _that = this;
+switch (_that) {
+case _FinalizedOrder():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FinalizedOrder value)?  $default,){
+final _that = this;
+switch (_that) {
+case _FinalizedOrder() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String paymentStatus,  double finalizedAmount,  String finalizedDate)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _FinalizedOrder() when $default != null:
+return $default(_that.paymentStatus,_that.finalizedAmount,_that.finalizedDate);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String paymentStatus,  double finalizedAmount,  String finalizedDate)  $default,) {final _that = this;
+switch (_that) {
+case _FinalizedOrder():
+return $default(_that.paymentStatus,_that.finalizedAmount,_that.finalizedDate);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String paymentStatus,  double finalizedAmount,  String finalizedDate)?  $default,) {final _that = this;
+switch (_that) {
+case _FinalizedOrder() when $default != null:
+return $default(_that.paymentStatus,_that.finalizedAmount,_that.finalizedDate);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$FinalizedOrderImpl implements _FinalizedOrder {
-  const _$FinalizedOrderImpl(
-      {required this.paymentStatus,
-      required this.finalizedAmount,
-      required this.finalizedDate});
 
-  factory _$FinalizedOrderImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FinalizedOrderImplFromJson(json);
+class _FinalizedOrder implements FinalizedOrder {
+  const _FinalizedOrder({required this.paymentStatus, required this.finalizedAmount, required this.finalizedDate});
+  factory _FinalizedOrder.fromJson(Map<String, dynamic> json) => _$FinalizedOrderFromJson(json);
 
-  @override
-  final String paymentStatus;
-  @override
-  final double finalizedAmount;
-  @override
-  final String finalizedDate;
+@override final  String paymentStatus;
+@override final  double finalizedAmount;
+@override final  String finalizedDate;
 
-  @override
-  String toString() {
-    return 'FinalizedOrder(paymentStatus: $paymentStatus, finalizedAmount: $finalizedAmount, finalizedDate: $finalizedDate)';
-  }
+/// Create a copy of FinalizedOrder
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FinalizedOrderCopyWith<_FinalizedOrder> get copyWith => __$FinalizedOrderCopyWithImpl<_FinalizedOrder>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FinalizedOrderImpl &&
-            (identical(other.paymentStatus, paymentStatus) ||
-                other.paymentStatus == paymentStatus) &&
-            (identical(other.finalizedAmount, finalizedAmount) ||
-                other.finalizedAmount == finalizedAmount) &&
-            (identical(other.finalizedDate, finalizedDate) ||
-                other.finalizedDate == finalizedDate));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, paymentStatus, finalizedAmount, finalizedDate);
-
-  /// Create a copy of FinalizedOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FinalizedOrderImplCopyWith<_$FinalizedOrderImpl> get copyWith =>
-      __$$FinalizedOrderImplCopyWithImpl<_$FinalizedOrderImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$FinalizedOrderImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$FinalizedOrderToJson(this, );
 }
 
-abstract class _FinalizedOrder implements FinalizedOrder {
-  const factory _FinalizedOrder(
-      {required final String paymentStatus,
-      required final double finalizedAmount,
-      required final String finalizedDate}) = _$FinalizedOrderImpl;
-
-  factory _FinalizedOrder.fromJson(Map<String, dynamic> json) =
-      _$FinalizedOrderImpl.fromJson;
-
-  @override
-  String get paymentStatus;
-  @override
-  double get finalizedAmount;
-  @override
-  String get finalizedDate;
-
-  /// Create a copy of FinalizedOrder
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FinalizedOrderImplCopyWith<_$FinalizedOrderImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinalizedOrder&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&(identical(other.finalizedAmount, finalizedAmount) || other.finalizedAmount == finalizedAmount)&&(identical(other.finalizedDate, finalizedDate) || other.finalizedDate == finalizedDate));
 }
 
-EffectivePriceModel _$EffectivePriceModelFromJson(Map<String, dynamic> json) {
-  return _EffectivePriceModel.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,paymentStatus,finalizedAmount,finalizedDate);
+
+@override
+String toString() {
+  return 'FinalizedOrder(paymentStatus: $paymentStatus, finalizedAmount: $finalizedAmount, finalizedDate: $finalizedDate)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FinalizedOrderCopyWith<$Res> implements $FinalizedOrderCopyWith<$Res> {
+  factory _$FinalizedOrderCopyWith(_FinalizedOrder value, $Res Function(_FinalizedOrder) _then) = __$FinalizedOrderCopyWithImpl;
+@override @useResult
+$Res call({
+ String paymentStatus, double finalizedAmount, String finalizedDate
+});
+
+
+
+
+}
+/// @nodoc
+class __$FinalizedOrderCopyWithImpl<$Res>
+    implements _$FinalizedOrderCopyWith<$Res> {
+  __$FinalizedOrderCopyWithImpl(this._self, this._then);
+
+  final _FinalizedOrder _self;
+  final $Res Function(_FinalizedOrder) _then;
+
+/// Create a copy of FinalizedOrder
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? paymentStatus = null,Object? finalizedAmount = null,Object? finalizedDate = null,}) {
+  return _then(_FinalizedOrder(
+paymentStatus: null == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as String,finalizedAmount: null == finalizedAmount ? _self.finalizedAmount : finalizedAmount // ignore: cast_nullable_to_non_nullable
+as double,finalizedDate: null == finalizedDate ? _self.finalizedDate : finalizedDate // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$EffectivePriceModel {
-  double get marketPrice => throw _privateConstructorUsedError;
-  double get effectivePrice => throw _privateConstructorUsedError;
-  double get priceImpact => throw _privateConstructorUsedError;
-  double get totalCost => throw _privateConstructorUsedError;
-  double get bnbPriceUsd => throw _privateConstructorUsedError;
-  double get tokenReserve => throw _privateConstructorUsedError;
-  double get bnbReserve => throw _privateConstructorUsedError;
+
+ double get marketPrice; double get effectivePrice; double get priceImpact; double get totalCost; double get bnbPriceUsd; double get tokenReserve; double get bnbReserve;
+/// Create a copy of EffectivePriceModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$EffectivePriceModelCopyWith<EffectivePriceModel> get copyWith => _$EffectivePriceModelCopyWithImpl<EffectivePriceModel>(this as EffectivePriceModel, _$identity);
 
   /// Serializes this EffectivePriceModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of EffectivePriceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $EffectivePriceModelCopyWith<EffectivePriceModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EffectivePriceModel&&(identical(other.marketPrice, marketPrice) || other.marketPrice == marketPrice)&&(identical(other.effectivePrice, effectivePrice) || other.effectivePrice == effectivePrice)&&(identical(other.priceImpact, priceImpact) || other.priceImpact == priceImpact)&&(identical(other.totalCost, totalCost) || other.totalCost == totalCost)&&(identical(other.bnbPriceUsd, bnbPriceUsd) || other.bnbPriceUsd == bnbPriceUsd)&&(identical(other.tokenReserve, tokenReserve) || other.tokenReserve == tokenReserve)&&(identical(other.bnbReserve, bnbReserve) || other.bnbReserve == bnbReserve));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,marketPrice,effectivePrice,priceImpact,totalCost,bnbPriceUsd,tokenReserve,bnbReserve);
+
+@override
+String toString() {
+  return 'EffectivePriceModel(marketPrice: $marketPrice, effectivePrice: $effectivePrice, priceImpact: $priceImpact, totalCost: $totalCost, bnbPriceUsd: $bnbPriceUsd, tokenReserve: $tokenReserve, bnbReserve: $bnbReserve)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $EffectivePriceModelCopyWith<$Res> {
-  factory $EffectivePriceModelCopyWith(
-          EffectivePriceModel value, $Res Function(EffectivePriceModel) then) =
-      _$EffectivePriceModelCopyWithImpl<$Res, EffectivePriceModel>;
-  @useResult
-  $Res call(
-      {double marketPrice,
-      double effectivePrice,
-      double priceImpact,
-      double totalCost,
-      double bnbPriceUsd,
-      double tokenReserve,
-      double bnbReserve});
-}
+abstract mixin class $EffectivePriceModelCopyWith<$Res>  {
+  factory $EffectivePriceModelCopyWith(EffectivePriceModel value, $Res Function(EffectivePriceModel) _then) = _$EffectivePriceModelCopyWithImpl;
+@useResult
+$Res call({
+ double marketPrice, double effectivePrice, double priceImpact, double totalCost, double bnbPriceUsd, double tokenReserve, double bnbReserve
+});
 
+
+
+
+}
 /// @nodoc
-class _$EffectivePriceModelCopyWithImpl<$Res, $Val extends EffectivePriceModel>
+class _$EffectivePriceModelCopyWithImpl<$Res>
     implements $EffectivePriceModelCopyWith<$Res> {
-  _$EffectivePriceModelCopyWithImpl(this._value, this._then);
+  _$EffectivePriceModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final EffectivePriceModel _self;
+  final $Res Function(EffectivePriceModel) _then;
 
-  /// Create a copy of EffectivePriceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? marketPrice = null,
-    Object? effectivePrice = null,
-    Object? priceImpact = null,
-    Object? totalCost = null,
-    Object? bnbPriceUsd = null,
-    Object? tokenReserve = null,
-    Object? bnbReserve = null,
-  }) {
-    return _then(_value.copyWith(
-      marketPrice: null == marketPrice
-          ? _value.marketPrice
-          : marketPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      effectivePrice: null == effectivePrice
-          ? _value.effectivePrice
-          : effectivePrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      priceImpact: null == priceImpact
-          ? _value.priceImpact
-          : priceImpact // ignore: cast_nullable_to_non_nullable
-              as double,
-      totalCost: null == totalCost
-          ? _value.totalCost
-          : totalCost // ignore: cast_nullable_to_non_nullable
-              as double,
-      bnbPriceUsd: null == bnbPriceUsd
-          ? _value.bnbPriceUsd
-          : bnbPriceUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      tokenReserve: null == tokenReserve
-          ? _value.tokenReserve
-          : tokenReserve // ignore: cast_nullable_to_non_nullable
-              as double,
-      bnbReserve: null == bnbReserve
-          ? _value.bnbReserve
-          : bnbReserve // ignore: cast_nullable_to_non_nullable
-              as double,
-    ) as $Val);
-  }
+/// Create a copy of EffectivePriceModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? marketPrice = null,Object? effectivePrice = null,Object? priceImpact = null,Object? totalCost = null,Object? bnbPriceUsd = null,Object? tokenReserve = null,Object? bnbReserve = null,}) {
+  return _then(_self.copyWith(
+marketPrice: null == marketPrice ? _self.marketPrice : marketPrice // ignore: cast_nullable_to_non_nullable
+as double,effectivePrice: null == effectivePrice ? _self.effectivePrice : effectivePrice // ignore: cast_nullable_to_non_nullable
+as double,priceImpact: null == priceImpact ? _self.priceImpact : priceImpact // ignore: cast_nullable_to_non_nullable
+as double,totalCost: null == totalCost ? _self.totalCost : totalCost // ignore: cast_nullable_to_non_nullable
+as double,bnbPriceUsd: null == bnbPriceUsd ? _self.bnbPriceUsd : bnbPriceUsd // ignore: cast_nullable_to_non_nullable
+as double,tokenReserve: null == tokenReserve ? _self.tokenReserve : tokenReserve // ignore: cast_nullable_to_non_nullable
+as double,bnbReserve: null == bnbReserve ? _self.bnbReserve : bnbReserve // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
 
-/// @nodoc
-abstract class _$$EffectivePriceModelImplCopyWith<$Res>
-    implements $EffectivePriceModelCopyWith<$Res> {
-  factory _$$EffectivePriceModelImplCopyWith(_$EffectivePriceModelImpl value,
-          $Res Function(_$EffectivePriceModelImpl) then) =
-      __$$EffectivePriceModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {double marketPrice,
-      double effectivePrice,
-      double priceImpact,
-      double totalCost,
-      double bnbPriceUsd,
-      double tokenReserve,
-      double bnbReserve});
 }
 
-/// @nodoc
-class __$$EffectivePriceModelImplCopyWithImpl<$Res>
-    extends _$EffectivePriceModelCopyWithImpl<$Res, _$EffectivePriceModelImpl>
-    implements _$$EffectivePriceModelImplCopyWith<$Res> {
-  __$$EffectivePriceModelImplCopyWithImpl(_$EffectivePriceModelImpl _value,
-      $Res Function(_$EffectivePriceModelImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of EffectivePriceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? marketPrice = null,
-    Object? effectivePrice = null,
-    Object? priceImpact = null,
-    Object? totalCost = null,
-    Object? bnbPriceUsd = null,
-    Object? tokenReserve = null,
-    Object? bnbReserve = null,
-  }) {
-    return _then(_$EffectivePriceModelImpl(
-      marketPrice: null == marketPrice
-          ? _value.marketPrice
-          : marketPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      effectivePrice: null == effectivePrice
-          ? _value.effectivePrice
-          : effectivePrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      priceImpact: null == priceImpact
-          ? _value.priceImpact
-          : priceImpact // ignore: cast_nullable_to_non_nullable
-              as double,
-      totalCost: null == totalCost
-          ? _value.totalCost
-          : totalCost // ignore: cast_nullable_to_non_nullable
-              as double,
-      bnbPriceUsd: null == bnbPriceUsd
-          ? _value.bnbPriceUsd
-          : bnbPriceUsd // ignore: cast_nullable_to_non_nullable
-              as double,
-      tokenReserve: null == tokenReserve
-          ? _value.tokenReserve
-          : tokenReserve // ignore: cast_nullable_to_non_nullable
-              as double,
-      bnbReserve: null == bnbReserve
-          ? _value.bnbReserve
-          : bnbReserve // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
+/// Adds pattern-matching-related methods to [EffectivePriceModel].
+extension EffectivePriceModelPatterns on EffectivePriceModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _EffectivePriceModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _EffectivePriceModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _EffectivePriceModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _EffectivePriceModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _EffectivePriceModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _EffectivePriceModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double marketPrice,  double effectivePrice,  double priceImpact,  double totalCost,  double bnbPriceUsd,  double tokenReserve,  double bnbReserve)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _EffectivePriceModel() when $default != null:
+return $default(_that.marketPrice,_that.effectivePrice,_that.priceImpact,_that.totalCost,_that.bnbPriceUsd,_that.tokenReserve,_that.bnbReserve);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double marketPrice,  double effectivePrice,  double priceImpact,  double totalCost,  double bnbPriceUsd,  double tokenReserve,  double bnbReserve)  $default,) {final _that = this;
+switch (_that) {
+case _EffectivePriceModel():
+return $default(_that.marketPrice,_that.effectivePrice,_that.priceImpact,_that.totalCost,_that.bnbPriceUsd,_that.tokenReserve,_that.bnbReserve);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double marketPrice,  double effectivePrice,  double priceImpact,  double totalCost,  double bnbPriceUsd,  double tokenReserve,  double bnbReserve)?  $default,) {final _that = this;
+switch (_that) {
+case _EffectivePriceModel() when $default != null:
+return $default(_that.marketPrice,_that.effectivePrice,_that.priceImpact,_that.totalCost,_that.bnbPriceUsd,_that.tokenReserve,_that.bnbReserve);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$EffectivePriceModelImpl implements _EffectivePriceModel {
-  const _$EffectivePriceModelImpl(
-      {this.marketPrice = 0,
-      this.effectivePrice = 0,
-      this.priceImpact = 0,
-      this.totalCost = 0,
-      this.bnbPriceUsd = 0,
-      this.tokenReserve = 0,
-      this.bnbReserve = 0});
 
-  factory _$EffectivePriceModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EffectivePriceModelImplFromJson(json);
+class _EffectivePriceModel implements EffectivePriceModel {
+  const _EffectivePriceModel({this.marketPrice = 0, this.effectivePrice = 0, this.priceImpact = 0, this.totalCost = 0, this.bnbPriceUsd = 0, this.tokenReserve = 0, this.bnbReserve = 0});
+  factory _EffectivePriceModel.fromJson(Map<String, dynamic> json) => _$EffectivePriceModelFromJson(json);
 
-  @override
-  @JsonKey()
-  final double marketPrice;
-  @override
-  @JsonKey()
-  final double effectivePrice;
-  @override
-  @JsonKey()
-  final double priceImpact;
-  @override
-  @JsonKey()
-  final double totalCost;
-  @override
-  @JsonKey()
-  final double bnbPriceUsd;
-  @override
-  @JsonKey()
-  final double tokenReserve;
-  @override
-  @JsonKey()
-  final double bnbReserve;
+@override@JsonKey() final  double marketPrice;
+@override@JsonKey() final  double effectivePrice;
+@override@JsonKey() final  double priceImpact;
+@override@JsonKey() final  double totalCost;
+@override@JsonKey() final  double bnbPriceUsd;
+@override@JsonKey() final  double tokenReserve;
+@override@JsonKey() final  double bnbReserve;
 
-  @override
-  String toString() {
-    return 'EffectivePriceModel(marketPrice: $marketPrice, effectivePrice: $effectivePrice, priceImpact: $priceImpact, totalCost: $totalCost, bnbPriceUsd: $bnbPriceUsd, tokenReserve: $tokenReserve, bnbReserve: $bnbReserve)';
-  }
+/// Create a copy of EffectivePriceModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$EffectivePriceModelCopyWith<_EffectivePriceModel> get copyWith => __$EffectivePriceModelCopyWithImpl<_EffectivePriceModel>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EffectivePriceModelImpl &&
-            (identical(other.marketPrice, marketPrice) ||
-                other.marketPrice == marketPrice) &&
-            (identical(other.effectivePrice, effectivePrice) ||
-                other.effectivePrice == effectivePrice) &&
-            (identical(other.priceImpact, priceImpact) ||
-                other.priceImpact == priceImpact) &&
-            (identical(other.totalCost, totalCost) ||
-                other.totalCost == totalCost) &&
-            (identical(other.bnbPriceUsd, bnbPriceUsd) ||
-                other.bnbPriceUsd == bnbPriceUsd) &&
-            (identical(other.tokenReserve, tokenReserve) ||
-                other.tokenReserve == tokenReserve) &&
-            (identical(other.bnbReserve, bnbReserve) ||
-                other.bnbReserve == bnbReserve));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, marketPrice, effectivePrice,
-      priceImpact, totalCost, bnbPriceUsd, tokenReserve, bnbReserve);
-
-  /// Create a copy of EffectivePriceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$EffectivePriceModelImplCopyWith<_$EffectivePriceModelImpl> get copyWith =>
-      __$$EffectivePriceModelImplCopyWithImpl<_$EffectivePriceModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EffectivePriceModelImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$EffectivePriceModelToJson(this, );
 }
 
-abstract class _EffectivePriceModel implements EffectivePriceModel {
-  const factory _EffectivePriceModel(
-      {final double marketPrice,
-      final double effectivePrice,
-      final double priceImpact,
-      final double totalCost,
-      final double bnbPriceUsd,
-      final double tokenReserve,
-      final double bnbReserve}) = _$EffectivePriceModelImpl;
-
-  factory _EffectivePriceModel.fromJson(Map<String, dynamic> json) =
-      _$EffectivePriceModelImpl.fromJson;
-
-  @override
-  double get marketPrice;
-  @override
-  double get effectivePrice;
-  @override
-  double get priceImpact;
-  @override
-  double get totalCost;
-  @override
-  double get bnbPriceUsd;
-  @override
-  double get tokenReserve;
-  @override
-  double get bnbReserve;
-
-  /// Create a copy of EffectivePriceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EffectivePriceModelImplCopyWith<_$EffectivePriceModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EffectivePriceModel&&(identical(other.marketPrice, marketPrice) || other.marketPrice == marketPrice)&&(identical(other.effectivePrice, effectivePrice) || other.effectivePrice == effectivePrice)&&(identical(other.priceImpact, priceImpact) || other.priceImpact == priceImpact)&&(identical(other.totalCost, totalCost) || other.totalCost == totalCost)&&(identical(other.bnbPriceUsd, bnbPriceUsd) || other.bnbPriceUsd == bnbPriceUsd)&&(identical(other.tokenReserve, tokenReserve) || other.tokenReserve == tokenReserve)&&(identical(other.bnbReserve, bnbReserve) || other.bnbReserve == bnbReserve));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,marketPrice,effectivePrice,priceImpact,totalCost,bnbPriceUsd,tokenReserve,bnbReserve);
+
+@override
+String toString() {
+  return 'EffectivePriceModel(marketPrice: $marketPrice, effectivePrice: $effectivePrice, priceImpact: $priceImpact, totalCost: $totalCost, bnbPriceUsd: $bnbPriceUsd, tokenReserve: $tokenReserve, bnbReserve: $bnbReserve)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$EffectivePriceModelCopyWith<$Res> implements $EffectivePriceModelCopyWith<$Res> {
+  factory _$EffectivePriceModelCopyWith(_EffectivePriceModel value, $Res Function(_EffectivePriceModel) _then) = __$EffectivePriceModelCopyWithImpl;
+@override @useResult
+$Res call({
+ double marketPrice, double effectivePrice, double priceImpact, double totalCost, double bnbPriceUsd, double tokenReserve, double bnbReserve
+});
+
+
+
+
+}
+/// @nodoc
+class __$EffectivePriceModelCopyWithImpl<$Res>
+    implements _$EffectivePriceModelCopyWith<$Res> {
+  __$EffectivePriceModelCopyWithImpl(this._self, this._then);
+
+  final _EffectivePriceModel _self;
+  final $Res Function(_EffectivePriceModel) _then;
+
+/// Create a copy of EffectivePriceModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? marketPrice = null,Object? effectivePrice = null,Object? priceImpact = null,Object? totalCost = null,Object? bnbPriceUsd = null,Object? tokenReserve = null,Object? bnbReserve = null,}) {
+  return _then(_EffectivePriceModel(
+marketPrice: null == marketPrice ? _self.marketPrice : marketPrice // ignore: cast_nullable_to_non_nullable
+as double,effectivePrice: null == effectivePrice ? _self.effectivePrice : effectivePrice // ignore: cast_nullable_to_non_nullable
+as double,priceImpact: null == priceImpact ? _self.priceImpact : priceImpact // ignore: cast_nullable_to_non_nullable
+as double,totalCost: null == totalCost ? _self.totalCost : totalCost // ignore: cast_nullable_to_non_nullable
+as double,bnbPriceUsd: null == bnbPriceUsd ? _self.bnbPriceUsd : bnbPriceUsd // ignore: cast_nullable_to_non_nullable
+as double,tokenReserve: null == tokenReserve ? _self.tokenReserve : tokenReserve // ignore: cast_nullable_to_non_nullable
+as double,bnbReserve: null == bnbReserve ? _self.bnbReserve : bnbReserve // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
+// dart format on

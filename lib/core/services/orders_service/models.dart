@@ -4,7 +4,7 @@ part 'models.freezed.dart';
 part 'models.g.dart';
 
 @freezed
-class HistoryOrder with _$HistoryOrder {
+abstract class HistoryOrder with _$HistoryOrder {
   const factory HistoryOrder({
     required String orderId,
     required String createdMoment,
@@ -26,16 +26,39 @@ class HistoryOrder with _$HistoryOrder {
     required double monthDuration,
     required HistoryOrderState state,
     @Default([]) List<TransactionMetaData> transactionsMetaData,
+    String? campaignReference,
+    double? campaignDiscount,
   }) = _HistoryOrder;
 
   factory HistoryOrder.fromJson(Map<String, dynamic> json) =>
       _$HistoryOrderFromJson(json);
 }
 
+extension HistoryOrderX on HistoryOrder {
+  bool get hasCampaignDiscount =>
+      campaignDiscount != null &&
+      campaignDiscount! > 0 &&
+      campaignDiscount! <= 100;
 
+  String get campaignDiscountLabel {
+    final value = campaignDiscount ?? 0;
+    return value == value.roundToDouble() ? value.toStringAsFixed(0) : '$value';
+  }
+
+  String get campaignDiscountApplied =>
+      '$campaignDiscountLabel% discount applied';
+
+  String get campaignDiscountMessage =>
+      'Your order has received a $campaignDiscountLabel% campaign discount.';
+
+  double get originalAmount {
+    if (!hasCampaignDiscount) return finalAmount;
+    return finalAmount / (1 - campaignDiscount! / 100);
+  }
+}
 
 @freezed
-class TransactionMetaData with _$TransactionMetaData {
+abstract class TransactionMetaData with _$TransactionMetaData {
   const factory TransactionMetaData({
     required String createMoment,
     required String hash,
@@ -56,7 +79,7 @@ enum HistoryOrderState {
 }
 
 @freezed
-class FinalizedOrder with _$FinalizedOrder {
+abstract class FinalizedOrder with _$FinalizedOrder {
   const factory FinalizedOrder({
     required String paymentStatus,
     required double finalizedAmount,
@@ -68,7 +91,7 @@ class FinalizedOrder with _$FinalizedOrder {
 }
 
 @freezed
-class EffectivePriceModel with _$EffectivePriceModel {
+abstract class EffectivePriceModel with _$EffectivePriceModel {
   const factory EffectivePriceModel({
     @Default(0) double marketPrice,
     @Default(0) double effectivePrice,

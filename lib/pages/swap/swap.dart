@@ -16,6 +16,7 @@ import 'package:gainx/pages/swap/orders/orders.dart';
 import 'package:gainx/pages/swap/widgets/from_input.dart';
 import 'package:gainx/pages/swap/widgets/orders_total/orders_total.dart';
 import 'package:gainx/pages/swap/widgets/pay_of_time.dart';
+import 'package:gainx/pages/swap/widgets/promo_banner.dart';
 import 'package:gainx/pages/swap/widgets/submit_swap.dart';
 import 'package:gainx/pages/swap/widgets/to_input/to_input.dart';
 import 'package:gainx/pages/swap/widgets/user_balance.dart';
@@ -164,6 +165,8 @@ class _SwapBody extends HookWidget {
                       // const UserLevel(),
                     ],
                   ),
+                  const SizedBox(height: 12),
+                  const PromoBanner(),
                   const SizedBox(height: 20),
                   UserBalance(
                     balance: stats.availableLoanAmount,

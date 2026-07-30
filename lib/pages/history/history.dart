@@ -339,7 +339,19 @@ class _Order extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
+            if (order.hasCampaignDiscount) ...[
+              const SizedBox(height: 12),
+              Text(
+                order.campaignDiscountApplied,
+                style: TextStyle(
+                  fontFamily: 'CentraNo1-Medium',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: context.colorExtension.promo,
+                ),
+              ),
+            ],
           ],
         ),
       ),

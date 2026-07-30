@@ -18,7 +18,7 @@ class OrdersService {
       Uri.parse('Order/SubmitOrder'),
       method: HttpMethod.post,
       body: {
-        'selectedStage': 'Regular',
+        'selectedStage': selectedStage,
         'tokenName': assetName,
         'usdtAmount': loanAmount,
         'monthDuration': monthDuration,
@@ -78,6 +78,25 @@ class OrdersService {
         ),
       _ => (<HistoryOrder>[], -1),
     };
+  }
+
+  Future<HistoryOrder?> getOrderDetail(String orderId) async {
+    final res = await _adapter.requestUri<Map<String, dynamic>>(
+      Uri.parse('Order/GetOrderDetail'),
+      method: HttpMethod.post,
+      body: {'orderId': orderId},
+    );
+
+    return switch (res) {
+      AppSuccessResponse(:final data) => _processDetail(data),
+      _ => null,
+    };
+  }
+
+  HistoryOrder? _processDetail(Map<String, dynamic>? json) {
+    final data = json?['data'];
+    if (data is! Map<String, dynamic>) return null;
+    return HistoryOrder.fromJson(data);
   }
 
   Future<double?> effectivePrice({

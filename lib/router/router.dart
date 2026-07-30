@@ -129,6 +129,11 @@ mixin GainXAppRouter on State<GainXApp> {
                             statsService: context.read(),
                           )..fetch(),
                         ),
+                        BlocProvider(
+                          create: (context) => CampaignCubit(
+                            campaignService: context.read(),
+                          )..fetch(),
+                        ),
                       ],
                       child: NestedPage(child: navigationShell),
                     );

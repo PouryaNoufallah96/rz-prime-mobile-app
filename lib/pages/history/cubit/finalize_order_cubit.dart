@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart' as mt;
 import 'package:gainx/core/services/orders_service/models.dart';
 import 'package:gainx/core/services/orders_service/orders_service.dart';
+import 'package:toastification/toastification.dart';
 
 part 'finalize_order_state.dart';
 
@@ -12,6 +14,9 @@ class FinalizeOrderCubit extends Cubit<FinalizeOrderState> {
         super(FinalizeOrderState());
 
   final OrdersService _ordersService;
+
+  final Set<String> _announcedCampaignOrderIds = {};
+  bool _campaignsSeeded = false;
 
   Future<void> getOrders() async {
     emit(
@@ -31,6 +36,30 @@ class FinalizeOrderCubit extends Cubit<FinalizeOrderState> {
         total: data.$2,
       ),
     );
+
+    _announceCampaigns(data.$1);
+  }
+
+  void _announceCampaigns(List<HistoryOrder> orders) {
+    final campaignOrders = orders.where((o) => o.hasCampaignDiscount).toList();
+
+    if (!_campaignsSeeded) {
+      _campaignsSeeded = true;
+      _announcedCampaignOrderIds.addAll(campaignOrders.map((o) => o.orderId));
+      return;
+    }
+
+    for (final order in campaignOrders) {
+      if (!_announcedCampaignOrderIds.add(order.orderId)) continue;
+
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.success,
+        title: mt.Text(order.campaignDiscountMessage),
+        borderRadius: mt.BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+    }
   }
 
   Future<void> nextPage() async {
@@ -58,6 +87,10 @@ class FinalizeOrderCubit extends Cubit<FinalizeOrderState> {
         ],
         total: data.$2,
       ),
+    );
+
+    _announcedCampaignOrderIds.addAll(
+      data.$1.where((o) => o.hasCampaignDiscount).map((o) => o.orderId),
     );
   }
 }

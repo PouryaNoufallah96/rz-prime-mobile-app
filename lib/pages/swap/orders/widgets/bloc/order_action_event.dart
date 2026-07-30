@@ -19,12 +19,10 @@ class OrderActionDropped extends OrderActionEvent {
 class OrderActionPayed extends OrderActionEvent {
   OrderActionPayed({
     required this.id,
-    required this.amount,
   });
 
   final String id;
-  final double amount;
 
   @override
-  List<Object?> get props => [id, amount];
+  List<Object?> get props => [id];
 }

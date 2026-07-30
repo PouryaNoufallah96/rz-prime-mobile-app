@@ -64,14 +64,15 @@ class TransactionService {
         : d;
   }
 
-  Future<bool> approve(double amount) async {
+  Future<bool> approve(double amount) => approveRaw(_parseUnits('$amount'));
+
+  Future<bool> approveRaw(BigInt value) async {
     final chainId = _reownService.appKitModal.selectedChain?.chainId;
 
     if (chainId == null) {
       return false;
     }
 
-    final value = _parseUnits('$amount');
     final addressCheckSum = _address();
     final spenderAddress = AppContractAbi.appContract.address;
 

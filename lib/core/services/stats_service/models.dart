@@ -5,7 +5,7 @@ part 'models.freezed.dart';
 part 'models.g.dart';
 
 @freezed
-class InventoryModel with _$InventoryModel {
+abstract class InventoryModel with _$InventoryModel {
   const factory InventoryModel({
     required String tokenName,
     required String tokenNetwork,
@@ -25,7 +25,7 @@ extension InventoryModelX on InventoryModel {
 }
 
 @freezed
-class UserStats with _$UserStats {
+abstract class UserStats with _$UserStats {
   const factory UserStats({
     required String userStatus,
     required double mining,

@@ -4,7 +4,7 @@ part 'models.freezed.dart';
 part 'models.g.dart';
 
 @freezed
-class NonceData with _$NonceData {
+abstract class NonceData with _$NonceData {
   const factory NonceData({
     required String nonce,
     required String message,
