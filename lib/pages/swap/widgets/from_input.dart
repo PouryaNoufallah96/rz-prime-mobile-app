@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/components/app_token.dart';
+import 'package:gainx/core/dev_overrides.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/input_formatter.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
@@ -88,7 +89,7 @@ class SwapFromInput extends HookWidget {
                       fontWeight: FontWeight.w400,
                       color: context.colorExtension.neutral[400],
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -112,7 +113,9 @@ class SwapFromInput extends HookWidget {
                       }
 
                       final max = stats.maximumBuyAmount;
-                      final min = stats.minimumBuyAmount;
+                      // See DevOverrides.swapMinBuyAmountOverride
+                      final min = DevOverrides.swapMinBuyAmountOverride ??
+                          stats.minimumBuyAmount.toDouble();
 
                       if (state.fromValue > max) {
                         return 'Maximum buy amount is '
@@ -121,7 +124,7 @@ class SwapFromInput extends HookWidget {
                       } else if (state.fromValue < min) {
                         return 'Minimum buy amount is '
                             // ignore: lines_longer_than_80_chars
-                            '${AppNumberFormatter.format(min.toDouble(), decimal: 2)}';
+                            '${AppNumberFormatter.format(min, maxDecimal: 2)}';
                       }
                       return null;
                     },
@@ -146,8 +149,9 @@ class SwapFromInput extends HookWidget {
                         cursorHeight: 24,
                         decoration: InputDecoration(
                           errorText: errorMessage,
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 12),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                          ),
                           suffixIcon: TextButton(
                             onPressed: () {
                               controller.text = '${stats.balance}';
@@ -162,7 +166,8 @@ class SwapFromInput extends HookWidget {
                           final amount = NumberFormat().tryParse(value) ?? 0;
 
                           context.read<SwapBloc>().add(
-                              SwapFromValueChanged(value: amount.toDouble()));
+                            SwapFromValueChanged(value: amount.toDouble()),
+                          );
                         },
                       );
                     },

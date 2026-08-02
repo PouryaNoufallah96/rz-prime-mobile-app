@@ -50,23 +50,39 @@ class _Body extends StatelessWidget {
           )..getOrders(),
         ),
       ],
-      child: BlocSelector<UserStatsCubit, UserStatsState, UserStats?>(
-        selector: (state) {
-          if (state is UserStatsSuccessState) {
-            return state.findByStage();
-          }
-
-          return null;
-        },
+      child: BlocBuilder<UserStatsCubit, UserStatsState>(
         builder: (context, state) {
-          if (state == null) {
+          if (state is UserStatsInProgressState ||
+              state is UserStatsInitialState) {
             return const Center(
               child: CircularProgressIndicator.adaptive(),
             );
           }
 
+          if (state is! UserStatsSuccessState) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+
+          final stats = state.findByStage();
+          if (stats == null) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  'No account stats available for this wallet.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+              ),
+            );
+          }
+
           return _SwapBody(
-            stats: state,
+            stats: stats,
           );
         },
       ),
@@ -201,6 +217,7 @@ class _SwapBody extends HookWidget {
                           color: Color(0xffffffff),
                         ),
                       ),
+                      SizedBox(height: 16),
                     ],
                   )
                 ],

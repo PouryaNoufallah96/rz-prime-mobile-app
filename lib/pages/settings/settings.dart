@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gainx/core/blocs/cubit/health_status_cubit.dart';
 import 'package:gainx/core/blocs/preferences_bloc/preferences_bloc.dart';
+import 'package:gainx/core/dev_overrides.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/auth/widgets/auth_status.dart';
+import 'package:reown_appkit/reown_appkit.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -48,10 +50,16 @@ class _Body extends StatelessWidget {
             builder: (context, isConnected, child) {
               return InkWell(
                 onTap: () {
+                  final appKit = context.read<ReownService>().appKitModal;
                   if (isConnected) {
-                    context.read<ReownService>().appKitModal.openModalView();
+                    appKit.openModalView();
+                  } else if (DevOverrides.useWalletConnectQrForSimulator) {
+                    // See DevOverrides.useWalletConnectQrForSimulator
+                    appKit.openModalView(
+                      const ReownAppKitModalQRCodePage(),
+                    );
                   } else {
-                    context.read<ReownService>().appKitModal.openModalView();
+                    appKit.openModalView();
                   }
                 },
                 child: Padding(

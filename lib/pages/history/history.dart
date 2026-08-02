@@ -7,6 +7,7 @@ import 'package:gainx/core/services/reown/reown.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
+import 'package:gainx/pages/swap/widgets/campaign_discount_text.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -173,7 +174,6 @@ class _Order extends StatelessWidget {
 
     final finalAmount =
         AppNumberFormatter.format(order.finalAmount, decimal: 2);
-    final loanAmount = AppNumberFormatter.format(order.loanAmount, decimal: 2);
     final paymentInRzusd = AppNumberFormatter.format(
       (BigInt.tryParse(order.payAmountInWei) ?? BigInt.zero).toDouble() / 1e18,
       decimal: 2,
@@ -305,7 +305,7 @@ class _Order extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '$loanAmount RZ USD',
+                      '$paymentInRzusd RZUSD',
                       style: TextStyle(
                         fontFamily: 'CentraNo1-Medium',
                         fontSize: 16,
@@ -342,15 +342,7 @@ class _Order extends StatelessWidget {
             ),
             if (order.hasCampaignDiscount) ...[
               const SizedBox(height: 12),
-              Text(
-                order.campaignDiscountApplied,
-                style: TextStyle(
-                  fontFamily: 'CentraNo1-Medium',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: context.colorExtension.promo,
-                ),
-              ),
+              CampaignDiscountText(order.campaignDiscountApplied),
             ],
           ],
         ),

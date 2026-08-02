@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gainx/core/blocs/campaign/campaign_cubit.dart';
 import 'package:gainx/core/blocs/cubit/health_status_cubit.dart';
+import 'package:gainx/core/dev_overrides.dart';
 import 'package:gainx/core/services/campaign/models.dart';
 import 'package:gainx/core/services/stats_service/models.dart';
 import 'package:gainx/core/utils/number_formatter.dart';
@@ -42,11 +43,15 @@ class SubmitSwap extends StatelessWidget {
 
         return BlocSelector<SwapBloc, SwapState, bool>(
           selector: (state) {
+            // See DevOverrides.swapMinBuyAmountOverride
+            final min =
+                DevOverrides.swapMinBuyAmountOverride ?? stage.min;
+
             return state.selectedToken != null &&
                 state.swapPayOfTime != null &&
                 state.fromValue > 0 &&
                 state.fromValue <= stage.max &&
-                state.fromValue >= stage.min &&
+                state.fromValue >= min &&
                 (state.selectedToken != null &&
                     state.selectedToken!.quantity >=
                         (state.fromValue / state.selectedToken!.price));

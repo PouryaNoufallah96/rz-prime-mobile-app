@@ -22,16 +22,22 @@ class UserStatsCubit extends Cubit<UserStatsState> {
     final stats = await _statsService.userStats();
 
     if (state is UserStatsSuccessState) {
+      final current = state as UserStatsSuccessState;
+      final selectedStage = stats.any((e) => e.stage == current.selectedStage)
+          ? current.selectedStage
+          : (stats.firstOrNull?.stage ?? UserStage.regular);
+
       emit(
-        (state as UserStatsSuccessState).copyWith(
+        current.copyWith(
           stats: stats,
+          selectedStage: selectedStage,
         ),
       );
     } else {
       emit(
         UserStatsSuccessState(
           stats: stats,
-          selectedStage: stats.first.stage,
+          selectedStage: stats.firstOrNull?.stage ?? UserStage.regular,
         ),
       );
     }

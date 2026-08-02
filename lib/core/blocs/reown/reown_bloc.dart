@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:gainx/core/dev_overrides.dart';
 import 'package:gainx/core/services/auth_interceptor/auth_interceptor.dart';
 import 'package:gainx/core/services/auth_service/auth_service.dart';
 import 'package:gainx/core/services/auth_service/models.dart';
@@ -198,7 +199,14 @@ class ReownBloc extends Bloc<ReownEvent, ReownState> {
     _authInterceptor.check();
 
     if (!_mainReownService.appKitModal.isConnected) {
-      await _mainReownService.appKitModal.openModalView();
+      // See DevOverrides.useWalletConnectQrForSimulator
+      if (DevOverrides.useWalletConnectQrForSimulator) {
+        await _mainReownService.appKitModal.openModalView(
+          const ReownAppKitModalQRCodePage(),
+        );
+      } else {
+        await _mainReownService.appKitModal.openModalView();
+      }
       return;
     }
 
