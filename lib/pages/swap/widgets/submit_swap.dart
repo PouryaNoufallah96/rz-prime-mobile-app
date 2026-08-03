@@ -190,7 +190,7 @@ class _PriceBreakdown extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${AppNumberFormatter.format(feeAmount, maxDecimal: 4)} USDT',
+                  '\$${AppNumberFormatter.format(feeAmount, maxDecimal: 4)}',
                   style: labelStyle,
                 ),
                 Text.rich(
@@ -233,7 +233,7 @@ class _PriceBreakdown extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${AppNumberFormatter.format(finalPrice, maxDecimal: 4)} USDT',
+                  '\$${AppNumberFormatter.format(finalPrice, maxDecimal: 4)}',
                   style: const TextStyle(
                     fontFamily: 'CentraNo1-Medium',
                     fontSize: 20,
@@ -246,7 +246,7 @@ class _PriceBreakdown extends StatelessWidget {
                   children: [
                     if (hasPromo)
                       Text(
-                        '${AppNumberFormatter.format(baseFinal, maxDecimal: 4)} USDT',
+                        '\$${AppNumberFormatter.format(baseFinal, maxDecimal: 4)}',
                         style: TextStyle(
                           fontFamily: 'CentraNo1-Book',
                           fontSize: 14,

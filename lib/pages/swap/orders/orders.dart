@@ -208,8 +208,7 @@ class SwapOrders extends StatelessWidget {
                                         const SizedBox(width: 6),
                                       ],
                                       Text(
-                                        '${AppNumberFormatter.format(order.finalAmount, decimal: 2)}'
-                                        ' USDT',
+                                        '\$${AppNumberFormatter.format(order.finalAmount, decimal: 2)}',
                                         style: const TextStyle(
                                           fontFamily: 'CentraNo1-Book',
                                           fontSize: 16,
