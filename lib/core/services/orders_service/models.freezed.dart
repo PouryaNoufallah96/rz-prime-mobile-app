@@ -347,7 +347,7 @@ as double?,
 /// @nodoc
 mixin _$TransactionMetaData {
 
- String get createMoment; String get hash; String get status;
+ String get createMoment; String get hash; String get status; double get payAmountInRZUSD;
 /// Create a copy of TransactionMetaData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -360,16 +360,16 @@ $TransactionMetaDataCopyWith<TransactionMetaData> get copyWith => _$TransactionM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TransactionMetaData&&(identical(other.createMoment, createMoment) || other.createMoment == createMoment)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TransactionMetaData&&(identical(other.createMoment, createMoment) || other.createMoment == createMoment)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.status, status) || other.status == status)&&(identical(other.payAmountInRZUSD, payAmountInRZUSD) || other.payAmountInRZUSD == payAmountInRZUSD));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,createMoment,hash,status);
+int get hashCode => Object.hash(runtimeType,createMoment,hash,status,payAmountInRZUSD);
 
 @override
 String toString() {
-  return 'TransactionMetaData(createMoment: $createMoment, hash: $hash, status: $status)';
+  return 'TransactionMetaData(createMoment: $createMoment, hash: $hash, status: $status, payAmountInRZUSD: $payAmountInRZUSD)';
 }
 
 
@@ -380,7 +380,7 @@ abstract mixin class $TransactionMetaDataCopyWith<$Res>  {
   factory $TransactionMetaDataCopyWith(TransactionMetaData value, $Res Function(TransactionMetaData) _then) = _$TransactionMetaDataCopyWithImpl;
 @useResult
 $Res call({
- String createMoment, String hash, String status
+ String createMoment, String hash, String status, double payAmountInRZUSD
 });
 
 
@@ -397,12 +397,13 @@ class _$TransactionMetaDataCopyWithImpl<$Res>
 
 /// Create a copy of TransactionMetaData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? createMoment = null,Object? hash = null,Object? status = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? createMoment = null,Object? hash = null,Object? status = null,Object? payAmountInRZUSD = null,}) {
   return _then(_self.copyWith(
 createMoment: null == createMoment ? _self.createMoment : createMoment // ignore: cast_nullable_to_non_nullable
 as String,hash: null == hash ? _self.hash : hash // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as String,
+as String,payAmountInRZUSD: null == payAmountInRZUSD ? _self.payAmountInRZUSD : payAmountInRZUSD // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 
@@ -487,10 +488,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String createMoment,  String hash,  String status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String createMoment,  String hash,  String status,  double payAmountInRZUSD)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TransactionMetaData() when $default != null:
-return $default(_that.createMoment,_that.hash,_that.status);case _:
+return $default(_that.createMoment,_that.hash,_that.status,_that.payAmountInRZUSD);case _:
   return orElse();
 
 }
@@ -508,10 +509,10 @@ return $default(_that.createMoment,_that.hash,_that.status);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String createMoment,  String hash,  String status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String createMoment,  String hash,  String status,  double payAmountInRZUSD)  $default,) {final _that = this;
 switch (_that) {
 case _TransactionMetaData():
-return $default(_that.createMoment,_that.hash,_that.status);case _:
+return $default(_that.createMoment,_that.hash,_that.status,_that.payAmountInRZUSD);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -528,10 +529,10 @@ return $default(_that.createMoment,_that.hash,_that.status);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String createMoment,  String hash,  String status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String createMoment,  String hash,  String status,  double payAmountInRZUSD)?  $default,) {final _that = this;
 switch (_that) {
 case _TransactionMetaData() when $default != null:
-return $default(_that.createMoment,_that.hash,_that.status);case _:
+return $default(_that.createMoment,_that.hash,_that.status,_that.payAmountInRZUSD);case _:
   return null;
 
 }
@@ -543,12 +544,13 @@ return $default(_that.createMoment,_that.hash,_that.status);case _:
 @JsonSerializable()
 
 class _TransactionMetaData implements TransactionMetaData {
-  const _TransactionMetaData({required this.createMoment, required this.hash, required this.status});
+  const _TransactionMetaData({required this.createMoment, required this.hash, required this.status, this.payAmountInRZUSD = 0});
   factory _TransactionMetaData.fromJson(Map<String, dynamic> json) => _$TransactionMetaDataFromJson(json);
 
 @override final  String createMoment;
 @override final  String hash;
 @override final  String status;
+@override@JsonKey() final  double payAmountInRZUSD;
 
 /// Create a copy of TransactionMetaData
 /// with the given fields replaced by the non-null parameter values.
@@ -563,16 +565,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TransactionMetaData&&(identical(other.createMoment, createMoment) || other.createMoment == createMoment)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TransactionMetaData&&(identical(other.createMoment, createMoment) || other.createMoment == createMoment)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.status, status) || other.status == status)&&(identical(other.payAmountInRZUSD, payAmountInRZUSD) || other.payAmountInRZUSD == payAmountInRZUSD));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,createMoment,hash,status);
+int get hashCode => Object.hash(runtimeType,createMoment,hash,status,payAmountInRZUSD);
 
 @override
 String toString() {
-  return 'TransactionMetaData(createMoment: $createMoment, hash: $hash, status: $status)';
+  return 'TransactionMetaData(createMoment: $createMoment, hash: $hash, status: $status, payAmountInRZUSD: $payAmountInRZUSD)';
 }
 
 
@@ -583,7 +585,7 @@ abstract mixin class _$TransactionMetaDataCopyWith<$Res> implements $Transaction
   factory _$TransactionMetaDataCopyWith(_TransactionMetaData value, $Res Function(_TransactionMetaData) _then) = __$TransactionMetaDataCopyWithImpl;
 @override @useResult
 $Res call({
- String createMoment, String hash, String status
+ String createMoment, String hash, String status, double payAmountInRZUSD
 });
 
 
@@ -600,12 +602,13 @@ class __$TransactionMetaDataCopyWithImpl<$Res>
 
 /// Create a copy of TransactionMetaData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? createMoment = null,Object? hash = null,Object? status = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? createMoment = null,Object? hash = null,Object? status = null,Object? payAmountInRZUSD = null,}) {
   return _then(_TransactionMetaData(
 createMoment: null == createMoment ? _self.createMoment : createMoment // ignore: cast_nullable_to_non_nullable
 as String,hash: null == hash ? _self.hash : hash // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as String,
+as String,payAmountInRZUSD: null == payAmountInRZUSD ? _self.payAmountInRZUSD : payAmountInRZUSD // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

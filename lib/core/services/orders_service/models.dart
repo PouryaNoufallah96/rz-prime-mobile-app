@@ -55,6 +55,14 @@ extension HistoryOrderX on HistoryOrder {
     if (!hasCampaignDiscount) return finalAmount;
     return finalAmount / (1 - campaignDiscount! / 100);
   }
+
+  double get paidAmountInRzusd {
+    for (final meta in transactionsMetaData) {
+      if (meta.payAmountInRZUSD > 0) return meta.payAmountInRZUSD;
+    }
+
+    return (BigInt.tryParse(payAmountInWei) ?? BigInt.zero).toDouble() / 1e18;
+  }
 }
 
 @freezed
@@ -63,6 +71,7 @@ abstract class TransactionMetaData with _$TransactionMetaData {
     required String createMoment,
     required String hash,
     required String status,
+    @Default(0) double payAmountInRZUSD,
   }) = _TransactionMetaData;
 
   factory TransactionMetaData.fromJson(Map<String, dynamic> json) =>
@@ -75,7 +84,7 @@ enum HistoryOrderState {
   @JsonValue('Drop')
   drop(),
   @JsonValue('Paid')
-  paid();
+  paid(),
 }
 
 @freezed

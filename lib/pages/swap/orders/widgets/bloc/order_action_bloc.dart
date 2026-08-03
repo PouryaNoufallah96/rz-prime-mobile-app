@@ -40,6 +40,32 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
   ) async {
     emit(state.copyWith(dropOrderStatus: DropOrderStatus.inProgress));
 
+    final appKitModal = _reownService.appKitModal;
+
+    if (appKitModal.selectedChain == null) {
+      await appKitModal.selectChain(
+        ReownAppKitModalNetworks.getNetworkInfo('eip155', '56'),
+        switchChain: true,
+      );
+    }
+
+    final selectedChain = appKitModal.selectedChain;
+    final session = appKitModal.session;
+
+    if (selectedChain == null || session == null) {
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.error,
+        title: const Text('There was a problem connecting to your wallet.'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+
+      emit(state.copyWith(dropOrderStatus: DropOrderStatus.idle));
+
+      return;
+    }
+
     final domain = {
       'name': Env.appContractName,
       'version': '1',
@@ -58,11 +84,26 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
     final hash = crypto.keccak256(bytes);
     final hex = crypto.bytesToHex(hash, include0x: true);
 
-    final chainId = _reownService.appKitModal.selectedChain!.chainId;
+    final chainId = selectedChain.chainId;
     final namespace = NamespaceUtils.getNamespaceFromChain(chainId);
-    final owner = _reownService.appKitModal.session!.getAddress(namespace);
-    final ownerAddress = EthereumAddress.fromHex(owner!);
-    final topic = _reownService.appKitModal.session!.topic;
+    final owner = session.getAddress(namespace);
+
+    if (owner == null || session.topic == null) {
+      toastification.show(
+        style: ToastificationStyle.fillColored,
+        type: ToastificationType.error,
+        title: const Text('There was a problem connecting to your wallet.'),
+        borderRadius: BorderRadius.circular(6),
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+
+      emit(state.copyWith(dropOrderStatus: DropOrderStatus.idle));
+
+      return;
+    }
+
+    final ownerAddress = EthereumAddress.fromHex(owner);
+    final topic = session.topic;
     final address = ownerAddress.eip55With0x;
     final message = {'user': address, 'orderId': hex};
 
@@ -74,7 +115,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
     };
 
     final signature = await futureTimeout(
-      _reownService.appKitModal
+      appKitModal
           .request(
             topic: topic,
             chainId: chainId,
@@ -86,7 +127,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
           .then((value) => value as String?),
       const Duration(seconds: 30),
       () {
-        emit(state.copyWith(payOrderStatus: PayOrderStatus.idle));
+        emit(state.copyWith(dropOrderStatus: DropOrderStatus.idle));
 
         toastification.show(
           style: ToastificationStyle.fillColored,
@@ -99,7 +140,7 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
     );
 
     if (signature == null) {
-      emit(state.copyWith(payOrderStatus: PayOrderStatus.idle));
+      emit(state.copyWith(dropOrderStatus: DropOrderStatus.idle));
 
       return;
     }
@@ -108,16 +149,6 @@ class OrderActionBloc extends Bloc<OrderActionEvent, OrderActionState> {
       orderId: event.id,
       signature: signature,
     );
-
-    if (isSucceed) {
-      // toastification.show(
-      //   style: ToastificationStyle.fillColored,
-      //   type: ToastificationType.success,
-      //   title: const Text('Order dropped Successfully.'),
-      //   borderRadius: BorderRadius.circular(6),
-      //   autoCloseDuration: const Duration(seconds: 4),
-      // );
-    }
 
     emit(
       state.copyWith(

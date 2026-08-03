@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gainx/core/services/orders_service/models.dart';
 import 'package:gainx/core/services/reown/reown.dart';
-import 'package:gainx/core/utils/number_formatter.dart';
 import 'package:gainx/core/utils/theme_utils.dart';
 import 'package:gainx/pages/history/cubit/finalize_order_cubit.dart';
 import 'package:gainx/pages/swap/widgets/campaign_discount_text.dart';
@@ -172,12 +171,8 @@ class _Order extends StatelessWidget {
         ? context.colorExtension.error
         : context.colorExtension.success;
 
-    final finalAmount =
-        AppNumberFormatter.format(order.finalAmount, decimal: 2);
-    final paymentInRzusd = AppNumberFormatter.format(
-      (BigInt.tryParse(order.payAmountInWei) ?? BigInt.zero).toDouble() / 1e18,
-      decimal: 2,
-    );
+    final quantity = order.quantity.toStringAsFixed(3);
+    final paymentInRzusd = order.paidAmountInRzusd.toStringAsFixed(3);
 
     String date(DateTime dateTime) {
       final datePart = DateFormat('MMM d').format(dateTime);
@@ -244,7 +239,6 @@ class _Order extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DecoratedBox(
                   decoration: BoxDecoration(
@@ -267,7 +261,16 @@ class _Order extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 12),
+                Image.asset(
+                  'assets/images/${order.tokenName.toLowerCase()}.png',
+                  height: 40,
+                  width: 40,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const SizedBox(height: 40, width: 40);
+                  },
+                ),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -297,7 +300,7 @@ class _Order extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '\$$finalAmount',
+                      quantity,
                       style: const TextStyle(
                         fontFamily: 'CentraNo1-Medium',
                         fontSize: 16,
@@ -315,29 +318,6 @@ class _Order extends StatelessWidget {
                     ),
                   ],
                 )
-              ],
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Payment Amount in RZUSD',
-                  style: TextStyle(
-                    fontFamily: 'CentraNo1-Book',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: context.colorExtension.neutral[300],
-                  ),
-                ),
-                Text(
-                  paymentInRzusd,
-                  style: const TextStyle(
-                    fontFamily: 'CentraNo1-Medium',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
               ],
             ),
             if (order.hasCampaignDiscount) ...[
